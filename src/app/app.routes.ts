@@ -1,3 +1,3 @@
 import { Routes } from '@angular/router';
-import { Register } from './pages/register/register';
+import {Actualizar } from './pages/actualizar/actualizar';
 export const routes: Routes = [];
