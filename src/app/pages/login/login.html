@@ -15,10 +15,15 @@
   <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
     La contraseña es obligatoria
   </div>
-
+  <br>
+ 
   <br><br>
 
   <button type="submit">Ingresar</button>
   <button type="button" (click)="registrarse()">registrarse</button>
 
 </form>
+
+<a (click)="recuperarPassword()">
+  ¿Olvidaste tu contraseña?
+</a>

@@ -11,5 +11,5 @@ export class CheckEmail {
   constructor(private router: Router) {}
   
   goToLogin() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/login']);
 }}
