@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,11 @@ export class Register {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -26,6 +31,7 @@ export class Register {
   }
 
   passwordMatchValidator(control: AbstractControl) {
+
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
 
@@ -34,14 +40,28 @@ export class Register {
     }
 
     return null;
+
   }
 
   onSubmit() {
 
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
+
+      const formValue = this.registerForm.value;
+
+      const newUser = {
+        id: 0,
+        name: formValue.nombre,
+        email: formValue.email,
+        password: formValue.password
+      };
+
+      this.userService.register(newUser);
+
       alert("Registro exitoso");
-      this.router.navigate(['/update-profile']);
+
+      this.router.navigate(['/login']);
+
     }
 
   }
