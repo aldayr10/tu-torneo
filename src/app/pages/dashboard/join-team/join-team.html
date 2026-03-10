@@ -1,0 +1,19 @@
+<div class="container">
+
+  <h2>Invitar jugadores al equipo</h2>
+
+  <p>Selecciona un jugador para enviar una invitación.</p>
+
+  <ul>
+    <li *ngFor="let player of players">
+
+      {{player.name}}
+
+      <button (click)="sendInvitation(player)">
+        Enviar invitación
+      </button>
+
+    </li>
+  </ul>
+
+</div>
