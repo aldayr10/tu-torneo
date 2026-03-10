@@ -1,0 +1,19 @@
+<h2>Crear Equipo</h2>
+
+<form [formGroup]="teamForm" (ngSubmit)="createTeam()">
+
+  <div>
+    <label>Nombre del equipo</label>
+    <input type="text" formControlName="name">
+  </div>
+
+  <div>
+    <label>Categoría</label>
+    <input type="text" formControlName="category">
+  </div>
+
+  <button type="submit">
+    Crear equipo
+  </button>
+
+</form>

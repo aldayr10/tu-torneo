@@ -9,7 +9,7 @@
 
   <div class="card">
     <h3>Equipos</h3>
-    <button>Mis equipos</button>
+    <button type="button" (click)="viewTeams()">Mis equipos</button>
   </div>
 
   <div class="card">
@@ -27,3 +27,5 @@
 <br>
 
 <button (click)="logout()">Cerrar sesión</button>
+
+<router-outlet></router-outlet>
