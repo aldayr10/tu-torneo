@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserService } from '../../../services/user';
-import { AuthService } from '../../../services/auth';
+import { UserService } from '../../services/user';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-update-profile',
