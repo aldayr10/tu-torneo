@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl,ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class Register {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private router: Router) {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,6 +41,7 @@ export class Register {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
       alert("Registro exitoso");
+      this.router.navigate(['/update-profile']);
     }
 
   }

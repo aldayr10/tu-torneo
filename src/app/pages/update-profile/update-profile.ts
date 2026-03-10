@@ -17,7 +17,6 @@ export class UpdateProfile {
 
     this.updateProfileForm = this.fb.group({
       nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
       fechaNacimiento: ['', Validators.required]
     });
 

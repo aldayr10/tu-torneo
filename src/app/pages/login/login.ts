@@ -25,7 +25,6 @@ export class Login {
       console.log('Login:', this.loginForm.value);
       alert('Login correcto (simulado)');
       this.router.navigate(['/update-profile']);
-      
     } else {
       this.loginForm.markAllAsTouched();
     }
