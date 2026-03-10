@@ -24,7 +24,8 @@ export class Login {
     if (this.loginForm.valid) {
       console.log('Login:', this.loginForm.value);
       alert('Login correcto (simulado)');
-      this.router.navigate(['/create-team']);
+      this.router.navigate(['/update-profile']);
+      
     } else {
       this.loginForm.markAllAsTouched();
     }

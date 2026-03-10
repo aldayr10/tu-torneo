@@ -1,22 +1,50 @@
+<h2>Registro de Jugador</h2>
 
-  <h2>Registro de Jugador</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-  <form>
-    
-    <label for="nombre">Nombre completo</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre">
+  <label>Email:</label>
+  <input type="email" formControlName="email">
+  <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+    Email inválido
+  </div>
 
-    <label for="correo">Correo electrónico</label>
-    <input type="email" id="correo" name="correo" placeholder="Ingrese su correo">
+  <br><br>
 
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+  <label>Contraseña:</label>
+  <input type="password" formControlName="password">
+  <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+    Mínimo 6 caracteres
+  </div>
 
-    <label for="confirmar">Confirmar contraseña</label>
-    <input type="password" id="confirmar" name="confirmar" placeholder="Confirme su contraseña">
+  <br><br>
 
-    <button type="submit">Registrarse</button>
+  <label>Confirmar Contraseña:</label>
+  <input type="password" formControlName="confirmPassword">
 
-  </form>
+  <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
+    Las contraseñas no coinciden
+  </div>
 
-  <p>¿Ya tienes cuenta? <a href="#">Iniciar sesión</a></p>
+  <br><br>
+
+  <label>Nombre:</label>
+  <input type="text" formControlName="nombre">
+  <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+    El nombre es obligatorio
+  </div>
+
+  <br><br>
+
+  <label>Fecha De Nacimiento:</label>
+  <input type="date" formControlName="fechaNacimiento">
+  <div *ngIf="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched">
+    La fecha es obligatoria
+  </div>
+
+  <br><br>
+
+  <button type="submit">Registrarse</button>
+
+</form>
+
+<p>¿Ya tienes cuenta? <a href="#">Iniciar sesión</a></p>
