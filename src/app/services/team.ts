@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
-import { TEAMS } from '../fake-data/teams.data';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root'
 })
-export class TeamService{
+export class TeamService {
 
-  teams:Team[] = TEAMS;
+  private teams: Team[] = [];
 
-  getTeams(){
-    return this.teams;
-  }
+  createTeam(team: Team) {
 
-  addTeam(team:Team){
-
-    team.id = Date.now();
+    team.id = this.teams.length + 1;
 
     this.teams.push(team);
 
+  }
+
+  getTeams() {
+    return this.teams;
   }
 
 }
