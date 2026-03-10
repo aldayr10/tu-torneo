@@ -16,11 +16,10 @@ export const routes: Routes = [
     { path: 'check-email', component: CheckEmail },
     { path: 'register', component: Register },
     { path: 'update-profile', component: UpdateProfile },
-    { path: 'dashboard', component: Dashboard,
-        children: [
-            { path: 'request-status', component: RequestStatus },
-            { path: 'player-join-team', component: PlayerJoinTeam }
-        ]
-    },
+    { path: 'dashboard', component: Dashboard},
+    { path: 'request-status', component: RequestStatus },
+    { path: 'player-join-team', component: PlayerJoinTeam },
+
+
 ];
 
