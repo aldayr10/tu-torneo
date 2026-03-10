@@ -6,6 +6,8 @@ import { CheckEmail } from './pages/recover-password/check-email/check-email';
 import { Register } from './pages/register/register';
 import { UpdateProfile } from './pages/update-profile/update-profile';
 import { Dashboard } from './pages/dashboard/dashboard';
+import{DeletePlayerTeam} from'./pages/dashboard/delete-player-team/delete-player-team';
+import path from 'path';
 
 
 export const routes: Routes = [
@@ -17,6 +19,7 @@ export const routes: Routes = [
     { path: 'update-profile', component:UpdateProfile  },
     { path: 'dashboard', component:Dashboard, 
         children: [
+          { path: 'delete-player-team' , component:DeletePlayerTeam}
         ] 
     },
 ];
