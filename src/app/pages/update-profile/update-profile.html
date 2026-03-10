@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Actualizar Información Personal</h2>
+
+    <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" formControlName="nombre" placeholder="Actualizar nombre">
+        <div *ngIf="updateProfileForm.get('nombre')?.invalid && updateProfileForm.get('nombre')?.touched">
+            El nombre es obligatorio
+        </div>
+
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" formControlName="correo" placeholder="Actualizar correo">
+        <div *ngIf="updateProfileForm.get('correo')?.invalid && updateProfileForm.get('correo')?.touched">
+            Email inválido
+        </div>
+        <label>Fecha De Nacimiento:</label>
+        <input type="date" formControlName="fechaNacimiento">
+        <div *ngIf="updateProfileForm.get('fechaNacimiento')?.invalid && updateProfileForm.get('fechaNacimiento')?.touched">
+            La fecha es obligatoria
+        </div>
+
+        <button type="submit">Guardar Cambios</button>
+
+    </form>
+
+    </div>
