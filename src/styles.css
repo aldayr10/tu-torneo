@@ -9,8 +9,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-
+  background-color: rgb(36, 0, 0);
+  color: white;
   z-index: 1000;
 }
 
