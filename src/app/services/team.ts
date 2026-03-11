@@ -14,6 +14,7 @@ export class TeamService {
 
     this.teams.push(team);
 
+    return team;
   }
 
   getTeams() {

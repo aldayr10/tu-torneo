@@ -1,22 +1,34 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../services/team';
+import { RequestService } from '../../services/request';
+import { UserService } from '../../services/user';
+import { Request } from '../../models/request';
+
 
 @Component({
   selector: 'app-create-team',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './create-team.html',
   styleUrl: './create-team.css'
 })
 export class CreateTeam {
 
   teamForm: FormGroup;
+  mostrarPopup: boolean = false;
+  usernameInvite: string = '';
+
+  invitedPlayers: Request[] = [];
+
+  teamIdCreated!: number;
 
   constructor(
     private fb: FormBuilder,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private requestService: RequestService,
+    private userService: UserService
   ) {
 
     this.teamForm = this.fb.group({
@@ -28,20 +40,24 @@ export class CreateTeam {
 
   createTeam() {
 
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  const newTeam = {
+    const newTeam = {
 
-    id: 0,
-    name: this.teamForm.value.name,
-    category: this.teamForm.value.category,
-    ownerId: user.id,
-    players: []
+      id: 0,
+      name: this.teamForm.value.name,
+      category: this.teamForm.value.category,
+      ownerId: user.id,
+      players: []
 
-  };
+    };
 
-  this.teamService.createTeam(newTeam);
+    const createdTeam = this.teamService.createTeam(newTeam);
 
-}
+    this.teamIdCreated = createdTeam.id;
+
+  }
+
+
 
 }

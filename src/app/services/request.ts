@@ -9,6 +9,7 @@ export class RequestService {
 
   private requests: Request[] = [...REQUESTS_FAKE];
 
+  
   getAllRequests() {
     return this.requests;
   }
@@ -17,7 +18,6 @@ export class RequestService {
 
     request.id = this.requests.length + 1;
     request.status = 'Pendiente';
-
     this.requests.push(request);
 
   }

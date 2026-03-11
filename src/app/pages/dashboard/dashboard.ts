@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router'
-import { RouterOutlet } from '@angular/router';
+import { Router,RouterOutlet } from '@angular/router'
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,12 +11,15 @@ import { RouterOutlet } from '@angular/router';
 export class Dashboard {
   constructor(private router: Router) {}
 
-  viewTeams(){
-    this.router.navigate(['/create-team']);
+  goToCreateTeam(){
+    this.router.navigate(['/dashboard/create-team']);
   }
+
   updateProfile(){
     this.router.navigate(['/update-profile']);
   }
+  goToJoinTeam(){}
+
   logout() {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);

@@ -26,8 +26,6 @@ export class PlayerJoinTeam {
   cargarSolicitudes() {
 
     const todasLasSolicitudes = this.requestService.getAllRequests();
-
-    // Solo mostrar solicitudes del usuario logueado
     this.solicitudes = todasLasSolicitudes.filter(
       solicitud => solicitud.playerId === this.userId
     );

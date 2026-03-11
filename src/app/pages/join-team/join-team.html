@@ -1,38 +1,36 @@
-<h2>Invitación para Unirse al Equipo</h2>
+<div class="popup">
+  <h2>Invitación para Unirse al Equipo</h2>
 
-<p>Ingresa el nombre de usuario del jugador para enviarle una invitación.</p>
+  <p>Ingresa el nombre de usuario del jugador para enviarle una invitación.</p>
 
-<form [formGroup]="inviteForm" (ngSubmit)="sendInvitation()">
+  <form [formGroup]="inviteForm" (ngSubmit)="sendInvitation()">
 
-  <label>Nombre de usuario:</label>
-  <input type="text" formControlName="username" placeholder="Ej: messi10">
+    <label>Nombre de usuario:</label>
+    <input type="text" formControlName="username" placeholder="Ej: messi10">
 
-  <div *ngIf="inviteForm.get('username')?.invalid && inviteForm.get('username')?.touched">
-    El nombre de usuario es obligatorio
-  </div>
+    <div *ngIf="inviteForm.get('username')?.invalid && inviteForm.get('username')?.touched">
+      El nombre de usuario es obligatorio
+    </div>
+
+    <br><br>
+
+    <button type="submit" [disabled]="inviteForm.invalid">
+      Enviar Invitación
+    </button>
+
+  </form>
+
+  <hr>
+
+  <h3>Link único del equipo</h3>
+
+  <p>Envía este enlace a los jugadores para invitarlos a formar parte del equipo.</p>
+
+  <input type="text" [value]="inviteLink" readonly>
 
   <br><br>
 
-  <button type="submit" [disabled]="inviteForm.invalid">
-    Enviar Invitación
-  </button>
+  <button (click)="copyLink()">Copiar Link</button>
 
-</form>
-
-<hr>
-
-<h3>Link único del equipo</h3>
-
-<p>Envía este enlace a los jugadores para invitarlos a formar parte del equipo.</p>
-
-<input
-  type="text"
-  [value]="inviteLink"
-  readonly
->
-
-<br><br>
-
-<button (click)="copyLink()">Copiar Link</button>
-
-<br><br>
+  <br><br>
+</div>

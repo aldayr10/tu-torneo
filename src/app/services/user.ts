@@ -7,9 +7,9 @@ import { User } from '../models/user';
 })
 export class UserService{
 
-  users:User[] = USERS;
+  users: User[] = USERS;
 
-  register(user:User){
+  register(user: User){
 
     user.id = Date.now();
 
@@ -17,7 +17,7 @@ export class UserService{
 
   }
 
-  updateProfile(updatedUser:User){
+  updateProfile(updatedUser: User){
 
     const index = this.users.findIndex(u => u.id === updatedUser.id);
 
@@ -29,6 +29,33 @@ export class UserService{
 
   getUsers(){
     return this.users;
+  }
+
+  // 🔹 Buscar usuario por username
+  getUserByUsername(name: string){
+
+    return this.users.find(u => u.name === name);
+
+  }
+
+  // 🔹 Buscar usuario por id
+  getUserById(id: number){
+
+    return this.users.find(u => u.id === id);
+
+  }
+
+
+  getCurrentUser(){
+
+    const user = localStorage.getItem('user');
+
+    if(!user){
+      return null;
+    }
+
+    return JSON.parse(user);
+
   }
 
 }
