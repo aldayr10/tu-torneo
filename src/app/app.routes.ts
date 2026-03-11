@@ -10,7 +10,7 @@ import { PlayerJoinTeam } from './pages/dashboard/teams/request/player-join-team
 import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
 import { CreateTeam } from './pages/dashboard/teams/create-team/create-team';
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
-import { DeletePlayerTeam } from'./pages/dashboard/delete-player-team/delete-player-team';
+import { DeletePlayerTeam } from'./pages/dashboard/teams/request/delete-player-team/delete-player-team';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
