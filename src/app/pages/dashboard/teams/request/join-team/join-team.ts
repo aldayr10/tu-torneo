@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { RequestService } from '../../services/request';
-import { UserService } from '../../services/user';
-import { Request } from '../../models/request';
+import { RequestService } from '../../../../../services/request';
+import { UserService } from '../../../../../services/user';
+import { Request } from '../../../../../models/request';
 
 @Component({
   selector: 'app-join-team',
