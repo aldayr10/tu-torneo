@@ -19,5 +19,10 @@ export class TeamService {
   getTeams() {
     return this.teams;
   }
+  getTeamsByOwner(ownerId: number) {
+
+    return this.teams.filter(team => team.ownerId === ownerId);
+
+  }
 
 }

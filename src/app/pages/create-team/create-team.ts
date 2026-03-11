@@ -28,23 +28,20 @@ export class CreateTeam {
 
   createTeam() {
 
-    if (this.teamForm.valid) {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-      const newTeam = {
-        id: 0,
-        name: this.teamForm.value.name,
-        category: this.teamForm.value.category,
-        players: []
-      };
+  const newTeam = {
 
-      this.teamService.createTeam(newTeam);
+    id: 0,
+    name: this.teamForm.value.name,
+    category: this.teamForm.value.category,
+    ownerId: user.id,
+    players: []
 
-      alert("Equipo creado");
+  };
 
-      this.teamForm.reset();
+  this.teamService.createTeam(newTeam);
 
-    }
-
-  }
+}
 
 }

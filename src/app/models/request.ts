@@ -8,6 +8,6 @@ export interface Request {
 
   playerName: string;
 
-  status: 'pending' | 'accepted' | 'rejected';
+  status: 'Pendiente' | 'Aceptada' | 'Rechazada';
 
 }

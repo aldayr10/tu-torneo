@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RequestService } from '../../services/request';
+import { Request } from '../../models/request';
 
 @Component({
   selector: 'app-player-join-team',
@@ -10,27 +12,46 @@ import { CommonModule } from '@angular/common';
 })
 export class PlayerJoinTeam {
 
-  solicitudes = [
-    {
-      equipo: 'Team Alpha',
-      creador: 'Carlos Pérez',
-      estado: 'pendiente'
-    },
-    {
-      equipo: 'Team Beta',
-      creador: 'Ana Gómez',
-      estado: 'pendiente'
-    }
-  ];
+  solicitudes: Request[] = [];
+  userId!: number;
 
-  aceptarSolicitud(solicitud: any) {
-    solicitud.estado = 'aceptada';
-    console.log('Solicitud aceptada:', solicitud);
+  constructor(private requestService: RequestService) {
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.userId = user.id;
+
+    this.cargarSolicitudes();
   }
 
-  rechazarSolicitud(solicitud: any) {
-    solicitud.estado = 'rechazada';
+  cargarSolicitudes() {
+
+    const todasLasSolicitudes = this.requestService.getAllRequests();
+
+    // Solo mostrar solicitudes del usuario logueado
+    this.solicitudes = todasLasSolicitudes.filter(
+      solicitud => solicitud.playerId === this.userId
+    );
+
+  }
+
+  aceptarSolicitud(solicitud: Request) {
+
+    this.requestService.updateRequestStatus(solicitud.id, 'Aceptada');
+
+    solicitud.status = 'Aceptada';
+
+    console.log('Solicitud aceptada:', solicitud);
+
+  }
+
+  rechazarSolicitud(solicitud: Request) {
+
+    this.requestService.updateRequestStatus(solicitud.id, 'Rechazada');
+
+    solicitud.status = 'Rechazada';
+
     console.log('Solicitud rechazada:', solicitud);
+
   }
 
 }

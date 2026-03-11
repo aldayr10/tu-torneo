@@ -1,7 +1,11 @@
-export interface Team{
+export interface Team {
 
-  id:number;
-  name:string;
-  players:any[];
+  id: number;
+  name: string;
+  category: string;
+
+  ownerId: number;
+
+  players: number[];
 
 }

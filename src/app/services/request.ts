@@ -16,7 +16,7 @@ export class RequestService {
   sendRequest(request: Request) {
 
     request.id = this.requests.length + 1;
-    request.status = 'pending';
+    request.status = 'Pendiente';
 
     this.requests.push(request);
 
@@ -28,7 +28,7 @@ export class RequestService {
 
   }
 
-  updateRequestStatus(requestId: number, status: 'accepted' | 'rejected') {
+  updateRequestStatus(requestId: number, status: 'Aceptada' | 'Rechazada') {
 
     const request = this.requests.find(r => r.id === requestId);
 
@@ -36,6 +36,10 @@ export class RequestService {
       request.status = status;
     }
 
+  }
+
+  getRequestsByPlayer(playerId: number) {
+    return this.requests.filter(r => r.playerId === playerId);
   }
 
 }

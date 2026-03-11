@@ -7,7 +7,7 @@ export const REQUESTS_FAKE: Request[] = [
     teamId: 1,
     playerId: 2,
     playerName: "Carlos Perez",
-    status: "pending"
+    status: "Pendiente"
   },
 
   {
@@ -15,7 +15,7 @@ export const REQUESTS_FAKE: Request[] = [
     teamId: 1,
     playerId: 3,
     playerName: "Luis Gomez",
-    status: "accepted"
+    status: "Pendiente"
   }
 
 ];

@@ -10,7 +10,7 @@
     <thead>
       <tr>
         <th>Equipo</th>
-        <th>Creador</th>
+        <th>Jugador</th>
         <th>Estado</th>
         <th>Acción</th>
       </tr>
@@ -19,21 +19,21 @@
     <tbody>
       <tr *ngFor="let solicitud of solicitudes">
 
-        <td>{{ solicitud.equipo }}</td>
-        <td>{{ solicitud.creador }}</td>
+        <td>{{ solicitud.teamId }}</td>
+        <td>{{ solicitud.playerName }}</td>
 
-        <td>{{ solicitud.estado }}</td>
+        <td>{{ solicitud.status }}</td>
 
         <td>
 
-          <button 
-            *ngIf="solicitud.estado === 'pendiente'" 
+          <button
+            *ngIf="solicitud.status === 'Pendiente'"
             (click)="aceptarSolicitud(solicitud)">
             Aceptar
           </button>
 
-          <button 
-            *ngIf="solicitud.estado === 'pendiente'" 
+          <button
+            *ngIf="solicitud.status === 'Pendiente'"
             (click)="rechazarSolicitud(solicitud)">
             Rechazar
           </button>
@@ -44,5 +44,4 @@
     </tbody>
 
   </table>
-
 </div>
