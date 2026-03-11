@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TeamService } from '../../services/team';
-import { RequestService } from '../../services/request';
-import { UserService } from '../../services/user';
-import { Request } from '../../models/request';
+import { TeamService } from '../../../../services/team';
+import { RequestService } from '../../../../services/request';
+import { UserService } from '../../../../services/user';
+import { Request } from '../../../../models/request';
 
 
 @Component({

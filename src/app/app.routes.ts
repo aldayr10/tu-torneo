@@ -5,11 +5,11 @@ import { CheckEmail } from './pages/recover-password/check-email/check-email';
 import { Register } from './pages/register/register';
 import { UpdateProfile } from './pages/update-profile/update-profile';
 import { Dashboard } from './pages/dashboard/dashboard';
-import { RequestStatus } from './pages/request-status/request-status';
-import { PlayerJoinTeam } from './pages/player-join-team/player-join-team';
-import { JoinTeam } from './pages/join-team/join-team';
-import { CreateTeam } from './pages/create-team/create-team';
-import { LeaveTeam } from './pages/leave-team/leave-team';
+import { RequestStatus } from './pages/dashboard/teams/request/request-status/request-status';
+import { PlayerJoinTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
+import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
+import { CreateTeam } from './pages/dashboard/teams/create-team/create-team';
+import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from'./pages/dashboard/delete-player-team/delete-player-team';
 
 export const routes: Routes = [
