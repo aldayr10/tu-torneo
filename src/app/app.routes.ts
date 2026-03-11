@@ -8,6 +8,8 @@ import { UpdateProfile } from './pages/dashboard/update-profile/update-profile';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { CreateTeam } from './pages/create-team/create-team';
 
+import { LeaveTeam } from './pages/leave-team/leave-team';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,10 +19,8 @@ export const routes: Routes = [
     { path: 'register', component: Register },
     { path: 'update-profile', component:UpdateProfile  },
     { path: 'create-team', component:CreateTeam  },
-    { path: 'dashboard', component:Dashboard, 
-        children: [
-            
-        ] 
-    },
+    { path: 'dashboard', component:Dashboard},
+
+    { path: 'leave-team', component:LeaveTeam}
 ];
 
