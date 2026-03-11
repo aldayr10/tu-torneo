@@ -11,6 +11,8 @@ import { PlayerJoinTeam } from './pages/player-join-team/player-join-team';
 import { JoinTeam } from './pages/join-team/join-team';
 import { CreateTeam } from './pages/create-team/create-team';
 
+import { LeaveTeam } from './pages/leave-team/leave-team';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,6 +28,7 @@ export const routes: Routes = [
             { path: 'player-join-team', component: PlayerJoinTeam },
             { path: 'join-team', component: JoinTeam },
             { path: 'create-team', component: CreateTeam },
+            { path: 'leave-team', component:LeaveTeam}
         ]
     }
 ];
