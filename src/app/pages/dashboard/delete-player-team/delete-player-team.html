@@ -1,0 +1,38 @@
+<div class="container">
+
+  <h2>Eliminar Jugador del Equipo</h2>
+
+  <div *ngIf="jugadores.length === 0">
+    No hay jugadores en el equipo.
+  </div>
+
+  <table *ngIf="jugadores.length > 0" border="1" width="100%">
+
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let jugador of jugadores; let i = index">
+
+        <td>{{ jugador.nombre }}</td>
+        <td>{{ jugador.email }}</td>
+
+        <td>
+          <button (click)="eliminarJugador(i)">
+            Eliminar
+          </button>
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

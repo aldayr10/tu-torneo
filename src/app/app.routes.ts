@@ -1,6 +1,5 @@
-
-import { Login } from './pages/login/login';
 import { Routes } from '@angular/router';
+import { Login } from './pages/login/login';
 import { RecoverPassword } from './pages/recover-password/recover-password';
 import { CheckEmail } from './pages/recover-password/check-email/check-email';
 import { Register } from './pages/register/register';
@@ -10,9 +9,8 @@ import { RequestStatus } from './pages/request-status/request-status';
 import { PlayerJoinTeam } from './pages/player-join-team/player-join-team';
 import { JoinTeam } from './pages/join-team/join-team';
 import { CreateTeam } from './pages/create-team/create-team';
-
 import { LeaveTeam } from './pages/leave-team/leave-team';
-
+import { DeletePlayerTeam } from'./pages/dashboard/delete-player-team/delete-player-team';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,7 +26,8 @@ export const routes: Routes = [
             { path: 'player-join-team', component: PlayerJoinTeam },
             { path: 'join-team', component: JoinTeam },
             { path: 'create-team', component: CreateTeam },
-            { path: 'leave-team', component:LeaveTeam}
+            { path: 'leave-team', component:LeaveTeam},
+            { path: 'delete-player-team' , component:DeletePlayerTeam}
         ]
     }
 ];
