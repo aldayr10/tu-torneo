@@ -8,6 +8,8 @@ import { UpdateProfile } from './pages/update-profile/update-profile';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { RequestStatus } from './pages/request-status/request-status';
 import { PlayerJoinTeam }from'./pages/player-join-team/player-join-team';
+import { JoinTeam } from './pages/join-team/join-team';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,5 +21,6 @@ export const routes: Routes = [
     { path: 'dashboard', component: Dashboard},
     { path: 'request-status', component: RequestStatus },
     { path: 'player-join-team', component: PlayerJoinTeam },
+    { path: 'join-team', component: JoinTeam },
 ];
 
