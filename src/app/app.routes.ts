@@ -8,7 +8,6 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { RequestStatus } from './pages/dashboard/teams/request/request-status/request-status';
 import { PlayerJoinTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
 import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
-import { CreateTeam } from './pages/dashboard/teams/create-team/create-team';
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from'./pages/dashboard/teams/request/delete-player-team/delete-player-team';
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';   
@@ -20,7 +19,6 @@ export const routes: Routes = [
     { path: 'check-email', component: CheckEmail },
     { path: 'register', component: Register },
     { path: 'update-profile', component: UpdateProfile },
-    { path: 'create-team', component: CreateTeam },
     {
         path: 'dashboard', component: Dashboard,
         children: [

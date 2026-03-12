@@ -5,7 +5,7 @@
   <button (click)="addTeam()">
     Agregar equipo
   </button>
-
+  <br><br>
   <div *ngIf="teams.length === 0">
     <p>No existen equipos creados.</p>
   </div>
@@ -18,7 +18,7 @@
       (click)="openManageTeam(team.id)"
     >
       <h3>{{ team.name }}</h3>
-      <p>Categoría: {{ team.category }}</p>
+
     </div>
 
   </div>
