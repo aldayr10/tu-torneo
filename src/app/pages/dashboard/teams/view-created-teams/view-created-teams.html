@@ -1,9 +1,10 @@
-<p>view-created-teams works!</p>
 <div class="container">
 
   <h2>Equipos creados</h2>
 
-  <button (click)="addTeam()">Agregar equipo</button>
+  <button (click)="addTeam()">
+    Agregar equipo
+  </button>
 
   <div *ngIf="teams.length === 0">
     <p>No existen equipos creados.</p>
@@ -11,8 +12,13 @@
 
   <div *ngIf="teams.length > 0">
 
-    <div *ngFor="let team of teams" class="team-card">
+    <div 
+      *ngFor="let team of teams" 
+      class="team-card"
+      (click)="openManageTeam(team.id)"
+    >
       <h3>{{ team.name }}</h3>
+      <p>Categoría: {{ team.category }}</p>
     </div>
 
   </div>

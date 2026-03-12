@@ -25,5 +25,19 @@ export class TeamService {
     return this.teams.filter(team => team.ownerId === ownerId);
 
   }
+  getTeamById(teamId: number): Team | undefined {
+    return this.teams.find(team => team.id === teamId);
+  }
 
+  invitePlayer(teamId: number, playerId: number) {
+    const team = this.getTeamById(teamId);
+
+    if(team){
+      team.players.push(playerId);
+    }
+  }
+
+  generateInviteLink(teamId: number): string {
+    return `https://tuapp.com/invite/team/${teamId}`;
+  }
 }

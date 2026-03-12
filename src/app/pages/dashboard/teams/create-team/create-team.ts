@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatDialogRef } from '@angular/material/dialog';
+
 import { TeamService } from '../../../../services/team';
 import { RequestService } from '../../../../services/request';
 import { UserService } from '../../../../services/user';
 import { Request } from '../../../../models/request';
-
 
 @Component({
   selector: 'app-create-team',
@@ -17,18 +18,16 @@ import { Request } from '../../../../models/request';
 export class CreateTeam {
 
   teamForm: FormGroup;
-  mostrarPopup: boolean = false;
   usernameInvite: string = '';
-
   invitedPlayers: Request[] = [];
-
   teamIdCreated!: number;
 
   constructor(
     private fb: FormBuilder,
     private teamService: TeamService,
     private requestService: RequestService,
-    private userService: UserService
+    private userService: UserService,
+    private dialogRef: MatDialogRef<CreateTeam>
   ) {
 
     this.teamForm = this.fb.group({
@@ -40,24 +39,29 @@ export class CreateTeam {
 
   createTeam() {
 
+    if (this.teamForm.invalid) return;
+
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     const newTeam = {
-
       id: 0,
       name: this.teamForm.value.name,
       category: this.teamForm.value.category,
       ownerId: user.id,
       players: []
-
     };
 
     const createdTeam = this.teamService.createTeam(newTeam);
 
     this.teamIdCreated = createdTeam.id;
 
+    // cerrar dialog y devolver equipo creado
+    this.dialogRef.close(createdTeam);
+
   }
 
-
+  closeDialog(){
+    this.dialogRef.close();
+  }
 
 }
