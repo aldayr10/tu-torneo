@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog';
 
 @Component({
   selector: 'app-delete-team',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule
+  ],
   templateUrl: './delete-team.html',
   styleUrls: ['./delete-team.css']
 })
@@ -17,22 +25,19 @@ export class DeleteTeam {
     { nombre: 'Team Gamma' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private dialog: MatDialog) {}
 
-  eliminarEquipo(index: number) {
+  abrirDialogoEliminar(index: number) {
 
-    const confirmacion = confirm('¿Seguro que deseas eliminar este equipo?');
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
 
-    if (confirmacion) {
+    dialogRef.afterClosed().subscribe(result => {
 
-      this.equipos.splice(index, 1);
+      if (result) {
+        this.equipos.splice(index, 1);
+      }
 
-      alert('Equipo eliminado correctamente');
-
-      // redirección después de eliminar
-      this.router.navigate(['/teams']);
-
-    }
+    });
 
   }
 

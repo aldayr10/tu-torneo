@@ -2,34 +2,19 @@
 
   <h2>Gestión de Equipos</h2>
 
-  <div *ngIf="equipos.length === 0">
-    No tienes equipos registrados.
-  </div>
+  <table>
 
-  <table *ngIf="equipos.length > 0" border="1" width="100%">
+    <tr *ngFor="let equipo of equipos; let i = index">
 
-    <thead>
-      <tr>
-        <th>Nombre del Equipo</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
+      <td>{{ equipo.nombre }}</td>
 
-    <tbody>
+      <td>
+        <button mat-raised-button color="warn" (click)="abrirDialogoEliminar(i)">
+          Eliminar equipo
+        </button>
+      </td>
 
-      <tr *ngFor="let equipo of equipos; let i = index">
-
-        <td>{{ equipo.nombre }}</td>
-
-        <td>
-          <button (click)="eliminarEquipo(i)">
-            Eliminar equipo
-          </button>
-        </td>
-
-      </tr>
-
-    </tbody>
+    </tr>
 
   </table>
 
