@@ -1,4 +1,13 @@
-<h1>Dashboard</h1>
+<nav>
+
+  <button (click)="goToJoinTeam()">
+    Invitaciones
+  </button>
+
+  <button (click)="logout()">
+    Cerrar sesión
+  </button>
+</nav>
 
 <div class="dashboard-container">
 
@@ -9,21 +18,15 @@
 
   <div class="card">
     <h3>Equipos</h3>
-    <button>Mis equipos</button>
+    <button (click)="goToCreateTeam()">Mis equipos</button>
   </div>
 
   <div class="card">
-    <h3>Ver partidos</h3>
+    <h3>Partidos</h3>
     <button>Ver partidos</button>
   </div>
 
-  <div class="card">
-    <h3>Perfil</h3>
-    <button type="button" (click)="updateProfile()">Ver perfil</button>
-  </div>
 
 </div>
 
-<br>
-
-<button (click)="logout()">Cerrar sesión</button>
+<router-outlet></router-outlet>

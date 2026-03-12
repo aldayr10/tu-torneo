@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "e96cf934-f0cd-4b2a-aa98-945e858b70f2"
+    "analytics": "b6af503a-604f-41d7-a677-a5c1ca9553d2"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -25,9 +25,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/material-theme.scss", "src/styles.css"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {

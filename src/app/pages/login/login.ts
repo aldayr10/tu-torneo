@@ -1,40 +1,65 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
-  
 })
 export class Login {
-    loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  loginForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
   }
 
   onSubmit() {
+
     if (this.loginForm.valid) {
-      console.log('Login:', this.loginForm.value);
-      alert('Login correcto (simulado)');
-      this.router.navigate(['/dashboard']);
+
+      const { email, password } = this.loginForm.value;
+
+      const success = this.authService.login(email, password);
+
+      if (success) {
+
+        alert('Login correcto');
+        this.router.navigate(['/dashboard']);
+
+      } else {
+
+        alert('Email o contraseña incorrectos');
+
+      }
+
     } else {
+
       this.loginForm.markAllAsTouched();
+
     }
+
   }
 
   registrarse() {
     this.router.navigate(['/register']);
   }
-  
+
   recuperarPassword() {
-  this.router.navigate(['/recover-password']);
+    this.router.navigate(['/recover-password']);
   }
+
 }

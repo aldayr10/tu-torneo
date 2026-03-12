@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Solicitudes para unirme a un equipo</h2>
+
+  <div *ngIf="solicitudes.length === 0">
+    No tienes solicitudes pendientes.
+  </div>
+
+  <table *ngIf="solicitudes.length > 0" border="1" width="100%">
+
+    <thead>
+      <tr>
+        <th>Equipo</th>
+        <th>Jugador</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let solicitud of solicitudes">
+
+        <td>{{ solicitud.teamId }}</td>
+        <td>{{ solicitud.playerName }}</td>
+
+        <td>{{ solicitud.status }}</td>
+
+        <td>
+
+          <button
+            *ngIf="solicitud.status === 'Pendiente'"
+            (click)="aceptarSolicitud(solicitud)">
+            Aceptar
+          </button>
+
+          <button
+            *ngIf="solicitud.status === 'Pendiente'"
+            (click)="rechazarSolicitud(solicitud)">
+            Rechazar
+          </button>
+
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+</div>
