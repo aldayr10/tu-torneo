@@ -26,21 +26,21 @@ export class ManageTeam implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+ ngOnInit() {
 
-    const teamId = this.data.teamId;
+  const teamId = this.data.teamId;
 
-    const teamData = this.teamService.getTeamById(teamId);
-
-    if(teamData){
+  // 🔹 Suscribirse al Observable para obtener el equipo
+  this.teamService.getTeamById(teamId)
+    .subscribe((teamData: Team) => {
       this.team = teamData;
-    }
-
-    this.inviteForm = this.fb.group({
-      username: ['', Validators.required]
     });
 
-  }
+  this.inviteForm = this.fb.group({
+    username: ['', Validators.required]
+  });
+
+}
 
   openInviteForm(){
     this.showInviteForm = true;

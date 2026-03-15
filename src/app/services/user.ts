@@ -1,61 +1,61 @@
 import { Injectable } from '@angular/core';
-import { USERS } from '../fake-data/users.data';
+import { HttpClient } from '@angular/common/http';
+import { Observable,of } from 'rxjs';
 import { User } from '../models/user';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn:'root'
 })
+
 export class UserService{
 
-  users: User[] = USERS;
+  private apiUrl = 'http://localhost:8080/api/users';
 
-  register(user: User){
+  constructor(private http: HttpClient){}
 
-    user.id = Date.now();
+  register(user: User): Observable<User>{
 
-    this.users.push(user);
-
-  }
-
-  updateProfile(updatedUser: User){
-
-    const index = this.users.findIndex(u => u.id === updatedUser.id);
-
-    if(index !== -1){
-      this.users[index] = updatedUser;
-    }
+    return this.http.post<User>(this.apiUrl, user);
 
   }
 
-  getUsers(){
-    return this.users;
-  }
+  updateProfile(user: User): Observable<User>{
 
-  // 🔹 Buscar usuario por username
-  getUserByUsername(name: string){
-
-    return this.users.find(u => u.name === name);
+    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user);
 
   }
 
-  // 🔹 Buscar usuario por id
-  getUserById(id: number){
+  getUsers(): Observable<User[]>{
 
-    return this.users.find(u => u.id === id);
+    return this.http.get<User[]>(this.apiUrl);
+
+  }
+
+  getUserById(id: number): Observable<User>{
+
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
 
   }
 
-
-  getCurrentUser(){
-
-    const user = localStorage.getItem('user');
-
-    if(!user){
-      return null;
-    }
-
-    return JSON.parse(user);
-
+  getUserByUsername(username: string): Observable<User | null> {
+    return this.http.get<User>(`${this.apiUrl}/username/${username}`)
+      .pipe(
+        map(user => user || null), // por si el backend devuelve null o undefined
+        catchError(() => of(null)) // si hay error devuelve null
+      );
   }
+
+  getCurrentUser() {
+
+  const user = localStorage.getItem('user');
+
+  if (!user) {
+    return null;
+  }
+
+  return JSON.parse(user);
+
+}
 
 }

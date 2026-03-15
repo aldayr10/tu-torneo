@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router,RouterOutlet } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 
 
 @Component({
@@ -9,19 +9,43 @@ import { Router,RouterOutlet } from '@angular/router'
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  goToCreateTeam(){
+  goToCreateTeam() {
     this.router.navigate(['/dashboard/view-created-teams']);
   }
 
-  updateProfile(){
+  updateProfile() {
     this.router.navigate(['/update-profile']);
   }
-  goToJoinTeam(){}
+  goToJoinTeam() { }
 
   logout() {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+
+
+  goHome() {
+    // router.navigate(['/home'])
+  }
+
+  viewProfile() {
+    // router.navigate(['/profile'])
+  }
+
+  editProfile() {
+    // router.navigate(['/edit-profile'])
+  }
+
+  openNotifications() {
+    console.log("notificaciones");
   }
 }

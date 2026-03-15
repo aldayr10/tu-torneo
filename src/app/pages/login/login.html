@@ -1,29 +1,35 @@
-<h2>Iniciar Sesión</h2>
+<div class="overlay">
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-  <label>Email:</label>
-  <input type="email" formControlName="email">
-  <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-    Email inválido
-  </div>
+    <h2>Iniciar Sesión</h2>
 
-  <br><br>
+    <div>
+      <label>Email:</label>
+      <input type="email" formControlName="email">
 
-  <label>Contraseña:</label>
-  <input type="password" formControlName="password">
-  <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-    La contraseña es obligatoria
-  </div>
-  <br>
- 
-  <br><br>
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <div>Email inválido</div>
+      }
+    </div>
 
-  <button type="submit">Ingresar</button>
-  <button type="button" (click)="registrarse()">registrarse</button>
+    <div>
+      <label>Contraseña:</label>
+      <input type="password" formControlName="password">
 
-</form>
+      @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+        <div>La contraseña es obligatoria</div>
+      }
+    </div>
 
-<a (click)="recuperarPassword()">
-  ¿Olvidaste tu contraseña?
-</a>
+    <button type="submit">Ingresar</button>
+
+    <button type="button" (click)="registrarse()">Registrarse</button>
+
+    <a (click)="recuperarPassword()">
+      ¿Olvidaste tu contraseña?
+    </a>
+
+  </form>
+
+</div>

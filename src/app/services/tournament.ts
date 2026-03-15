@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
-import { TOURNAMENTS } from '../fake-data/tournaments.data';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn:'root'
 })
+
 export class TournamentService{
 
-  tournaments = TOURNAMENTS;
+  private apiUrl = 'http://localhost:8080/api/tournaments';
 
-  getTournaments(){
-    return this.tournaments;
+  constructor(private http: HttpClient){}
+
+  getTournaments(): Observable<any[]>{
+
+    return this.http.get<any[]>(this.apiUrl);
+
   }
 
-  addTeamToTournament(tournamentId:number,team:any){
+  addTeamToTournament(tournamentId:number,team:any): Observable<any>{
 
-    const tournament = this.tournaments.find(
-      t => t.id === tournamentId
+    return this.http.post(
+      `${this.apiUrl}/${tournamentId}/teams`,
+      team
     );
-
-    if(tournament){
-      tournament.teams.push(team);
-    }
 
   }
 

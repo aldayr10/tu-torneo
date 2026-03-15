@@ -24,8 +24,14 @@ export class ViewCreatedTeams implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.teams = this.teamService.getTeamsByOwner(this.ownerId);
-  }
+
+  this.teamService
+    .getTeamsByOwner(this.ownerId)
+    .subscribe((teams) => {
+      this.teams = teams;
+    });
+
+}
 
   addTeam() {
 

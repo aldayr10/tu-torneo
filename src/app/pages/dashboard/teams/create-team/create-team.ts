@@ -39,26 +39,26 @@ export class CreateTeam {
 
   createTeam() {
 
-    if (this.teamForm.invalid) return;
+  if (this.teamForm.invalid) return;
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    const newTeam = {
-      id: 0,
-      name: this.teamForm.value.name,
-      category: this.teamForm.value.category,
-      ownerId: user.id,
-      players: []
-    };
+  const newTeam = {
+    id: 0,
+    name: this.teamForm.value.name,
+    category: this.teamForm.value.category,
+    ownerId: user.id,
+    players: []
+  };
 
-    const createdTeam = this.teamService.createTeam(newTeam);
+  // 🔹 Suscribirse al Observable para obtener el equipo creado
+  this.teamService.createTeam(newTeam)
+    .subscribe((createdTeam) => {
+      this.teamIdCreated = createdTeam.id;
+      this.dialogRef.close(createdTeam);
+    });
 
-    this.teamIdCreated = createdTeam.id;
-
-    // cerrar dialog y devolver equipo creado
-    this.dialogRef.close(createdTeam);
-
-  }
+}
 
   closeDialog(){
     this.dialogRef.close();

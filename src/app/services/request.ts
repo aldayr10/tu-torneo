@@ -1,45 +1,51 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Request } from '../models/request';
-import { REQUESTS_FAKE } from '../fake-data/requests.data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  private requests: Request[] = [...REQUESTS_FAKE];
+  private apiUrl = 'http://localhost:8080/api/requests';
 
-  
-  getAllRequests() {
-    return this.requests;
-  }
+  constructor(private http: HttpClient) {}
 
-  sendRequest(request: Request) {
+  getAllRequests(): Observable<Request[]> {
 
-    request.id = this.requests.length + 1;
-    request.status = 'Pendiente';
-    this.requests.push(request);
+    return this.http.get<Request[]>(this.apiUrl);
 
   }
 
-  getRequestsByTeam(teamId: number) {
+  sendRequest(request: Request): Observable<Request> {
 
-    return this.requests.filter(r => r.teamId === teamId);
-
-  }
-
-  updateRequestStatus(requestId: number, status: 'Aceptada' | 'Rechazada') {
-
-    const request = this.requests.find(r => r.id === requestId);
-
-    if (request) {
-      request.status = status;
-    }
+    return this.http.post<Request>(this.apiUrl, request);
 
   }
 
-  getRequestsByPlayer(playerId: number) {
-    return this.requests.filter(r => r.playerId === playerId);
+  getRequestsByTeam(teamId: number): Observable<Request[]> {
+
+    return this.http.get<Request[]>(`${this.apiUrl}/team/${teamId}`);
+
+  }
+
+  updateRequestStatus(
+    requestId: number,
+    status: 'Aceptada' | 'Rechazada'
+  ): Observable<Request> {
+
+    return this.http.put<Request>(
+      `${this.apiUrl}/${requestId}`,
+      { status }
+    );
+
+  }
+
+  getRequestsByPlayer(playerId: number): Observable<Request[]> {
+
+    return this.http.get<Request[]>(`${this.apiUrl}/player/${playerId}`);
+
   }
 
 }

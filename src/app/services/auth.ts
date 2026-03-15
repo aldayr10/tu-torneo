@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { USERS } from '../fake-data/users.data';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -7,23 +8,31 @@ import { User } from '../models/user';
 })
 export class AuthService{
 
-  login(email:string,password:string){
+  private apiUrl = 'http://localhost:8080/api/auth';
 
-    const user = USERS.find(
-      u => u.email === email && u.password === password
-    );
+  constructor(private http: HttpClient){}
 
-    if(user){
-      localStorage.setItem('user',JSON.stringify(user));
-      return true;
-    }
+  login(email:string,password:string):Observable<any>{
 
-    return false;
+    return this.http.post(`${this.apiUrl}/login`,{
+      email,
+      password
+    });
 
   }
 
   logout(){
+
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+  }
+
+  saveSession(user:any,token:string){
+
+    localStorage.setItem('user',JSON.stringify(user));
+    localStorage.setItem('token',token);
+
   }
 
   getCurrentUser():User | null{
@@ -31,6 +40,12 @@ export class AuthService{
     const user = localStorage.getItem('user');
 
     return user ? JSON.parse(user) : null;
+
+  }
+
+  getToken(){
+
+    return localStorage.getItem('token');
 
   }
 

@@ -3,6 +3,7 @@ import { CheckEmail } from './check-email/check-email';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-recover-password',
@@ -27,20 +28,19 @@ export class RecoverPassword {
 
   }
 
-  recoverPassword() {
+ recoverPassword() {
 
-    if (this.recoverForm.valid) {
+  if (this.recoverForm.valid) {
 
-      const email = this.recoverForm.value.email;
+    const email = this.recoverForm.value.email;
 
-      const users = this.userService.getUsers();
+    this.userService.getUsers().subscribe((users: User[]) => {
 
       const userExists = users.find(u => u.email === email);
 
       if (userExists) {
 
         console.log("Email encontrado:", email);
-
         this.mostrarPopup = true;
 
       } else {
@@ -49,8 +49,10 @@ export class RecoverPassword {
 
       }
 
-    }
+    });
 
   }
+
+}
 
 }
