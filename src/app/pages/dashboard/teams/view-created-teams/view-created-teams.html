@@ -3,22 +3,23 @@
   <h2>Equipos creados</h2>
 
   <button (click)="addTeam()">
-    Agregar equipo
+    Agregar Equipo
   </button>
-  <br><br>
-  <div *ngIf="teams.length === 0">
-    <p>No existen equipos creados.</p>
-  </div>
+
+
+
 
   <div *ngIf="teams.length > 0">
 
     <div 
       *ngFor="let team of teams" 
       class="team-card"
-      (click)="openManageTeam(team.id)"
+      
     >
       <h3>{{ team.name }}</h3>
-      <button>eliminar equipo</button>
+      <button (click)="openManageTeam(team.id)">Gestionar Equipo</button>
+      <button (click)="deleteTeam(team.id)">eliminar Equipo</button>
+
     </div>
 
   </div>

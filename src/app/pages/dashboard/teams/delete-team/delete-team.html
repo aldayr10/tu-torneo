@@ -1,21 +1,17 @@
-<div class="container">
+ <h2 mat-dialog-title>Eliminar equipo</h2>
 
-  <h2>Gestión de Equipos</h2>
+  <mat-dialog-content>
+    ¿Estás seguro de que deseas eliminar este equipo?
+  </mat-dialog-content>
 
-  <table>
+  <mat-dialog-actions align="end">
 
-    <tr *ngFor="let equipo of equipos; let i = index">
+    <button mat-button (click)="cancelar()">
+      Cancelar
+    </button>
 
-      <td>{{ equipo.nombre }}</td>
+    <button mat-raised-button color="warn" (click)="confirmar()">
+      Eliminar
+    </button>
 
-      <td>
-        <button mat-raised-button color="warn" (click)="abrirDialogoEliminar(i)">
-          Eliminar equipo
-        </button>
-      </td>
-
-    </tr>
-
-  </table>
-
-</div>
+  </mat-dialog-actions>

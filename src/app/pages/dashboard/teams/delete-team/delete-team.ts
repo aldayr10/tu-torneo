@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
-import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog';
 
 @Component({
   selector: 'app-delete-team',
@@ -18,27 +18,17 @@ import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog';
   styleUrls: ['./delete-team.css']
 })
 export class DeleteTeam {
+  
+  constructor(
 
-  equipos = [
-    { nombre: 'Team Alpha' },
-    { nombre: 'Team Beta' },
-    { nombre: 'Team Gamma' }
-  ];
+    private dialogRef: MatDialogRef<DeleteTeam>
+  ) {}
 
-  constructor(private dialog: MatDialog) {}
-
-  abrirDialogoEliminar(index: number) {
-
-    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      if (result) {
-        this.equipos.splice(index, 1);
-      }
-
-    });
-
+  cancelar() {
+    this.dialogRef.close()
   }
 
+  confirmar() {
+    this.dialogRef.close(true)
+  }
 }
