@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,11 @@ export class TeamService {
     return this.teams.find(team => team.id === teamId);
   }
 
-  invitePlayer(teamId: number, playerId: number) {
+  invitePlayer(teamId: number, player: User) {
     const team = this.getTeamById(teamId);
 
     if(team){
-      team.players.push(playerId);
+      team.players.push(player);
     }
   }
 
