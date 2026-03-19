@@ -9,7 +9,7 @@
 
   <ul>
     <li *ngFor="let player of team.players">
-      Jugador ID: {{player}}
+      Jugador: {{player.name}}
     </li>
   </ul>
 
@@ -35,11 +35,11 @@
 
   <form [formGroup]="inviteForm" (ngSubmit)="invitePlayer()">
 
-    <label>Nombre de usuario</label>
-    <input type="text" formControlName="username">
+    <label>Email de usuario</label>
+    <input type="email" formControlName="useremail">
 
-    <div *ngIf="inviteForm.get('username')?.invalid && inviteForm.get('username')?.touched">
-      El nombre es obligatorio
+    <div *ngIf="inviteForm.get('useremail')?.invalid && inviteForm.get('useremail')?.touched">
+      El email es obligatorio
     </div>
 
     <br><br>

@@ -12,7 +12,7 @@ export const USERS: User[] = [
   {
     id:2,
     name:"User1",
-    email:"user@test.com",
+    email:"user1@test.com",
     password:"1234"
   }
 

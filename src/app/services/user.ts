@@ -58,4 +58,8 @@ export class UserService{
 
   }
 
+  getUserByEmail(email:String){
+    return this.users.find(u => u.email === email); 
+  }
+
 }
