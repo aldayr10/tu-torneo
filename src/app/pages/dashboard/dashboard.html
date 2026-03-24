@@ -1,32 +1,87 @@
-<nav>
+<div class="navbar">
 
-  <button (click)="goToJoinTeam()">
-    Invitaciones
-  </button>
+  <div class="nav-left">
+    <span class="logo">Torneos de Fútbol</span>
+  </div>
 
-  <button (click)="logout()">
-    Cerrar sesión
-  </button>
-</nav>
+  <div class="nav-right">
+
+    <span class="welcome">
+      Bienvenido, <b></b>
+    </span>
+
+    <button class="icon-btn notification" (click)="openNotifications()">
+      
+      <span class="badge"></span>
+    </button>
+
+    <div class="user-menu">
+
+      <button class="profile-btn" (click)="toggleMenu()">
+         Perfil ▼
+      </button>
+
+      @if(menuOpen){
+      <div class="dropdown">
+
+        <button (click)="editProfile()">
+          Editar perfil
+        </button>
+
+        <button (click)="logout()">
+          Cerrar sesión
+        </button>
+
+      </div>
+      }
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <div class="dashboard-container">
 
   <div class="card">
-    <h3>Torneos</h3>
-    <button>Ver torneos</button>
+
+    <div class="icon-circle blue">
+      
+    </div>
+
+    <h3>Crear Torneo</h3>
+
+    <p>Inicia un nuevo torneo de fútbol</p>
+
   </div>
 
-  <div class="card">
-    <h3>Equipos</h3>
-    <button (click)="goToCreateTeam()">Mis equipos</button>
+  <div class="card" (click)="goToCreateTeam()">
+
+    <div class="icon-circle green">
+      
+    </div>
+
+    <h3>Gestionar Equipos</h3>
+
+    <p>Crea un torneo primero</p>
+
   </div>
 
-  <div class="card">
-    <h3>Partidos</h3>
-    <button>Ver partidos</button>
-  </div>
+  <div class="card" >
 
+    <div class="icon-circle purple">
+      
+    </div>
+
+    <h3>Ver Partidos</h3>
+
+    <p>Genera partidos primero</p>
+
+  </div>
 
 </div>
 
-<router-outlet></router-outlet>
+<h1>
+  ¡Comienza creando tu primer torneo! 🏆
+</h1>

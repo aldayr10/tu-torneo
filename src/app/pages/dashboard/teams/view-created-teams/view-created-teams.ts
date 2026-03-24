@@ -30,18 +30,6 @@ export class ViewCreatedTeams implements OnInit {
 
   addTeam() {
 
-    const dialogRef = this.dialog.open(CreateTeam, {
-      width: '400px'
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-
-      if (result) {
-        this.teams.push(result);
-      }
-
-    });
-
   }
 
   openManageTeam(teamId:number){

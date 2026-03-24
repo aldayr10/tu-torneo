@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatDialogRef } from '@angular/material/dialog';
-
 import { TeamService } from '../../../../services/team';
 import { RequestService } from '../../../../services/request';
 import { UserService } from '../../../../services/user';
 import { Request } from '../../../../models/request';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-create-team',
@@ -27,7 +26,8 @@ export class CreateTeam {
     private teamService: TeamService,
     private requestService: RequestService,
     private userService: UserService,
-    private dialogRef: MatDialogRef<CreateTeam>
+    private router:Router
+
   ) {
 
     this.teamForm = this.fb.group({
@@ -52,16 +52,13 @@ export class CreateTeam {
     };
 
     const createdTeam = this.teamService.createTeam(newTeam);
-
     this.teamIdCreated = createdTeam.id;
-
-    // cerrar dialog y devolver equipo creado
-    this.dialogRef.close(createdTeam);
+    this.teamForm.reset();
 
   }
 
-  closeDialog(){
-    this.dialogRef.close();
+  goToDAshboard(){
+    this.router.navigate(['/dashboard']);
   }
 
 }

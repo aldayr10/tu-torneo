@@ -10,11 +10,8 @@ export class TeamService {
   private teams: Team[] = [];
 
   createTeam(team: Team) {
-
     team.id = this.teams.length + 1;
-
     this.teams.push(team);
-
     return team;
   }
 
@@ -22,9 +19,7 @@ export class TeamService {
     return this.teams;
   }
   getTeamsByOwner(ownerId: number) {
-
     return this.teams.filter(team => team.ownerId === ownerId);
-
   }
   getTeamById(teamId: number): Team | undefined {
     return this.teams.find(team => team.id === teamId);

@@ -1,3 +1,12 @@
+<div>
+  <a class="go-dashboad" (click)="goToDAshboard()">
+    <span class="material-symbols-outlined">
+      arrow_back
+    </span>
+    Volver al Dashboard
+  </a>
+</div>
+
 <h2>Crear Equipo</h2>
 
 <form [formGroup]="teamForm" (ngSubmit)="createTeam()">
@@ -16,10 +25,6 @@
 
   <button type="submit">
     Crear equipo
-  </button>
-
-  <button type="button" (click)="closeDialog()">
-    Cancelar
   </button>
 
 </form>

@@ -16,9 +16,22 @@
 }
 
 .input-icon input {
-  
-  padding: 8px 8px 8px  35px;
+  padding: 8px 8px 8px 35px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+}
+
+.go-dashboad{
+  align-items: center;
+  font-size: 14px;
+  color: #1976d2;
+  cursor: pointer;
+  margin:30px;
+  padding: 8px 8px 8px 35px;
+}
+
+.go-dashboad:hover{
+  text-decoration: underline;
+  margin:0px;
 }
