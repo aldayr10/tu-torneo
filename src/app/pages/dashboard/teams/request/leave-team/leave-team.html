@@ -1,0 +1,33 @@
+<p>leave-team works!</p>
+<h2>Salir del Equipo</h2>
+
+<p>Si deseas abandonar el equipo, confirma tu nombre de usuario.</p>
+
+<form [formGroup]="leaveForm" (ngSubmit)="leaveTeam()">
+
+  <label>Nombre de usuario:</label>
+  <input type="text" formControlName="username" placeholder="Ej: messi10">
+
+  <div *ngIf="leaveForm.get('username')?.invalid && leaveForm.get('username')?.touched">
+    El nombre de usuario es obligatorio
+  </div>
+
+  <br><br>
+
+  <button type="submit" [disabled]="leaveForm.invalid">
+    Salir del Equipo
+  </button>
+
+</form>
+
+<hr>
+
+<h3>Advertencia</h3>
+
+<p>
+  Si abandonas el equipo perderás tu participación actual en él.
+  Podrás volver a unirte solo si recibes una nueva invitación.
+</p>
+
+<br><br>
+

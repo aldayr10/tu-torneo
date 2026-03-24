@@ -1,0 +1,51 @@
+<h2>Gestión del equipo</h2>
+
+<div *ngIf="team">
+
+  <h3>{{team.name}}</h3>
+  <p>Categoría: {{team.category}}</p>
+
+  <h4>Jugadores actuales</h4>
+
+  <ul>
+    <li *ngFor="let player of team.players">
+      Jugador ID: {{player}}
+    </li>
+  </ul>
+
+  <br>
+
+  <button (click)="openInviteForm()">Invitar jugador</button>
+  <button (click)="generateInviteLink()">Generar enlace</button>
+
+  <br><br>
+
+  <div *ngIf="inviteLink">
+    <input type="text" [value]="inviteLink" readonly>
+    <button (click)="copyLink()">Copiar enlace</button>
+  </div>
+
+</div>
+
+<!-- Formulario invitar jugador -->
+
+<div *ngIf="showInviteForm">
+
+  <h3>Invitar jugador</h3>
+
+  <form [formGroup]="inviteForm" (ngSubmit)="invitePlayer()">
+
+    <label>Nombre de usuario</label>
+    <input type="text" formControlName="username">
+
+    <div *ngIf="inviteForm.get('username')?.invalid && inviteForm.get('username')?.touched">
+      El nombre es obligatorio
+    </div>
+
+    <br><br>
+
+    <button type="submit">Enviar invitación</button>
+
+  </form>
+
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Estado de Solicitudes del Equipo</h2>
+
+  <div *ngIf="solicitudes.length === 0">
+    No hay solicitudes enviadas.
+  </div>
+
+  <table *ngIf="solicitudes.length > 0" border="1" width="100%">
+
+    <thead>
+      <tr>
+        <th>Jugador</th>
+        <th>Email</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let solicitud of solicitudes">
+        <td>{{ solicitud.nombre }}</td>
+        <td>{{ solicitud.email }}</td>
+
+        <td>
+          <span *ngIf="solicitud.estado === 'pendiente'">Pendiente</span>
+          <span *ngIf="solicitud.estado === 'aceptada'">Aceptada</span>
+          <span *ngIf="solicitud.estado === 'rechazada'">Rechazada</span>
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

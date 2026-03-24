@@ -1,0 +1,32 @@
+<nav>
+
+  <button (click)="goToJoinTeam()">
+    Invitaciones
+  </button>
+
+  <button (click)="logout()">
+    Cerrar sesión
+  </button>
+</nav>
+
+<div class="dashboard-container">
+
+  <div class="card">
+    <h3>Torneos</h3>
+    <button>Ver torneos</button>
+  </div>
+
+  <div class="card">
+    <h3>Equipos</h3>
+    <button (click)="goToCreateTeam()">Mis equipos</button>
+  </div>
+
+  <div class="card">
+    <h3>Partidos</h3>
+    <button>Ver partidos</button>
+  </div>
+
+
+</div>
+
+<router-outlet></router-outlet>
