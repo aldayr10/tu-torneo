@@ -4,42 +4,42 @@
 
   <label>Email:</label>
   <input type="email" formControlName="email">
-  <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-    Email inválido
-  </div>
+  @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+    <div>Email inválido</div>
+  }
 
   <br><br>
 
   <label>Contraseña:</label>
   <input type="password" formControlName="password">
-  <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-    Mínimo 6 caracteres
-  </div>
+  @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+    <div>Mínimo 6 caracteres</div>
+  }
 
   <br><br>
 
   <label>Confirmar Contraseña:</label>
   <input type="password" formControlName="confirmPassword">
 
-  <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-    Las contraseñas no coinciden
-  </div>
+  @if (registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched) {
+    <div>Las contraseñas no coinciden</div>
+  }
 
   <br><br>
 
   <label>Nombre:</label>
   <input type="text" formControlName="nombre">
-  <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
-    El nombre es obligatorio
-  </div>
+  @if (registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched) {
+    <div>El nombre es obligatorio</div>
+  }
 
   <br><br>
 
   <label>Fecha De Nacimiento:</label>
   <input type="date" formControlName="fechaNacimiento">
-  <div *ngIf="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched">
-    La fecha es obligatoria
-  </div>
+  @if (registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched) {
+    <div>La fecha es obligatoria</div>
+  }
 
   <br><br>
 
