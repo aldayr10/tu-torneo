@@ -1,50 +1,85 @@
-<h2>Registro de Jugador</h2>
+<div class="overlay">
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-  <label>Email:</label>
-  <input type="email" formControlName="email">
-  <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-    Email inválido
-  </div>
+    <div class="title-icon">
+        <span class="material-symbols-outlined">trophy</span>
+      </div>
 
-  <br><br>
+    <h2>Crear Cuenta</h2>
+    <h4>Únete y gestiona tus torneos</h4>
+    <div>
+      <label>Nombre:</label>
+      <div class="input-icon">
+        <span class="material-icons">person</span>
+        <input type="text" formControlName="nombre" placeholder="Ingresa tu nombre">
+      </div>
+        
+      
 
-  <label>Contraseña:</label>
-  <input type="password" formControlName="password">
-  <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-    Mínimo 6 caracteres
-  </div>
+      @if (registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched) {
+        <div>El nombre es obligatorio</div>
+      }
+    </div>
 
-  <br><br>
+    <div>
+      <label>Email:</label>
+      <div class="input-icon">
+        <span class="material-icons">mail</span>
+        <input type="email" formControlName="email" placeholder="Ingresa tu email">
+      </div>
 
-  <label>Confirmar Contraseña:</label>
-  <input type="password" formControlName="confirmPassword">
+      @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+        <div>Email inválido</div>
+      }
+    </div>
 
-  <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-    Las contraseñas no coinciden
-  </div>
+    <div>
+      <label>Contraseña:</label>
+      <div class="input-icon">
+        <span class="material-icons">lock</span>
+        <input type="password" formControlName="password" placeholder="Min 6 caracteres">
+      </div>
 
-  <br><br>
+      @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+        <div>Mínimo 6 caracteres</div>
+      }
+    </div>
 
-  <label>Nombre:</label>
-  <input type="text" formControlName="nombre">
-  <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
-    El nombre es obligatorio
-  </div>
+    <div>
+      <label>Confirmar Contraseña:</label>
+      <div class="input-icon">
+        <span class="material-icons">lock</span>
+        <input type="password" formControlName="confirmPassword" placeholder="Confirma tu contraseña">
+      </div>
 
-  <br><br>
+      @if (registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched) {
+        <div>Las contraseñas no coinciden</div>
+      }
+    </div>
 
-  <label>Fecha De Nacimiento:</label>
-  <input type="date" formControlName="fechaNacimiento">
-  <div *ngIf="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched">
-    La fecha es obligatoria
-  </div>
 
-  <br><br>
 
-  <button type="submit">Registrarse</button>
+    <div>
+      <label>Fecha De Nacimiento:</label>
+      <div class="input-icon">
+        <span class="material-icons">calendar_today</span>
+        <input type="date" formControlName="fechaNacimiento">
+      </div>
 
-</form>
+      @if (registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched) {
+        <div>La fecha es obligatoria</div>
+      }
+    </div>
 
-<p>¿Ya tienes cuenta? <a href="#">Iniciar sesión</a></p>
+    <div>
+      <button type="submit">Crear Cuenta</button>
+    </div>
+
+    <div>
+      <a>¿Ya tienes cuenta? <a href="#">Iniciar sesión</a></a>
+    </div>
+
+  </form>
+
+</div>
