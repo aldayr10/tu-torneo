@@ -22,7 +22,7 @@ export class Login {
 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required,Validators.minLength(6)] ]
     });
 
   }
@@ -30,20 +30,13 @@ export class Login {
   onSubmit() {
 
     if (this.loginForm.valid) {
-
       const { email, password } = this.loginForm.value;
-
       const success = this.authService.login(email, password);
-
       if (success) {
-
         alert('Login correcto');
         this.router.navigate(['/dashboard']);
-
       } else {
-
         alert('Email o contraseña incorrectos');
-
       }
 
     } else {
