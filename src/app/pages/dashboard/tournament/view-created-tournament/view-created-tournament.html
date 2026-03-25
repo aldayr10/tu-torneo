@@ -1,6 +1,5 @@
-<p>view-created-tournament works!</p>
-<button>Craer Torneo</button>
 <h1>Vista de torneos creados</h1>
+<button (click)="createTournament()">Crear Torneo</button>
 <div *ngIf="tournaments.length === 0">
   <p>No existen torneos creados.</p>
 </div>
@@ -8,9 +7,7 @@
   <div *ngFor="let tournament of tournaments">
     <div class="tournament-card">
       <h3>{{ tournament.name }}</h3>
-      <button (click)="openManageTournament(tournament.id)">
-        Editar Torneo
-      </button>
+      
     </div>
   </div>
 </div> 

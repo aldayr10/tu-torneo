@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-tournament',
@@ -21,12 +22,15 @@ export class CreateTournament {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialogRef: MatDialogRef<CreateTournament>
   ) {
 
     this.tournamentForm = this.fb.group({
-      nombre: ['', Validators.required],
-      fecha: ['', Validators.required]
+      name: ['', Validators.required],
+      id: ['', Validators.required],
+      category: ['', Validators.required],
+      team: ['']
     });
 
   }
@@ -34,19 +38,15 @@ export class CreateTournament {
   crearTorneo() {
 
     if (this.tournamentForm.valid) {
-
       const torneo = this.tournamentForm.value;
-
-      this.torneos.push(torneo);
-
+      
       alert('Torneo creado correctamente');
-
       this.tournamentForm.reset();
-
-      console.log(this.torneos);
-
+      this.dialogRef.close(torneo);
     }
-
+  }
+  cancelar(){
+    this.dialogRef.close();
   }
 
 }

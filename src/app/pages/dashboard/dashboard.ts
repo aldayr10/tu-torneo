@@ -11,6 +11,12 @@ import { Router,RouterOutlet } from '@angular/router'
 export class Dashboard {
   constructor(private router: Router) {}
 
+  goToCreateTournament(){
+    console.log('asd');
+    
+    this.router.navigate(['/dashboard/view-created-tournament']);
+  }
+
   goToCreateTeam(){
     this.router.navigate(['/dashboard/view-created-teams']);
   }

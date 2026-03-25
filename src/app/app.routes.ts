@@ -13,7 +13,7 @@ import { DeletePlayerTeam } from'./pages/dashboard/teams/request/delete-player-t
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';   
 import{DeleteTeam} from'./pages/dashboard/teams/delete-team/delete-team';
 import{CreateTournament}  from'./pages/dashboard/tournament/create-tournament/create-tournament';
-
+import { ViewCreatedTournament } from './pages/dashboard/tournament/view-created-tournament/view-created-tournament';
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login },
@@ -24,14 +24,9 @@ export const routes: Routes = [
     {
         path: 'dashboard', component: Dashboard,
         children: [
-            { path: 'request-status', component: RequestStatus },
-            { path: 'player-join-team', component: PlayerJoinTeam },
-            { path: 'join-team', component: JoinTeam },
-            { path: 'leave-team', component:LeaveTeam},
-            { path: 'delete-player-team' , component:DeletePlayerTeam},
+           
             { path: 'view-created-teams', component:ViewCreatedTeams},
-            { path: 'delete-team',component:DeleteTeam},
-            { path: 'create-tournament',component:CreateTournament}
+            { path: 'view-created-tournament', component:ViewCreatedTournament}
         ]
     }
 ];
