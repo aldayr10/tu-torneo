@@ -11,24 +11,28 @@
     </span>
 
     <button class="icon-btn notification" (click)="openNotifications()">
-      
-      <span class="badge"></span>
+      <span class="material-symbols-outlined">person_add</span>
+    </button>
+
+    <button class="icon-btn notification" (click)="openNotifications()">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="badge">1</span>
     </button>
 
     <div class="user-menu">
 
       <button class="profile-btn" (click)="toggleMenu()">
-         Perfil ▼
+        Perfil ▼
       </button>
 
       @if(menuOpen){
       <div class="dropdown">
 
-        <button (click)="editProfile()">
+        <button (click)="editProfile()"><span class="material-symbols-outlined">trophy</span>
           Editar perfil
         </button>
 
-        <button (click)="logout()">
+        <button (click)="logout()"><span class="material-symbols-outlined">trophy</span>
           Cerrar sesión
         </button>
 
@@ -47,7 +51,7 @@
   <div class="card">
 
     <div class="icon-circle blue">
-      
+      <span class="material-symbols-outlined">trophy</span>
     </div>
 
     <h3>Crear Torneo</h3>
@@ -59,7 +63,7 @@
   <div class="card" (click)="goToCreateTeam()">
 
     <div class="icon-circle green">
-      
+      <span class="material-symbols-outlined">group</span>
     </div>
 
     <h3>Gestionar Equipos</h3>
@@ -68,10 +72,10 @@
 
   </div>
 
-  <div class="card" >
+  <div class="card">
 
     <div class="icon-circle purple">
-      
+      <span class="material-symbols-outlined">calendar_today</span>
     </div>
 
     <h3>Ver Partidos</h3>
