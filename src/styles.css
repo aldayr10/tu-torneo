@@ -34,7 +34,7 @@
 }
 
 .go-dashboad:hover{
-  margin:30px 30px 0px 0px;
+  transform:translateX(-10px);
 }
 a .go-dashboad-link{
   font-size: 14px;

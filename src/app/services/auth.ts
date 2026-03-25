@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { USERS } from '../fake-data/users.data';
 import { User } from '../models/user';
 import { CanActivate } from "@angular/router";
+import { log } from 'console';
 
 @Injectable({
   providedIn:'root'
@@ -16,6 +17,7 @@ export class AuthService {
 
     if(user){
       localStorage.setItem('user',JSON.stringify(user));
+      
       return true;
     }
 

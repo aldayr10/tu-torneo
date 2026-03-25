@@ -14,6 +14,7 @@ import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/vie
 import { DeleteTeam } from './pages/dashboard/teams/delete-team/delete-team';
 import { CreateTeam } from "./pages/dashboard/teams/create-team/create-team";
 import { Teams } from "./pages/dashboard/teams/teams";
+import { NavBar } from "./pages/dashboard/nav-bar/nav-bar";
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,5 +33,6 @@ export const routes: Routes = [
     { path: 'delete-team', component: DeleteTeam },
     { path: 'create-team', component: CreateTeam },
     { path: 'teams', component: Teams },
+    { path: 'nav-bar', component: NavBar },
 ];
 
