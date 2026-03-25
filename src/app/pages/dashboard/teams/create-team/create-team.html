@@ -1,5 +1,3 @@
-
-
 <h2>Crear Equipo</h2>
 
 <form [formGroup]="teamForm" (ngSubmit)="createTeam()">
@@ -11,8 +9,59 @@
 
   <div>
     <label>Categoría</label>
-    <input type="text" formControlName="category">
+    <select formControlName="category">
+      @for (tipo of catalogoTeam; track tipo.id) {
+      <option [value]="tipo.id" [defaultSelected]="1">
+        {{ tipo.name }}
+      </option>
+      }
+    </select>
   </div>
+
+  <div class="colors">
+    <div>
+      <label for="Color Principal">Color Principal</label>
+      <input type="color" formControlName="primaryColor" style="width:100px;height:100px;border-radius: 50px;"
+        [style.background]="teamForm.get('primaryColor')?.value">
+    </div>
+    <div>
+      <label>Color Secundario</label>
+      <input type="color" formControlName="alternativeColor" style="width:100px;height:100px;border-radius: 50px;"
+        [style.background]="teamForm.get('alternativeColor')?.value">
+    </div>
+  </div>
+
+  <div 
+  class="upload-box"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragging]="isDragging"
+>
+
+  <p>Arrastra una imagen aquí o haz clic</p>
+
+  <input 
+    type="file" 
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    hidden
+    #fileInput
+  >
+
+  <button type="button" (click)="fileInput.click()">
+    Buscar archivo
+  </button>
+
+</div>
+
+<!-- Preview -->
+@if (imagePreview) {
+  <div class="preview">
+    <img [src]="imagePreview" alt="preview">
+  </div>
+}
+
 
   <br>
 

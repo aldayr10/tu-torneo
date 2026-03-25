@@ -1,4 +1,4 @@
-.overlay{
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   background: rgba(100, 233, 100, 0.575);
 }
 
-form{
+form {
   background: white;
   padding: 30px;
   border-radius: 10px;
@@ -19,25 +19,25 @@ form{
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-h2{
+h2 {
   text-align: center;
   margin-bottom: 10px;
 }
 
-h4{
+h4 {
   text-align: center;
   margin-bottom: 10px;
 }
 
-label{
+label {
   font-size: 14px;
   margin-bottom: 3px;
 }
 
-input{
+input {
   width: 100%;
   padding: 8px;
   border-radius: 6px;
@@ -45,12 +45,12 @@ input{
   font-size: 14px;
 }
 
-form div div{
+form div div {
   color: red;
   font-size: 12px;
 }
 
-button{
+button {
   padding: 10px;
   border: none;
   border-radius: 6px;
@@ -58,25 +58,25 @@ button{
   cursor: pointer;
 }
 
-button[type="submit"]:disabled{
+button[type="submit"]:disabled {
   background: #ccc;
   color: white;
 }
 
-button[type="submit"]:enabled{
+button[type="submit"]:enabled {
   color: white;
   background: #1565c0;
 }
 
-button[type="button"]{
+button[type="button"] {
   background: #e0e0e0;
 }
 
-button[type="button"]:hover{
+button[type="button"]:hover {
   background: #cfcfcf;
 }
 
-a{
+a {
   text-align: center;
   font-size: 13px;
   color: #1976d2;
@@ -84,16 +84,29 @@ a{
   margin-top: 5px;
 }
 
-.recover-pass{
-  text-align: right ;
+.recover-pass {
+  text-align: right;
   margin-bottom: 10px;
 }
 
-.register{
-  text-align: center ;
+.register {
+  text-align: center;
   margin-bottom: 10px;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
+}
+
+.title-icon {
+  display: flex;
+  justify-content: center;
+  color: #1d2e60 !important;
+  width: 100%;
+}
+
+.material-symbols-outlined {
+  width: 80px;
+  height: 80px;
+  font-size: 80px;
 }

@@ -5,12 +5,12 @@
     padding: 10px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow:8px 8px 20px rgb(2 0 0 / 71%);
     transition: 0.2s;
 }
 
 .buttos-card-team {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     justify-content: center;

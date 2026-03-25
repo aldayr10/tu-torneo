@@ -1,41 +1,54 @@
-h2{
+h2 {
   text-align: center;
   margin-bottom: 20px;
   font-weight: 600;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   gap: 18px;
   padding: 10px 20px 20px 20px;
 }
 
-form div{
+form div {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-label{
+label {
   font-size: 14px;
   font-weight: 500;
 }
 
-input{
+input {
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   font-size: 14px;
   transition: border 0.2s;
 }
 
-input:focus{
-  outline: none;
-  border: 1px solid #1976d2;
+
+select{
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #000000;
+  font-size: 14px;
+  transition: border 0.2s;
 }
 
-button{
+select:focus{
+  border: 2px solid #107510;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #107510;
+}
+
+button {
   padding: 10px;
   border: none;
   border-radius: 6px;
@@ -43,23 +56,51 @@ button{
   cursor: pointer;
 }
 
-button[type="submit"]{
+button[type="submit"] {
   background-color: #1976d2;
   color: white;
 }
 
-button[type="submit"]:hover{
+button[type="submit"]:hover {
   background-color: #1565c0;
 }
 
-button[type="button"]{
+button[type="button"] {
   background-color: #e0e0e0;
 }
 
-button[type="button"]:hover{
+button[type="button"]:hover {
   background-color: #cfcfcf;
 }
 
-form button{
+form button {
   margin-top: 5px;
+}
+
+form div.colors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  align-self: center;
+  gap: 100px;
+}
+
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.upload-box.dragging {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
+.preview img {
+  margin-top: 15px;
+  max-width: 200px;
+  border-radius: 10px;
 }
