@@ -3,8 +3,8 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
     <div class="title-icon">
-        <span class="material-symbols-outlined">trophy</span>
-      </div>
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
 
     <h2>Crear Cuenta</h2>
     <h4>Únete y gestiona tus torneos</h4>
@@ -14,11 +14,11 @@
         <span class="material-icons">person</span>
         <input type="text" formControlName="nombre" placeholder="Ingresa tu nombre">
       </div>
-        
-      
+
+
 
       @if (registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched) {
-        <div>El nombre es obligatorio</div>
+      <div>El nombre es obligatorio</div>
       }
     </div>
 
@@ -30,7 +30,7 @@
       </div>
 
       @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
-        <div>Email inválido</div>
+      <div>Email inválido</div>
       }
     </div>
 
@@ -42,7 +42,7 @@
       </div>
 
       @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-        <div>Mínimo 6 caracteres</div>
+      <div>Mínimo 6 caracteres</div>
       }
     </div>
 
@@ -54,7 +54,7 @@
       </div>
 
       @if (registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched) {
-        <div>Las contraseñas no coinciden</div>
+      <div>Las contraseñas no coinciden</div>
       }
     </div>
 
@@ -68,7 +68,7 @@
       </div>
 
       @if (registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched) {
-        <div>La fecha es obligatoria</div>
+      <div>La fecha es obligatoria</div>
       }
     </div>
 

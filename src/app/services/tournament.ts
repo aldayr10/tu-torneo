@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { TOURNAMENTS } from '../fake-data/tournaments.data';
+import { Tournament } from '../models/tournament';
+import { User } from '../models/user';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn:'root'
 })
 export class TournamentService{
+  private tournaments: Tournament[] = [];
+    private teamsSource = new BehaviorSubject<Tournament[]>([]);
+    teams$ = this.teamsSource.asObservable();
 
-  tournaments = TOURNAMENTS;
 
   getTournaments(){
     return this.tournaments;

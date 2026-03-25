@@ -4,8 +4,11 @@ export interface Team {
 
   id: number;
   name: string;
-  category: string;
+  category: number;
   ownerId: number;
+  primaryColor: string;
+  alternativeColor: string;
+  image: {};
   players: User[];
 
 }

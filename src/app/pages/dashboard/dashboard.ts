@@ -1,27 +1,48 @@
 import { Component } from '@angular/core';
-import { Router,RouterOutlet } from '@angular/router'
+import { Router } from '@angular/router'
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  goToCreateTeam(){
-    this.router.navigate(['/dashboard/view-created-teams']);
+  goToCreateTeam() {
+    this.router.navigate(['/teams']);
   }
 
-  updateProfile(){
-    this.router.navigate(['/update-profile']);
-  }
-  goToJoinTeam(){}
+
 
   logout() {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+
+
+  goHome() {
+   
+  }
+
+  viewProfile() {
+    
+  }
+
+  editProfile() {
+    this.router.navigate(['/update-profile']);
+  }
+
+  openNotifications() {
+    console.log("notificaciones");
   }
 }

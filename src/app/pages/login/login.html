@@ -1,29 +1,53 @@
-<h2>Iniciar Sesión</h2>
+<div class="overlay">
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-  <label>Email:</label>
-  <input type="email" formControlName="email">
-  <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-    Email inválido
-  </div>
+    <div class="title-icon">
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
 
-  <br><br>
+    <h2>Torneos de Fútbol</h2>
+    <div>
+      <h4>Gestiona tus competencias <br> deportivas</h4>
+    </div>
 
-  <label>Contraseña:</label>
-  <input type="password" formControlName="password">
-  <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-    La contraseña es obligatoria
-  </div>
-  <br>
- 
-  <br><br>
 
-  <button type="submit">Ingresar</button>
-  <button type="button" (click)="registrarse()">registrarse</button>
+    <div>
+      <label>Usuario:</label>
+      <input type="email" formControlName="email" placeholder="Ingresa tu email">
 
-</form>
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+      <div>Email inválido</div>
+      }
+    </div>
 
-<a (click)="recuperarPassword()">
-  ¿Olvidaste tu contraseña?
-</a>
+    <div>
+      <label>Contraseña:</label>
+      <input type="password" formControlName="password" placeholder="Ingresa tu contraseña">
+
+      @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+        @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+        <div>La contraseña es obligatoria</div>
+        }
+
+        @if(loginForm.get('password')?.errors?.['minlength']){
+        <div>La contraseña debe tener mínimo 6 caracteres</div>
+        }
+      }
+    </div>
+    <div class="recover-pass">
+      <a (click)="recuperarPassword()">
+        ¿Olvidaste tu contraseña?
+      </a>
+    </div>
+    
+    <button type="submit" >Iniciar Sesión</button>
+    <div class="register">
+      <label for="registrarse">¿No tienes cuenta?
+        <a (click)="registrarse()">Regístrate aquí</a>
+      </label>
+    </div>
+    
+  </form>
+
+</div>
