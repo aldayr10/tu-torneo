@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'
+import { NavBar } from "./nav-bar/nav-bar";
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [NavBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -14,35 +15,5 @@ export class Dashboard {
   goToCreateTeam() {
     this.router.navigate(['/teams']);
   }
-
-
-
-  logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }
-
-  menuOpen = false;
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
-
-
-
-  goHome() {
-   
-  }
-
-  viewProfile() {
-    
-  }
-
-  editProfile() {
-    this.router.navigate(['/update-profile']);
-  }
-
-  openNotifications() {
-    console.log("notificaciones");
-  }
+ 
 }
