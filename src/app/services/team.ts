@@ -10,7 +10,7 @@ export class TeamService {
   private teams: Team[] = [];
   private teamsSource = new BehaviorSubject<Team[]>([]);
   teams$ = this.teamsSource.asObservable();
-
+  index = -1
 
   createTeam(team: Team) {
     team.id = this.teams.length + 1;
@@ -18,9 +18,14 @@ export class TeamService {
     this.teamsSource.next(this.teams);
     return team;
   }
-
+//post , put ,delete
   getTeams() {
     return this.teams;
+  }
+
+  deteleTeams(id: number){
+    this.index = this.teams.findIndex(o => o.id == id)
+        this.teams.splice(this.index, 1);
   }
   getTeamsByOwner(ownerId: number) {
     return this.teams.filter(team => team.ownerId === ownerId);

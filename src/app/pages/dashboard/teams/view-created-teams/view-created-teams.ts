@@ -49,7 +49,7 @@ export class ViewCreatedTeams implements OnInit {
       if (result) {
         this.index = this.teams.findIndex(o => o.id == id)
         this.teams.splice(this.index, 1);
-
+        this.teamService.deteleTeams(id)
         alert('Equipo eliminado correctamente');
 
 
