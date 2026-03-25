@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { USERS } from '../fake-data/users.data';
 import { User } from '../models/user';
+import { CanActivate } from "@angular/router";
 
 @Injectable({
   providedIn:'root'
 })
-export class AuthService{
+export class AuthService {
 
   login(email:string,password:string){
 
