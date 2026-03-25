@@ -33,7 +33,6 @@ export class Login {
       const { email, password } = this.loginForm.value;
       const success = this.authService.login(email, password);
       if (success) {
-        alert('Login correcto');
         this.router.navigate(['/dashboard']);
       } else {
         alert('Email o contraseña incorrectos');

@@ -13,6 +13,7 @@ import { DeletePlayerTeam } from './pages/dashboard/teams/request/delete-player-
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';
 import { DeleteTeam } from './pages/dashboard/teams/delete-team/delete-team';
 import { CreateTeam } from "./pages/dashboard/teams/create-team/create-team";
+import { Teams } from "./pages/dashboard/teams/teams";
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,5 +31,6 @@ export const routes: Routes = [
     { path: 'view-created-teams', component: ViewCreatedTeams },
     { path: 'delete-team', component: DeleteTeam },
     { path: 'create-team', component: CreateTeam },
+    { path: 'teams', component: Teams },
 ];
 

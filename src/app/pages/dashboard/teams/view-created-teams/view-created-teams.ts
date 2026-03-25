@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { TeamService } from '../../../../services/team';
-import { CreateTeam } from '../create-team/create-team';
 import { DeleteTeam } from '../delete-team/delete-team';
 import { ManageTeam } from '../manage-team/manage-team';
 
@@ -15,33 +14,32 @@ import { ManageTeam } from '../manage-team/manage-team';
   styleUrl: './view-created-teams.css',
 })
 export class ViewCreatedTeams implements OnInit {
-  index:number=-1;
+  index: number = -1;
   teams: any[] = [];
   ownerId: number = 1;
 
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.teams = this.teamService.getTeamsByOwner(this.ownerId);
+    this.teamService.teams$.subscribe(teams => {
+      this.teams = teams.filter(team => team.ownerId === this.ownerId);
+    });
   }
 
-  addTeam() {
 
-  }
+  openManageTeam(teamId: number) {
 
-  openManageTeam(teamId:number){
-
-    this.dialog.open(ManageTeam,{
-      width:'500px',
-      data:{teamId:teamId}
+    this.dialog.open(ManageTeam, {
+      width: '500px',
+      data: { teamId: teamId }
     });
 
   }
 
-  deleteTeam(id:number){
+  deleteTeam(id: number) {
 
     const dialogRef = this.dialog.open(DeleteTeam, {
       width: '400px'
@@ -49,7 +47,7 @@ export class ViewCreatedTeams implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.index =this.teams.findIndex(o=>o.id==id)
+        this.index = this.teams.findIndex(o => o.id == id)
         this.teams.splice(this.index, 1);
 
         alert('Equipo eliminado correctamente');

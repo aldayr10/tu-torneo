@@ -12,7 +12,7 @@ export class Dashboard {
   constructor(private router: Router) { }
 
   goToCreateTeam() {
-    this.router.navigate(['/create-team']);
+    this.router.navigate(['/teams']);
   }
 
 

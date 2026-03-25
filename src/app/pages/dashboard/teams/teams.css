@@ -1,0 +1,15 @@
+.dashboard-container{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  gap:30px;
+  padding:40px;
+}
+.card{
+
+  background:white;
+  border-radius:20px;
+  padding:30px;
+  text-align:left;
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  transition:0.2s;
+}

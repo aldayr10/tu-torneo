@@ -6,6 +6,7 @@ import { RequestService } from '../../../../services/request';
 import { UserService } from '../../../../services/user';
 import { Request } from '../../../../models/request';
 import { Router } from '@angular/router'
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-create-team',
@@ -51,14 +52,14 @@ export class CreateTeam {
       players: []
     };
 
+    console.log(newTeam);
+    
     const createdTeam = this.teamService.createTeam(newTeam);
     this.teamIdCreated = createdTeam.id;
     this.teamForm.reset();
 
   }
 
-  goToDAshboard(){
-    this.router.navigate(['/dashboard']);
-  }
+  
 
 }
