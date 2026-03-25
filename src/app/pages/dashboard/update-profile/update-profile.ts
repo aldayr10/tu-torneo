@@ -45,6 +45,7 @@ export class UpdateProfile {
     if (this.updateProfileForm.valid) {
 
       const user = this.authService.getCurrentUser();
+      console.log("Usuario actual:", user);
 
       if (user) {
 
@@ -52,7 +53,7 @@ export class UpdateProfile {
           ...user,
           name: this.updateProfileForm.value.nombre
         };
-
+        console.log("Usuario actualizado:", updatedUser);
         this.userService.updateProfile(updatedUser);
 
         alert("Información actualizada correctamente");

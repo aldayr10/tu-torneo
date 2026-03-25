@@ -20,9 +20,12 @@ export class UserService{
   updateProfile(updatedUser: User){
 
     const index = this.users.findIndex(u => u.id === updatedUser.id);
-
+    console.log(index);
+    
     if(index !== -1){
       this.users[index] = updatedUser;
+      console.log(this.users);
+      
     }
 
   }
