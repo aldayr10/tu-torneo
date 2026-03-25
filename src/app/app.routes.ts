@@ -11,6 +11,7 @@ import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from'./pages/dashboard/teams/request/delete-player-team/delete-player-team';
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';   
+import{DeleteTeam} from'./pages/dashboard/teams/delete-team/delete-team';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,7 +28,8 @@ export const routes: Routes = [
             { path: 'join-team', component: JoinTeam },
             { path: 'leave-team', component:LeaveTeam},
             { path: 'delete-player-team' , component:DeletePlayerTeam},
-            { path: 'view-created-teams', component:ViewCreatedTeams}
+            { path: 'view-created-teams', component:ViewCreatedTeams},
+            { path: 'delete-team',component:DeleteTeam},
         ]
     }
 ];

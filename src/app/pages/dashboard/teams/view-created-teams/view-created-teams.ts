@@ -4,6 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { TeamService } from '../../../../services/team';
 import { CreateTeam } from '../create-team/create-team';
+import { DeleteTeam } from '../delete-team/delete-team';
 import { ManageTeam } from '../manage-team/manage-team';
 
 @Component({
@@ -14,7 +15,7 @@ import { ManageTeam } from '../manage-team/manage-team';
   styleUrl: './view-created-teams.css',
 })
 export class ViewCreatedTeams implements OnInit {
-
+  index:number=-1;
   teams: any[] = [];
   ownerId: number = 1;
 
@@ -48,6 +49,26 @@ export class ViewCreatedTeams implements OnInit {
     this.dialog.open(ManageTeam,{
       width:'500px',
       data:{teamId:teamId}
+    });
+
+  }
+
+  deleteTeam(id:number){
+
+    const dialogRef = this.dialog.open(DeleteTeam, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.index =this.teams.findIndex(o=>o.id==id)
+        this.teams.splice(this.index, 1);
+
+        alert('Equipo eliminado correctamente');
+
+
+
+      }
     });
 
   }

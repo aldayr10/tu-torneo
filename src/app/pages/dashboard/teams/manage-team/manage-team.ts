@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { UserService } from '../../../../services/user';
 import { TeamService } from '../../../../services/team';
 import { Team } from '../../../../models/team';
 
@@ -19,12 +19,14 @@ export class ManageTeam implements OnInit {
   inviteForm!: FormGroup;
   inviteLink: string = '';
   showInviteForm: boolean = false;
+  userExists: boolean = true;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data:any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private teamService: TeamService,
+    private userService: UserService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -32,44 +34,58 @@ export class ManageTeam implements OnInit {
 
     const teamData = this.teamService.getTeamById(teamId);
 
-    if(teamData){
+    if (teamData) {
       this.team = teamData;
     }
 
     this.inviteForm = this.fb.group({
-      username: ['', Validators.required]
+      useremail: ['', [Validators.required, Validators.email]]
     });
 
   }
 
-  openInviteForm(){
+  openInviteForm() {
     this.showInviteForm = true;
   }
 
-  invitePlayer(){
+  invitePlayer() {
 
-    if(this.inviteForm.valid){
+    if (this.inviteForm.valid) {
+      let user = this.userService.getUserByEmail(this.inviteForm.value.useremail)
+      console.log(user);
 
-      const username = this.inviteForm.value.username;
+      setTimeout(() => {
 
-      const playerId = Math.floor(Math.random() * 100);
 
-      this.teamService.invitePlayer(this.team.id, playerId);
 
-      alert('Invitación enviada');
+        if (user == undefined) {
 
-      this.inviteForm.reset();
-      this.showInviteForm = false;
+          alert('Usuario No Existe');
+        } else {
+          this.teamService.invitePlayer(this.team.id, user);
+
+          alert('Invitación enviada');
+
+          this.inviteForm.reset();
+          this.showInviteForm = false;
+        }
+
+      }, 2000);
+
+
+
+
+
 
     }
 
   }
 
-  generateInviteLink(){
+  generateInviteLink() {
     this.inviteLink = this.teamService.generateInviteLink(this.team.id);
   }
 
-  copyLink(){
+  copyLink() {
     navigator.clipboard.writeText(this.inviteLink);
     alert('Link copiado');
   }
