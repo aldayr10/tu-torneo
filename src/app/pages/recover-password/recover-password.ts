@@ -8,7 +8,7 @@ import { UserService } from '../../services/user';
   selector: 'app-recover-password',
   imports: [ReactiveFormsModule, CheckEmail, CommonModule],
   templateUrl: './recover-password.html',
-  styleUrl: './recover-password.css',
+  styleUrls: ['./recover-password.css'], 
   standalone: true,
 })
 export class RecoverPassword {
