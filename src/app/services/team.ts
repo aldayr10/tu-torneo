@@ -25,7 +25,8 @@ export class TeamService {
 
   deteleTeams(id: number){
     this.index = this.teams.findIndex(o => o.id == id)
-        this.teams.splice(this.index, 1);
+    this.teams.splice(this.index, 1);
+    this.teamsSource.next(this.teams);
   }
   getTeamsByOwner(ownerId: number) {
     return this.teams.filter(team => team.ownerId === ownerId);
