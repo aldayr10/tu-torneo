@@ -38,6 +38,6 @@ export class TeamService {
   }
 
   generateInviteLink(teamId: number): string {
-    return `https://tuapp.com/invite/team/${teamId}`;
+    return `https://localhost:4200.com/invite/team/${teamId}`;
   }
 }
