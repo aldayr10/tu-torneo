@@ -15,7 +15,7 @@ export class TeamService {
   createTeam(team: Team) {
     team.id = this.teams.length + 1;
     this.teams.push(team);
-    this.teamsSource.next(this.teams);
+    this.teamsSource.next([...this.teams]);
     return team;
   }
 //post , put ,delete
@@ -23,13 +23,14 @@ export class TeamService {
     return this.teams;
   }
 
-  deteleTeams(id: number){
-    this.index = this.teams.findIndex(o => o.id == id)
-    this.teams.splice(this.index, 1);
-    this.teamsSource.next(this.teams);
+  deteleTeam(id: number){
+    this.teams = this.teams.filter(team => team.id !== id);
+    this.teamsSource.next([...this.teams]);
+    
   }
   getTeamsByOwner(ownerId: number) {
-    return this.teams.filter(team => team.ownerId === ownerId);
+    this.teams= this.teams.filter(team => team.ownerId === ownerId);
+    this.teamsSource.next([...this.teams]);
   }
   getTeamById(teamId: number): Team | undefined {
     return this.teams.find(team => team.id === teamId);
