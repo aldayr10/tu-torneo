@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { TeamService } from '../../../../services/team';
-import { CreateTeam } from '../create-team/create-team';
 import { DeleteTeam } from '../delete-team/delete-team';
 import { ManageTeam } from '../manage-team/manage-team';
+import { Team } from '../../../../models/team';
 
 @Component({
   selector: 'app-view-created-teams',
@@ -14,63 +16,39 @@ import { ManageTeam } from '../manage-team/manage-team';
   templateUrl: './view-created-teams.html',
   styleUrl: './view-created-teams.css',
 })
-export class ViewCreatedTeams implements OnInit {
-  index:number=-1;
-  teams: any[] = [];
+export class ViewCreatedTeams {
+
   ownerId: number = 1;
+
+  teams$!: Observable<Team[]>; // 🔥 TIPADO CORRECTO
 
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog
-  ) {}
-
-  ngOnInit() {
-    this.teams = this.teamService.getTeamsByOwner(this.ownerId);
+  ) {
+    this.teams$ = this.teamService.teams$.pipe(
+      map(teams => teams.filter(team => team.ownerId === this.ownerId))
+    );
   }
 
-  addTeam() {
-
-    const dialogRef = this.dialog.open(CreateTeam, {
-      width: '400px'
+  openManageTeam(teamId: number) {
+    this.dialog.open(ManageTeam, {
+      width: '500px',
+      data: { teamId }
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-
-      if (result) {
-        this.teams.push(result);
-      }
-
-    });
-
   }
 
-  openManageTeam(teamId:number){
-
-    this.dialog.open(ManageTeam,{
-      width:'500px',
-      data:{teamId:teamId}
-    });
-
-  }
-
-  deleteTeam(id:number){
-
+  deleteTeam(id: number) {
     const dialogRef = this.dialog.open(DeleteTeam, {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.index =this.teams.findIndex(o=>o.id==id)
-        this.teams.splice(this.index, 1);
-
+        this.teamService.deteleTeam(id);
         alert('Equipo eliminado correctamente');
-
-
-
       }
     });
-
   }
 
 }

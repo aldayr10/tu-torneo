@@ -1,33 +1,19 @@
 import { Component } from '@angular/core';
-import { Router,RouterOutlet } from '@angular/router'
+import { Router } from '@angular/router'
+import { NavBar } from "./nav-bar/nav-bar";
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet],
+  imports: [NavBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  goToCreateTournament(){
-    console.log('asd');
-    
-    this.router.navigate(['/dashboard/view-created-tournament']);
+  goToCreateTeam() {
+    this.router.navigate(['/teams']);
   }
-
-  goToCreateTeam(){
-    this.router.navigate(['/dashboard/view-created-teams']);
-  }
-
-  updateProfile(){
-    this.router.navigate(['/update-profile']);
-  }
-  goToJoinTeam(){}
-
-  logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }
+ 
 }

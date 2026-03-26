@@ -2,26 +2,34 @@
 
   <h2>Equipos creados</h2>
 
-  <button (click)="addTeam()">
-    Agregar Equipo
-  </button>
+  @if (teams$ | async; as teams) {
 
+    @if (teams.length > 0) {
 
+      @for (team of teams; track team.id) {
+        <div class="team-card">
+          <div>
+            <h3>{{ team.name }}</h3>
+          </div>
 
+          <div class="buttos-card-team">
+            <button class="settings" (click)="openManageTeam(team.id)">
+              <span class="material-symbols-outlined">settings</span>
+            </button>
 
-  <div *ngIf="teams.length > 0">
+            <button class="delete" (click)="deleteTeam(team.id)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
+        </div>
+      }
 
-    <div 
-      *ngFor="let team of teams" 
-      class="team-card"
-      
-    >
-      <h3>{{ team.name }}</h3>
-      <button (click)="openManageTeam(team.id)">Gestionar Equipo</button>
-      <button (click)="deleteTeam(team.id)">eliminar Equipo</button>
-
-    </div>
-
-  </div>
+    } @else {
+      <div class="group-exist">
+        <span class="material-symbols-outlined">group</span>
+        <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
+      </div>
+    }
+  }
 
 </div>
