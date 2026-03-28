@@ -1,12 +1,11 @@
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CheckEmail } from './check-email/check-email';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-recover-password',
-  imports: [ReactiveFormsModule, CheckEmail, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './recover-password.html',
   styleUrls: ['./recover-password.css'], 
   standalone: true,

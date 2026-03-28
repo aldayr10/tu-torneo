@@ -5,6 +5,9 @@
   <div>
     <label>Nombre del equipo</label>
     <input type="text" formControlName="name">
+    @if (teamForm.get('name')?.invalid && teamForm.get('name')?.touched) {
+      <div class="validators">El nombre del equipo es obligatorio</div>
+    }
   </div>
 
   <div>
@@ -39,7 +42,7 @@
   [class.dragging]="isDragging"
 >
 
-  <p>Arrastra una imagen aquí o haz clic</p>
+  <p>Arrastra una imagen aquí o haz click en buscar archivo </p>
 
   <input 
     type="file" 

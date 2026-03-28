@@ -54,24 +54,16 @@ button {
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-}
-
-button[type="submit"] {
   background-color: #1976d2;
   color: white;
 }
 
-button[type="submit"]:hover {
-  background-color: #1565c0;
+
+button[type="submit"]:hover, button[type="button"]:hover {
+  background-color: #0d5296;
 }
 
-button[type="button"] {
-  background-color: #e0e0e0;
-}
 
-button[type="button"]:hover {
-  background-color: #cfcfcf;
-}
 
 form button {
   margin-top: 5px;
@@ -86,7 +78,7 @@ form div.colors {
 }
 
 .upload-box {
-  border: 2px dashed #ccc;
+  border: 2px dashed #050101;
   padding: 30px;
   text-align: center;
   cursor: pointer;
@@ -103,4 +95,9 @@ form div.colors {
   margin-top: 15px;
   max-width: 200px;
   border-radius: 10px;
+}
+
+.validators{
+  color: red;
+  font-size: 12px;
 }
