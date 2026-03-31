@@ -15,5 +15,4 @@ export class Dashboard {
   goToCreateTeam() {
     this.router.navigate(['/teams']);
   }
- 
 }

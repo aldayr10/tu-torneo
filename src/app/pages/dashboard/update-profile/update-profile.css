@@ -107,19 +107,3 @@
   justify-content: center;
   gap: 8px;
 }
-
-/* Botón Cerrar Sesión */
-.btn-logout {
-  margin: 20px auto 0; /* centra horizontalmente */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  background: red;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-}

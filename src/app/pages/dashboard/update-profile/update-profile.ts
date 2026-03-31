@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user';
 import { AuthService } from '../../../services/auth';
+import { Player } from '../../../services/player';
 
 @Component({
   selector: 'app-update-profile',
