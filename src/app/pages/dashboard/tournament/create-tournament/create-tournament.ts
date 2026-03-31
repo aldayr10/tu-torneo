@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../../../services/tournament.service';
+import { CatTypeTeam } from '../../../../services/cat-type-team';
+
+
 @Component({
   selector: 'app-create-tournament',
   standalone: true,
@@ -12,14 +15,17 @@ import { TournamentService } from '../../../../services/tournament.service';
   templateUrl: './create-tournament.html',
   styleUrls: ['./create-tournament.css']
 })
-export class CreateTournament {
+export class CreateTournament implements OnInit {
 
   tournamentForm: FormGroup;
+  catalogoTeam: any[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private tournamentService: TournamentService
+    private tournamentService: TournamentService,
+    private catalogoTipoEquipo: CatTypeTeam
   ) {
+
 
     this.tournamentForm = this.fb.group({
       name: ['', Validators.required],
@@ -27,6 +33,10 @@ export class CreateTournament {
       description: ['']
     });
 
+  }
+
+   ngOnInit(): void {
+    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
   }
 
   crearTorneo() {

@@ -12,14 +12,16 @@
 
     <label>Descripción del Torneo</label>
     <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
-
-    <label>Tipo de Torneo</label>
-    <select formControlName="category">
-      <option value="">Selecciona el tipo de torneo</option>
-      <option>Eliminación directa</option>
-      <option>Todos contra todos</option>
-      <option>Fase de grupos</option>
-    </select>
+    <div>
+      <label>Categoría</label>
+      <select formControlName="category">
+        @for (tipo of catalogoTeam; track tipo.id) {
+        <option [value]="tipo.id" [defaultSelected]="1">
+          {{ tipo.name }}
+        </option>
+        }
+      </select>
+    </div>
 
     <button type="submit">Crear Torneo</button>
 
