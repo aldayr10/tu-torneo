@@ -1,0 +1,11 @@
+.dashboard-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.card{
+  background: #f8fafc;
+  padding: 30px;
+  border-radius: 12px;
+}

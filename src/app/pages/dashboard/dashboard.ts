@@ -12,8 +12,12 @@ import { NavBar } from "./nav-bar/nav-bar";
 export class Dashboard {
   constructor(private router: Router) { }
 
-  goToCreateTeam() {
+  goToTeam() {
     this.router.navigate(['/teams']);
+  }
+
+  goToTournament() {
+    this.router.navigate(['/tournament']);
   }
  
 }

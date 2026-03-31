@@ -6,7 +6,7 @@ import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-recover-password',
-  imports: [ReactiveFormsModule, CheckEmail, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './recover-password.html',
   styleUrls: ['./recover-password.css'], 
   standalone: true,

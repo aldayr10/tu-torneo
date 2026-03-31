@@ -1,13 +1,22 @@
-<h1>Vista de torneos creados</h1>
-<button (click)="createTournament()">Crear Torneo</button>
-<div *ngIf="tournaments.length === 0">
-  <p>No existen torneos creados.</p>
+<h2>🏆 Mis Torneos</h2>
+
+<div *ngIf="tournaments.length === 0" class="empty-state">
+
+  <div class="empty-icon">🏆</div>
+
+  <p>Aún no has creado ningún torneo</p>
+  <span>¡Usa el formulario para crear el primero!</span>
+
 </div>
-<div *ngIf="tournaments.length > 0">
-  <div *ngFor="let tournament of tournaments">
-    <div class="tournament-card">
-      <h3>{{ tournament.name }}</h3>
-      
-    </div>
+
+<div *ngIf="tournaments.length > 0" class="tournament-list">
+
+  <div *ngFor="let tournament of tournaments" class="tournament-card">
+
+    <h3>{{ tournament.name }}</h3>
+
+    <p>{{ tournament.category }}</p>
+
   </div>
-</div> 
+
+</div>
