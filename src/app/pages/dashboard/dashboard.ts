@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { NavBar } from "./nav-bar/nav-bar";
-
+import { PlayerService } from '../../services/player';
+import { Player } from '../../models/player';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,13 @@ import { NavBar } from "./nav-bar/nav-bar";
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor(private router: Router) { }
+
+  player: any; 
+
+  constructor(
+    private router: Router,
+    private playerService: PlayerService
+  ) {}
 
   goToCreateTeam() {
     this.router.navigate(['/teams']);

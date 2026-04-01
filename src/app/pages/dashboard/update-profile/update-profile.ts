@@ -1,68 +1,70 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserService } from '../../../services/user';
-import { AuthService } from '../../../services/auth';
-import { Player } from '../../../services/player';
+import { PlayerService } from '../../../services/player';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-update-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './update-profile.html',
   styleUrls: ['./update-profile.css']
 })
-export class UpdateProfile {
+
+export class UpdateProfile implements OnInit {
 
   updateProfileForm: FormGroup;
+  player:any
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private authService: AuthService,
-    private router:Router
+    private router:Router,
+    private playerService: PlayerService
   ) {
 
     this.updateProfileForm = this.fb.group({
       nombre: ['', Validators.required],
       fechaNacimiento: ['', Validators.required]
     });
+  }
 
-    const user = this.authService.getCurrentUser();
+  goToDAshboard(){
+    this.router.navigate(['/dashboard']);
+  }
 
-    if (user) {
-
-      this.updateProfileForm.patchValue({
-        nombre: user.name
-      });
-
-    }
-
+  ngOnInit(): void {
+    
+    const userString = localStorage.getItem('user');
+    const idUser = userString ? JSON.parse(userString).id : null;
+    this.player = this.playerService.getPlayerById(idUser);
+    this.updateProfileForm.patchValue({
+      nombre: this.player.name, 
+      fechaNacimiento: this.player.dateBirth ? new Date(this.player.dateBirth).toISOString().substring(0, 10) : ''
+    });
+    console.log("PLAYER EN NAVBAR:", this.player);
   }
 
   onSubmit() {
 
-    if (this.updateProfileForm.valid) {
+  if (this.updateProfileForm.valid) {
 
-      const user = this.authService.getCurrentUser();
-      console.log("Usuario actual:", user);
+    if (this.player) {
 
-      if (user) {
+      const updatedPlayer = {
+        id: this.player.id,
+        idUser: this.player.idUser,
+        name: this.updateProfileForm.value.nombre,
+        dateBirth: new Date(this.updateProfileForm.value.fechaNacimiento)
+      };
 
-        const updatedUser = {
-          ...user,
-          name: this.updateProfileForm.value.nombre
-        };
-        console.log("Usuario actualizado:", updatedUser);
-        this.userService.updateProfile(updatedUser);
+      this.playerService.updateProfile(updatedPlayer);
 
-        alert("Información actualizada correctamente");
-        this.router.navigate(['/dashboard']);
+      alert("Información actualizada correctamente");
+
+      this.router.navigate(['/dashboard']);
       }
-
     }
-
   }
-
 }

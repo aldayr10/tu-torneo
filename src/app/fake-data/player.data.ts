@@ -1,12 +1,10 @@
-import { Player } from "../services/player";  
+import { Player } from '../models/player';
 
-export const PLAYERS: Player[] = [
-  
+export const PLAYERS_: Player[] = [
   {
     id: 1,
     idUser: 1,
-    name: "John Doe",
-    dateBirth: new Date("1990-01-01")
-  },
-
+    name: 'Admin',
+    dateBirth: new Date('2000-01-01')
+  }
 ];

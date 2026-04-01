@@ -2,12 +2,13 @@ import { Injectable,OnInit } from '@angular/core';
 import { Team } from '../models/team';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
+import { TEAMS } from '../fake-data/teams.data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
-  private teams: Team[] = [];
+  private teams: Team[] = TEAMS;
   private teamsSource = new BehaviorSubject<Team[]>([]);
   teams$ = this.teamsSource.asObservable();
 
