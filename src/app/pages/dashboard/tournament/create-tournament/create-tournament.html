@@ -1,0 +1,33 @@
+<div class="container">
+
+  <h2>Crear Torneo</h2>
+
+  <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()">
+
+    <label>Nombre del torneo</label>
+    <input type="text" formControlName="nombre">
+
+    <div *ngIf="tournamentForm.get('nombre')?.invalid && tournamentForm.get('nombre')?.touched">
+      El nombre del torneo es obligatorio
+    </div>
+
+    <br><br>
+
+    <label>Fecha del torneo</label>
+    <input type="date" formControlName="fecha">
+
+    <div *ngIf="tournamentForm.get('fecha')?.invalid && tournamentForm.get('fecha')?.touched">
+      La fecha es obligatoria
+    </div>
+
+    <br><br>
+
+    <button (click)="cancelar()">cancelar</button>
+
+    <button type="submit">
+      Crear torneo
+    </button>
+
+  </form>
+
+</div>

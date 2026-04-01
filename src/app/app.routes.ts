@@ -15,7 +15,6 @@ import { DeleteTeam } from './pages/dashboard/teams/delete-team/delete-team';
 import { CreateTeam } from "./pages/dashboard/teams/create-team/create-team";
 import { Teams } from "./pages/dashboard/teams/teams";
 import { NavBar } from "./pages/dashboard/nav-bar/nav-bar";
-
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login },
