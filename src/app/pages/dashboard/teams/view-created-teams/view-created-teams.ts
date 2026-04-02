@@ -20,7 +20,7 @@ export class ViewCreatedTeams {
 
   ownerId: number = 1;
 
-  teams$!: Observable<Team[]>; // 🔥 TIPADO CORRECTO
+  teams$!: Observable<Team[]>; 
 
   constructor(
     private teamService: TeamService,
