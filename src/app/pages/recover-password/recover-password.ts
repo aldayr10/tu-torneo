@@ -1,15 +1,16 @@
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CheckEmail } from './check-email/check-email';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user';
+import { Router } from '@angular/router';
+import { CheckEmail } from './check-email/check-email';
 
 @Component({
   selector: 'app-recover-password',
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './recover-password.html',
-  styleUrls: ['./recover-password.css'], 
   standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, CheckEmail],
+  templateUrl: './recover-password.html',
+  styleUrls: ['./recover-password.css']
 })
 export class RecoverPassword {
 
@@ -18,7 +19,8 @@ export class RecoverPassword {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
 
     this.recoverForm = this.fb.group({
@@ -51,6 +53,10 @@ export class RecoverPassword {
 
     }
 
+  }
+
+  volverLogin(){
+    this.router.navigate(['/login']);
   }
 
 }
