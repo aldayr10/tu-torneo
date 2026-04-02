@@ -29,7 +29,7 @@ export class CreateTournament implements OnInit {
 
     this.tournamentForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', Validators.required],
+      category: [1, Validators.required],
       description: ['']
     });
 
