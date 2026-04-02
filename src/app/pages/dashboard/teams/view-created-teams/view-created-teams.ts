@@ -19,8 +19,10 @@ import { Team } from '../../../../models/team';
 export class ViewCreatedTeams {
 
   ownerId: number = 1;
-
-  teams$!: Observable<Team[]>; 
+  teams$!: Observable<Team[]>;
+  gestion=false
+  currentPage = 1;
+  itemsPerPage = 5;
 
   constructor(
     private teamService: TeamService,
@@ -29,6 +31,17 @@ export class ViewCreatedTeams {
     this.teams$ = this.teamService.teams$.pipe(
       map(teams => teams.filter(team => team.ownerId === this.ownerId))
     );
+  }
+
+
+  getPaginatedTeams(teams: Team[]) {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return teams.slice(start, start + this.itemsPerPage);
+  }
+
+
+  getTotalPages(teams: Team[]) {
+    return Math.ceil(teams.length / this.itemsPerPage);
   }
 
   openManageTeam(teamId: number) {

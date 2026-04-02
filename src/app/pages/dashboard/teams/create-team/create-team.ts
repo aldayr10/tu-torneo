@@ -60,7 +60,6 @@ export class CreateTeam implements OnInit {
     image: null
   });
 
-  // 👇 opcional: limpiar preview si tienes imagen
   this.imagePreview = null;
   this.imageFile = null;
 }

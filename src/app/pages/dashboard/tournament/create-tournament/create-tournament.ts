@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
+import { TournamentService } from '../../../../services/tournament.service';
+import { CatTypeTeam } from '../../../../services/cat-type-team';
+
 
 @Component({
   selector: 'app-create-tournament',
@@ -14,39 +15,44 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './create-tournament.html',
   styleUrls: ['./create-tournament.css']
 })
-export class CreateTournament {
+export class CreateTournament implements OnInit {
 
   tournamentForm: FormGroup;
-
-  torneos: any[] = [];
+  catalogoTeam: any[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private dialogRef: MatDialogRef<CreateTournament>
+    private tournamentService: TournamentService,
+    private catalogoTipoEquipo: CatTypeTeam
   ) {
+
 
     this.tournamentForm = this.fb.group({
       name: ['', Validators.required],
-      id: ['', Validators.required],
-      category: ['', Validators.required],
-      team: ['']
+      category: [1, Validators.required],
+      description: ['']
     });
 
+  }
+
+   ngOnInit(): void {
+    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
   }
 
   crearTorneo() {
 
     if (this.tournamentForm.valid) {
+
       const torneo = this.tournamentForm.value;
-      
+
+      this.tournamentService.addTournament(torneo);
+
       alert('Torneo creado correctamente');
+
       this.tournamentForm.reset();
-      this.dialogRef.close(torneo);
+
     }
-  }
-  cancelar(){
-    this.dialogRef.close();
+
   }
 
 }

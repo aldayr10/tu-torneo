@@ -24,6 +24,7 @@ export class TeamService {
   }
 
   deteleTeam(id: number){
+    this.teams.find(team => team.id !== id)
     this.teams = this.teams.filter(team => team.id !== id);
     this.teamsSource.next([...this.teams]);
     

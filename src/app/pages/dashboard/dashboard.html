@@ -1,41 +1,28 @@
 <app-nav-bar></app-nav-bar>
+
 <div class="dashboard-container">
-
-  <div class="card">
-
-
+  <div class="card" (click)="goToTournament()">
     <div class="icon-circle blue">
       <span class="material-symbols-outlined">trophy</span>
     </div>
-
     <h3>Crear Torneo</h3>
-
     <p>Inicia un nuevo torneo de fútbol</p>
-
   </div>
 
-  <div class="card" (click)="goToCreateTeam()">
-
+  <div class="card" (click)="goToTeam()">
     <div class="icon-circle green">
       <span class="material-symbols-outlined">group</span>
     </div>
-
     <h3>Gestionar Equipos</h3>
-
     <p>Crea un torneo primero</p>
-
   </div>
 
   <div class="card">
-
     <div class="icon-circle purple">
       <span class="material-symbols-outlined">calendar_today</span>
     </div>
-
     <h3>Ver Partidos</h3>
-
     <p>Genera partidos primero</p>
-
   </div>
 
 </div>

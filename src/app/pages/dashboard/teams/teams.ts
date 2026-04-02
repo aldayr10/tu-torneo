@@ -13,9 +13,7 @@ export class Teams {
 
   constructor(
     private router:Router
-  ){
-
-  }
+  ){ }
 
   goToDAshboard(){
     this.router.navigate(['/dashboard']);
