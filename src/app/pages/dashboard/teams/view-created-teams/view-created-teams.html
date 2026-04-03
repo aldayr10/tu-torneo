@@ -4,32 +4,63 @@
 
   @if (teams$ | async; as teams) {
 
-    @if (teams.length > 0) {
+  @if (teams.length > 0) {
 
-      @for (team of teams; track team.id) {
-        <div class="team-card">
-          <div>
-            <h3>{{ team.name }}</h3>
-          </div>
 
-          <div class="buttos-card-team">
-            <button class="settings" (click)="openManageTeam(team.id)">
-              <span class="material-symbols-outlined">settings</span>
-            </button>
+  @for (team of getPaginatedTeams(teams); track team.id) {
+  <div class="team-card">
+    <div>
+      <h3>{{ team.name }}</h3>
+    </div>
 
-            <button class="delete" (click)="deleteTeam(team.id)">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </div>
-        </div>
+
+
+    <div class="buttos-card-team">
+      @if(!gestion){
+      <button class="settings" (click)="openManageTeam(team.id)">
+        <span class="material-symbols-outlined">
+          recent_patient
+        </span>
+      </button>
+      }
+      @if(gestion){
+      <button class="settings" (click)="openManageTeam(team.id)">
+        <span class="material-symbols-outlined">stadia_controller</span>
+      </button>
+
+      <button class="delete" (click)="deleteTeam(team.id)">
+        <span class="material-symbols-outlined">delete</span>
+      </button>
       }
 
-    } @else {
-      <div class="group-exist">
-        <span class="material-symbols-outlined">group</span>
-        <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
-      </div>
-    }
+    </div>
+  </div>
+  }
+
+
+  @if (teams.length > itemsPerPage) {
+  <div class="paginator">
+
+    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      <span class="material-symbols-outlined">arrow_circle_left</span>
+    </button>
+
+
+
+    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(teams)">
+      <span class="material-symbols-outlined">arrow_circle_right</span>
+    </button>
+
+  </div>
+  }
+
+  } @else {
+  <div class="group-exist">
+    <span class="material-symbols-outlined">group</span>
+    <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
+  </div>
+  }
+
   }
 
 </div>
