@@ -10,7 +10,7 @@ import { Request } from '../../../../../models/request';
   templateUrl: './player-join-team.html',
   styleUrls: ['./player-join-team.css']
 })
-export class PlayerJoinTeam {
+export class addPlayerTeam {
 
   solicitudes: Request[] = [];
   userId!: number;

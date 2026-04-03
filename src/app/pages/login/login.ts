@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,10 +10,10 @@ import { AuthService } from '../../services/auth';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
 
   loginForm: FormGroup;
-
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -25,6 +25,14 @@ export class Login {
       password: ['', [Validators.required,Validators.minLength(6)] ]
     });
 
+  }
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('user');
+
+    if (token) {
+      this.router.navigate(['/dashboard']); 
+    } 
   }
 
   onSubmit() {
