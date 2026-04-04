@@ -20,7 +20,7 @@ export class ViewCreatedTournament implements OnInit {
 
   @Input() typeForm!: number;
   tournaments$!: Observable<Tournament[]>;
-
+  gestion:any
   owner: any
   currentPage = 1;
   itemsPerPage = 5;
@@ -38,10 +38,14 @@ export class ViewCreatedTournament implements OnInit {
 
     switch (this.typeForm) {
       case -1:
+        this.gestion=true
         this.loadMyTournaments();
+        
         break;
       case -2:
+        this.gestion=false
         this.loadTournaments()
+        
         break;
       default:
 
