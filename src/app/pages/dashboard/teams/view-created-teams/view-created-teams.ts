@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
 import { TeamService } from '../../../../services/team';
 import { DeleteTeam } from '../delete-team/delete-team';
 import { ManageTeam } from '../manage-team/manage-team';
 import { Team } from '../../../../models/team';
+import { Profile } from "../../../../services/profile";
+import { log } from 'console';
 
 @Component({
   selector: 'app-view-created-teams',
@@ -18,27 +18,29 @@ import { Team } from '../../../../models/team';
 })
 export class ViewCreatedTeams {
 
-  ownerId: number = 1;
+  owner:any
   teams$!: Observable<Team[]>;
-  gestion=false
+  gestion=true
   currentPage = 1;
   itemsPerPage = 5;
 
   constructor(
     private teamService: TeamService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private profileService:Profile,
+    
   ) {
-    this.teams$ = this.teamService.teams$.pipe(
-      map(teams => teams.filter(team => team.ownerId === this.ownerId))
-    );
+    this.owner=profileService.getProfile()
+    
+    this.teams$ = this.teamService.getTeamsByOwner(this.owner.idPlayer)
+    console.log(this.teams$);
+    
   }
-
 
   getPaginatedTeams(teams: Team[]) {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return teams.slice(start, start + this.itemsPerPage);
   }
-
 
   getTotalPages(teams: Team[]) {
     return Math.ceil(teams.length / this.itemsPerPage);

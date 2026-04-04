@@ -3,11 +3,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../../../services/team';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
-import { RequestService } from '../../../../services/request';
-import { UserService } from '../../../../services/user';
+import { Profile } from "../../../../services/profile";
 import { Request } from '../../../../models/request';
-import { Router } from '@angular/router'
-import { Team } from '../../../../models/team';
+
 
 @Component({
   selector: 'app-create-team',
@@ -26,43 +24,50 @@ export class CreateTeam implements OnInit {
   isDragging = false;
   imageFile!: File | null;
   imagePreview: string | ArrayBuffer | null = null;
-
+  owner:any
 
 
   constructor(
     private fb: FormBuilder,
     private teamService: TeamService,
-    private requestService: RequestService,
-    private userService: UserService,
-    private router: Router,
-    private catalogoTipoEquipo: CatTypeTeam
+    private catalogoTipoEquipo: CatTypeTeam,
+    private profileService:Profile
   ) {
 
     this.teamForm = this.fb.group({
       name: ['', Validators.required],
+      ownerId: ['',],
       category: [0, Validators.required],
       primaryColor: ['#000000'],
       alternativeColor: ['#000000',],
       image: [null]
     });
-
+    
   }
 
   ngOnInit(): void {
-    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
+    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
+    this.owner=this.profileService.getProfile();
+    console.log('');
+    
+    this.teamForm.patchValue({
+      ownerId: this.owner.idPlayer
+    });
+    console.log(this.teamForm);
   }
-  resetForm() {
-  this.teamForm.reset({
-    name: '',
-    category: 0,
-    primaryColor: '#000000',
-    alternativeColor: '#000000',
-    image: null
-  });
 
-  this.imagePreview = null;
-  this.imageFile = null;
-}
+  resetForm() {
+    this.teamForm.reset({
+      name: '',
+      category: 0,
+      primaryColor: '#000000',
+      alternativeColor: '#000000',
+      image: null
+    });
+
+    this.imagePreview = null;
+    this.imageFile = null;
+  }
 
   createTeam() {
 
@@ -71,10 +76,10 @@ export class CreateTeam implements OnInit {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     const newTeam = {
-      id: 0,
+      idTeam: 0,
       name: this.teamForm.value.name,
       category: this.teamForm.value.category,
-      ownerId: user.id,
+      ownerId: this.owner.idPlayer,
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
@@ -83,8 +88,8 @@ export class CreateTeam implements OnInit {
 
     console.log(newTeam);
 
-    const createdTeam = this.teamService.createTeam(newTeam);
-    this.teamIdCreated = createdTeam.id;
+    const createdTeam:any = this.teamService.createTeam(newTeam);
+    this.teamIdCreated = createdTeam;
     this.resetForm();
   }
 

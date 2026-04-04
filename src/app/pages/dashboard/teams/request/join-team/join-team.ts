@@ -57,7 +57,7 @@ export class JoinTeam {
     const newRequest: Request = {
       id: 0, 
       teamId: this.teamId,
-      playerId: user.id,
+      playerId: user.idUser,
       playerName: user.name,
       status: 'Pendiente'
     };

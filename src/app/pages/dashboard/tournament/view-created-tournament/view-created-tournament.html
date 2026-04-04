@@ -1,22 +1,60 @@
-<h2>🏆 Mis Torneos</h2>
+<div class="container">
 
-<div *ngIf="tournaments.length === 0" class="empty-state">
+  <h2>Equipos creados</h2>
 
-  <div _ngcontent-ng-c78620689="" class="group-exist"><span _ngcontent-ng-c78620689=""
-      class="material-symbols-outlined">social_leaderboard</span>
-    <div _ngcontent-ng-c78620689="">No hay Torneos aún. ¡Crea tu primer torneo!</div>
-  </div>
+  @if (tournaments$ | async; as tournaments) {
 
-</div>
+    @if (tournaments.length > 0) {
 
-<div *ngIf="tournaments.length > 0" class="tournament-list">
 
-  <div *ngFor="let tournament of tournaments" class="tournament-card">
+      @for (tournament of getPaginatedTeams(tournaments); track tournament.idTournament) {
+      <div class="team-card">
+        <div>
+          <h3>{{ tournament.name }}</h3>
+        </div>
 
-    <h3>{{ tournament.name }}</h3>
 
-    <p>{{ tournament.category }}</p>
 
-  </div>
+        <div class="buttos-card-team">
+          
+          
+          <button class="settings" >
+            <span class="material-symbols-outlined">stadia_controller</span>
+          </button>
+
+          <button class="delete" >
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+          
+
+        </div>
+      </div>
+      }
+
+
+      @if (tournaments.length > itemsPerPage) {
+      <div class="paginator">
+
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+          <span class="material-symbols-outlined">arrow_circle_left</span>
+        </button>
+
+
+
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(tournaments)">
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+        </button>
+
+      </div>
+      }
+
+    } @else {
+      <div class="group-exist">
+        <span class="material-symbols-outlined">group</span>
+        <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
+      </div>
+    }
+
+  }
 
 </div>

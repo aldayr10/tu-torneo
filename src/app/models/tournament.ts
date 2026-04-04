@@ -2,7 +2,7 @@ import { Team } from "./team";
 
 export interface Tournament{
 
-  id:number;
+  idTournament:number;
   idOwner:number;
   name:string;
   category:string;

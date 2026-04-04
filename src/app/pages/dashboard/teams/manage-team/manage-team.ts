@@ -32,7 +32,7 @@ export class ManageTeam implements OnInit {
 
     const teamId = this.data.teamId;
 
-    const teamData = this.teamService.getTeamById(teamId);
+    const teamData = this.teamService.getTeamByIdTeam(teamId);
 
     if (teamData) {
       this.team = teamData;
@@ -62,7 +62,7 @@ export class ManageTeam implements OnInit {
 
           alert('Usuario No Existe');
         } else {
-          this.teamService.invitePlayer(this.team.id, user);
+          this.teamService.invitePlayer(this.team.idTeam, user);
 
           alert('Invitación enviada');
 
@@ -82,7 +82,7 @@ export class ManageTeam implements OnInit {
   }
 
   generateInviteLink() {
-    this.inviteLink = this.teamService.generateInviteLink(this.team.id);
+    this.inviteLink = this.teamService.generateInviteLink(this.team.idTeam);
   }
 
   copyLink() {

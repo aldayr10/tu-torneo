@@ -1,6 +1,6 @@
 export interface Player {
 
-  id: number;
+  idPlayer: number;
   idUser: number;
   name: string;
   dateBirth: Date;

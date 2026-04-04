@@ -11,7 +11,7 @@ export class UserService{
 
   register(user: User){
 
-    user.id = Date.now();
+    user.idUser = Date.now();
 
     this.users.push(user);
 
@@ -31,7 +31,7 @@ export class UserService{
   // 🔹 Buscar usuario por id
   getUserById(id: number){
 
-    return this.users.find(u => u.id === id);
+    return this.users.find(u => u.idUser === id);
 
   }
 

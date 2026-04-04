@@ -3,7 +3,7 @@ import { Team } from "../models/team";
 export const TEAMS: Team[] = [
 
   {
-    id: 1,
+    idTeam: 1,
     name: "asd",
     category: 0,
     ownerId: 1,

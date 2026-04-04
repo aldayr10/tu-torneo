@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PlayerService } from '../../../services/player';
+import { Profile } from '../../../services/profile';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -21,10 +22,12 @@ export class UpdateProfile implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router:Router,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private profileService:Profile
   ) {
 
     this.updateProfileForm = this.fb.group({
+      idPlayer: ['', Validators.required],
       nombre: ['', Validators.required],
       fechaNacimiento: ['', Validators.required]
     });
@@ -35,15 +38,17 @@ export class UpdateProfile implements OnInit {
   }
 
   ngOnInit(): void {
+    const user=this.profileService.getProfile()
+    this.player = this.playerService.getPlayerByIdUser(user.idUser);
+    console.log(this.player);
     
-    const userString = localStorage.getItem('user');
-    const idUser = userString ? JSON.parse(userString).id : null;
-    this.player = this.playerService.getPlayerById(idUser);
     this.updateProfileForm.patchValue({
+      idPlayer:this.player.idPlayer,
       nombre: this.player.name, 
       fechaNacimiento: this.player.dateBirth ? new Date(this.player.dateBirth).toISOString().substring(0, 10) : ''
     });
-    console.log("PLAYER EN NAVBAR:", this.player);
+    
+    
   }
 
   onSubmit() {
@@ -53,7 +58,7 @@ export class UpdateProfile implements OnInit {
     if (this.player) {
 
       const updatedPlayer = {
-        id: this.player.id,
+        idPlayer: this.player.idPlayer,
         idUser: this.player.idUser,
         name: this.updateProfileForm.value.nombre,
         dateBirth: new Date(this.updateProfileForm.value.fechaNacimiento)
@@ -62,7 +67,7 @@ export class UpdateProfile implements OnInit {
       this.playerService.updateProfile(updatedPlayer);
 
       alert("Información actualizada correctamente");
-
+      console.log(this.profileService.getProfile());
       this.router.navigate(['/dashboard']);
       }
     }

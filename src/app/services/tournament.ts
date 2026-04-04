@@ -19,7 +19,7 @@ export class TournamentService{
   addTeamToTournament(tournamentId:number,team:any){
 
     const tournament = this.tournaments.find(
-      t => t.id === tournamentId
+      t => t.idTournament === tournamentId
     );
 
     if(tournament){

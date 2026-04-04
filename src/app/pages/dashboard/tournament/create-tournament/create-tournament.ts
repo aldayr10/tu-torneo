@@ -29,7 +29,7 @@ export class CreateTournament implements OnInit {
 
     this.tournamentForm = this.fb.group({
       name: ['', Validators.required],
-      category: [1, Validators.required],
+      category: [0, Validators.required],
       description: ['']
     });
 
@@ -50,6 +50,10 @@ export class CreateTournament implements OnInit {
       alert('Torneo creado correctamente');
 
       this.tournamentForm.reset();
+
+      this.tournamentForm.patchValue({
+        category:'0'
+      })
 
     }
 

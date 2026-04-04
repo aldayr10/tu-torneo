@@ -50,7 +50,7 @@ export class Register {
       const formValue = this.registerForm.value;
 
       const newUser = {
-        id: 0,
+        idUser: 0,
         name: formValue.nombre,
         email: formValue.email,
         password: formValue.password

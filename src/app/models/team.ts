@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export interface Team {
 
-  id: number;
+  idTeam: number;
   name: string;
   category: number;
   ownerId: number;

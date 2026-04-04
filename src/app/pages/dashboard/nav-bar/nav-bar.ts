@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { User } from '../../../models/user';
 import { PlayerService } from "../../../services/player";
 import { Player } from '../../../models/player';
-
+import { Profile } from "../../../services/profile";
 @Component({
   selector: 'app-nav-bar',
   imports: [],
@@ -14,7 +14,7 @@ import { Player } from '../../../models/player';
 
 export class NavBar implements OnInit {
 
-  constructor(private router: Router, private playerService: PlayerService) { }
+  constructor(private router: Router, private playerService: PlayerService, private profile:Profile) { }
   menuOpen = false;
   user:any
   player:any
@@ -22,10 +22,9 @@ export class NavBar implements OnInit {
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
       const userString = localStorage.getItem('user');
-      const idUser = userString ? JSON.parse(userString).id : null;
-      this.player = this.playerService.getPlayerById(idUser);
-      console.log("PLAYER EN NAVBAR:", this.player);
-      this.user = userString ? JSON.parse(userString) : null;
+      const idUser = userString ? JSON.parse(userString).idUser : null;
+      this.player = this.playerService.getPlayerByIdUser(idUser)
+      this.profile.setProfile(this.player)
     }
   }
 
