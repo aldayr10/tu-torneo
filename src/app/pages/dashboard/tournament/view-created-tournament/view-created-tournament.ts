@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
-import { Profile } from '../../../../services/profile';
+import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTournament } from '../create-tournament/create-tournament';
 import { Observable } from 'rxjs';
+import { Team } from '../../../../models/team';
+import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class ViewCreatedTournament implements OnInit {
   constructor(
     private dialog: MatDialog,
     private tournamentService: TournamentService,
-    private profile: Profile,
+    private profile: ProfileService,
     private router: Router
   ) {
     this.owner = this.profile.getProfile()
@@ -80,9 +82,20 @@ export class ViewCreatedTournament implements OnInit {
     return tournaments.slice(start, start + this.itemsPerPage);
   }
 
-
   getTotalPages(tournaments: Tournament[]) {
     return Math.ceil(tournaments.length / this.itemsPerPage);
+  }
+
+  addTeamTournament(tournament:Tournament){
+    console.log(tournament);
+     const dialogRef = this.dialog.open(ViewCreatedTeams, {
+          width: '4000px',
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+    
   }
 
 }

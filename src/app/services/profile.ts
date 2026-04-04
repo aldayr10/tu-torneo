@@ -6,7 +6,7 @@ import { log } from 'console';
 @Injectable({
   providedIn: 'root',
 })
-export class Profile {
+export class ProfileService {
   
   private profileSource = new BehaviorSubject<Player | null>(null);
 

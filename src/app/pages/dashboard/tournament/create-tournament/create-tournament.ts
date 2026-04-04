@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../../../services/tournament.service';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
-import { Profile } from "../../../../services/profile";
+import { ProfileService } from "../../../../services/profile";
 import { Team } from "../../../../models/team";
 
 @Component({
@@ -25,7 +25,7 @@ export class CreateTournament implements OnInit {
     private fb: FormBuilder,
     private tournamentService: TournamentService,
     private catalogoTipoEquipo: CatTypeTeam,
-    private profileService:Profile
+    private profileService:ProfileService
   ) {
     
 

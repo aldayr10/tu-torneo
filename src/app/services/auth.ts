@@ -3,14 +3,13 @@ import { USERS } from '../fake-data/users.data';
 import { User } from '../models/user';
 
 import { PlayerService } from '../services/player';
-import { Profile } from '../services/profile';
-import { Player } from '../models/player';
-import { log } from 'console';
+import { ProfileService } from '../services/profile';
+
 @Injectable({
   providedIn:'root'
 })
 export class AuthService {
-  constructor(private profileService:Profile,private PlayerService:PlayerService){
+  constructor(private profileService:ProfileService,private PlayerService:PlayerService){
     
   }
   login(email:string,password:string){

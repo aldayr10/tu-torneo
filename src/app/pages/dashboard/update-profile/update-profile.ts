@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PlayerService } from '../../../services/player';
-import { Profile } from '../../../services/profile';
+import { ProfileService } from '../../../services/profile';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class UpdateProfile implements OnInit {
     private fb: FormBuilder,
     private router:Router,
     private playerService: PlayerService,
-    private profileService:Profile
+    private profileService:ProfileService
   ) {
 
     this.updateProfileForm = this.fb.group({

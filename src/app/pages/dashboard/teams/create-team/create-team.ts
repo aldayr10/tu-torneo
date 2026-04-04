@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../../../services/team';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
-import { Profile } from "../../../../services/profile";
+import { ProfileService } from "../../../../services/profile";
 import { Request } from '../../../../models/request';
 
 
@@ -31,7 +31,7 @@ export class CreateTeam implements OnInit {
     private fb: FormBuilder,
     private teamService: TeamService,
     private catalogoTipoEquipo: CatTypeTeam,
-    private profileService:Profile
+    private profileService:ProfileService
   ) {
 
     this.teamForm = this.fb.group({

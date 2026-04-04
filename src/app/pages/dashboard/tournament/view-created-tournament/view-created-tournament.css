@@ -1,3 +1,7 @@
+.container{
+    width: 100%;
+}
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -11,14 +15,14 @@ h2 {
     padding: 10px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0px 8px 20px 20px rgb(2 0 0 / 71%);
+    box-shadow: 0px 0px 20px 3px rgb(2 0 0 / 71%);
     transition: 0.2s;
     margin-bottom: 20px;
 }
 
 
 .team-card:hover {
-    box-shadow: 0px 8px 20px 20px rgba(47, 185, 9, 0.71);
+    box-shadow: 0px 0px 20px 20px rgba(47, 185, 9, 0.71);
 }
 
 .buttos-card-team {
@@ -48,6 +52,18 @@ button[type="submit"]:enabled {
     font-size: 19px;
     display: contents;
     line-height: 0;
+}
+
+.inscription {
+    padding-top: 10px;
+    color: rgb(19, 6, 204);
+
+}
+
+.inscription:hover {
+    background: white;
+    box-shadow: 0px 0px 20px 3px rgba(19, 6, 204, 0.71);
+    transition: 0.2s;
 }
 
 .settings {

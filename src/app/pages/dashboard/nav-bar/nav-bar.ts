@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { User } from '../../../models/user';
 import { PlayerService } from "../../../services/player";
 import { Player } from '../../../models/player';
-import { Profile } from "../../../services/profile";
+import { ProfileService } from "../../../services/profile";
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -21,7 +21,7 @@ export class NavBar implements OnInit {
   private profileSource = new BehaviorSubject<Player | null>(null);
   profile$ = this.profileSource.asObservable();
   
-  constructor(private router: Router, private playerService: PlayerService, private profileService:Profile) {  
+  constructor(private router: Router, private playerService: PlayerService, private profileService:ProfileService) {  
     
   }
 

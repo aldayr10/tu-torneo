@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
 import { PlayerService } from '../../services/player';
-import { Profile } from '../../services/profile';
+import { ProfileService } from '../../services/profile';
 import { User } from '../../models/user';
 
 
@@ -23,7 +23,7 @@ export class Login implements OnInit {
     private router: Router,
     private authService: AuthService,
     private playerService:PlayerService,
-    private profile:Profile
+    private profile:ProfileService
   ) {
 
     this.loginForm = this.fb.group({
