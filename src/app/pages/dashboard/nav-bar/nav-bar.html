@@ -5,10 +5,11 @@
   </div>
 
   <div class="nav-right">
-
-    <span class="welcome">
-      Bienvenido, <b>{{player.name}}</b>
-    </span>
+    @if (profile$ | async; as profile) {
+      <span class="welcome">
+        Bienvenido, <b>{{profile.name}}</b>
+      </span>
+    }
 
     <button class="icon-btn notification" (click)="openNotifications()">
       <span class="material-symbols-outlined">person_add</span>

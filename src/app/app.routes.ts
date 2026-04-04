@@ -26,21 +26,25 @@ import { authGuard } from './guards/auth-guard';
 
 
 export const routes: Routes = [
+    // principal
+
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login, },
     { path: 'recover-password', component: RecoverPassword },
     { path: 'check-email', component: CheckEmail },
     { path: 'register', component: Register },
-    // principal
     { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+
     //listas reusables
     { path: 'view-created-teams/:typeForm', component: ViewCreatedTeams, canActivate: [authGuard] },
+    { path: 'view-created-tournament/:typeForm', component: ViewCreatedTournament },
+
     //modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
         children: [
             { path: 'create-tournament', component: CreateTournament },
-            { path: 'view-created-tournament', component: ViewCreatedTournament }
+            
         ]
     },
     //modulo equipos

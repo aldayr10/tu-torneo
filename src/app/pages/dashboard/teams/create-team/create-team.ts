@@ -48,12 +48,12 @@ export class CreateTeam implements OnInit {
   ngOnInit(): void {
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
     this.owner=this.profileService.getProfile();
-    console.log('');
+
     
     this.teamForm.patchValue({
       ownerId: this.owner.idPlayer
     });
-    console.log(this.teamForm);
+
   }
 
   resetForm() {
@@ -85,8 +85,6 @@ export class CreateTeam implements OnInit {
       image: this.teamForm.value.image,
       players: []
     };
-
-    console.log(newTeam);
 
     const createdTeam:any = this.teamService.createTeam(newTeam);
     this.teamIdCreated = createdTeam;

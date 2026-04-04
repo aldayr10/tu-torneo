@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
+import { PlayerService } from '../../services/player';
+import { Profile } from '../../services/profile';
+import { User } from '../../models/user';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +21,9 @@ export class Login implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private playerService:PlayerService,
+    private profile:Profile
   ) {
 
     this.loginForm = this.fb.group({
@@ -28,10 +34,13 @@ export class Login implements OnInit {
   }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('user');
+    const token= localStorage.getItem('user');
 
     if (token) {
-      this.router.navigate(['/dashboard']); 
+      const idUser = token ? JSON.parse(token).idUser : null;
+      const player = this.playerService.getPlayerByIdUser(idUser)
+      this.profile.setProfile(player)
+      this.router.navigate(['/dashboard']);
     } 
   }
 

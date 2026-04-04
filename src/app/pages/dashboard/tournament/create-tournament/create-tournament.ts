@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../../../services/tournament.service';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
-
+import { Profile } from "../../../../services/profile";
+import { Team } from "../../../../models/team";
 
 @Component({
   selector: 'app-create-tournament',
@@ -19,23 +20,31 @@ export class CreateTournament implements OnInit {
 
   tournamentForm: FormGroup;
   catalogoTeam: any[] = [];
-
+  owner:any
   constructor(
     private fb: FormBuilder,
     private tournamentService: TournamentService,
-    private catalogoTipoEquipo: CatTypeTeam
+    private catalogoTipoEquipo: CatTypeTeam,
+    private profileService:Profile
   ) {
-
+    
 
     this.tournamentForm = this.fb.group({
+      idTournament:['0'],
+      idOwner:[''],
       name: ['', Validators.required],
       category: [0, Validators.required],
-      description: ['']
+      description: [''],
+      teams:[[]],
     });
 
   }
 
    ngOnInit(): void {
+    this.owner=this.profileService.getProfile();
+    this.tournamentForm.patchValue({
+        idOwner:this.owner.idPlayer,
+    })
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
   }
 
@@ -52,6 +61,7 @@ export class CreateTournament implements OnInit {
       this.tournamentForm.reset();
 
       this.tournamentForm.patchValue({
+        idOwner:this.owner.idPlayer,
         category:'0'
       })
 

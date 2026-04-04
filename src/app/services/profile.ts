@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Player } from "./../models/player";
-import { PlayerService } from "./../services/player";
+import { BehaviorSubject } from 'rxjs';
+import { Player } from '../models/player';
 import { log } from 'console';
 
 @Injectable({
@@ -8,23 +8,15 @@ import { log } from 'console';
 })
 export class Profile {
   
-  player:any;
+  private profileSource = new BehaviorSubject<Player | null>(null);
 
-  constructor(
-    private playerService:PlayerService,
-  ){
+  profile$ = this.profileSource.asObservable();
 
+  setProfile(player:any) {
+    this.profileSource.next(player);
   }
 
-  setProfile(player:Player){
-    this.player=player;
+  getProfile() {
+    return this.profile$;
   }
-
-  getProfile(){
-    return this.player;
-  }
-
-
-
-
 }

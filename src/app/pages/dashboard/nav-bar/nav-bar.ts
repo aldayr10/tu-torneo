@@ -4,9 +4,11 @@ import { User } from '../../../models/user';
 import { PlayerService } from "../../../services/player";
 import { Player } from '../../../models/player';
 import { Profile } from "../../../services/profile";
+import { BehaviorSubject } from 'rxjs';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-nav-bar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 
@@ -14,18 +16,17 @@ import { Profile } from "../../../services/profile";
 
 export class NavBar implements OnInit {
 
-  constructor(private router: Router, private playerService: PlayerService, private profile:Profile) { }
+  
   menuOpen = false;
-  user:any
-  player:any
+  private profileSource = new BehaviorSubject<Player | null>(null);
+  profile$ = this.profileSource.asObservable();
+  
+  constructor(private router: Router, private playerService: PlayerService, private profileService:Profile) {  
+    
+  }
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined') {
-      const userString = localStorage.getItem('user');
-      const idUser = userString ? JSON.parse(userString).idUser : null;
-      this.player = this.playerService.getPlayerByIdUser(idUser)
-      this.profile.setProfile(this.player)
-    }
+    this.profile$=this.profileService.getProfile()
   }
 
   toggleMenu() {

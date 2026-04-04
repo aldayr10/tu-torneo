@@ -5,7 +5,8 @@ export interface Tournament{
   idTournament:number;
   idOwner:number;
   name:string;
-  category:string;
+  category:number;
+  description: string;
   teams:Team[];
 
 }

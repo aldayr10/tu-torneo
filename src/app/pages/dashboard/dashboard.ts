@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavBar } from "./nav-bar/nav-bar";
+import { ViewCreatedTournament } from "./tournament/view-created-tournament/view-created-tournament";
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavBar],
+  imports: [NavBar,ViewCreatedTournament],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

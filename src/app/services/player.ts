@@ -21,7 +21,7 @@ export class PlayerService {
     return player;
   }
 
-  getPlayerByIdUser(playerId: number): Player | undefined {
+  getPlayerByIdUser(playerId: number) {
     console.log();
     return this.players.find(player => player.idUser === playerId);
   }

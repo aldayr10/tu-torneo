@@ -37,14 +37,11 @@ export class ViewCreatedTeams implements OnInit{
 
   }
  ngOnInit(): void {
-   console.log(this.owner);
-    console.log(this.typeForm);
-    
     
     switch (this.typeForm) {
       case -1:
           this.teams$ = this.teamService.getTeamsByOwner(this.owner.idPlayer)
-          console.log(this.teams$);
+
           this.gestion=true
         break;
       case 0:
@@ -53,8 +50,6 @@ export class ViewCreatedTeams implements OnInit{
       default:
         this.teams$ = this.teamService.getTeamsByOwnerByCategory(this.owner.idPlayer,1)
         this.gestion=false;
-        console.log();
-        
         break;
     }
  }

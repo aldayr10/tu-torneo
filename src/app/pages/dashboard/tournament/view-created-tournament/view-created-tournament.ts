@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Tournament } from '../../../../models/tournament';
@@ -18,8 +18,9 @@ import { Observable } from 'rxjs';
 })
 export class ViewCreatedTournament implements OnInit {
 
+  @Input() typeForm!: number;
   tournaments$!: Observable<Tournament[]>;
-  
+
   owner: any
   currentPage = 1;
   itemsPerPage = 5;
@@ -31,21 +32,34 @@ export class ViewCreatedTournament implements OnInit {
     private router: Router
   ) {
     this.owner = this.profile.getProfile()
-    console.log(this.owner);
-    this.loadTournaments();
   }
 
   ngOnInit(): void {
-    
+
+    switch (this.typeForm) {
+      case -1:
+        this.loadMyTournaments();
+        break;
+      case -2:
+        this.loadTournaments()
+        break;
+      default:
+
+
+        break;
+    }
+  }
+
+  loadMyTournaments(): void {
+    this.tournaments$ = this.tournamentService.myTournamens(this.owner.idPlayer);
   }
 
   loadTournaments(): void {
-    this.tournaments$ = this.tournamentService.myTournamens(this.owner.idPlayer);
-    console.log(this.tournaments$);
-    
+    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer);
   }
+  
 
-  createTournament() {
+  editTournament() {
 
     const dialogRef = this.dialog.open(CreateTournament, {
       width: '400px'

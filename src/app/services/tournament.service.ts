@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TOURNAMENTS } from '../fake-data/tournaments.data';
 import { BehaviorSubject } from 'rxjs';
-
 import { Tournament } from '../models/tournament';
 
 @Injectable({
@@ -21,20 +20,21 @@ export class TournamentService {
   }
 
   addTournament(tournament: Tournament) {
+    tournament.idTournament=this.tournaments.length+1;
     this.tournaments.push(tournament);
-    this.tournamentsSource.next([...this.tournaments]);
-    return this.tournament$
+    
+    return this.myTournamens(tournament.idOwner)
   }
 
   getListRegistrationTournaments(idOwner: number) {
-    this.tournaments=this.tournaments.filter(t => t.idOwner !== idOwner);
-    this.tournamentsSource.next([...this.tournaments]);
+    const filter=this.tournaments.filter(t => t.idOwner !== idOwner);
+    this.tournamentsSource.next([...filter]);
     return this.tournament$
   }
 
   myTournamens(id: number) {
-    this.tournaments=this.tournaments.filter(t => t.idOwner === id);
-    this.tournamentsSource.next([...this.tournaments]);
+    const filter=this.tournaments.filter(t => t.idOwner === id);
+    this.tournamentsSource.next([...filter]);
     return this.tournament$
   }
 

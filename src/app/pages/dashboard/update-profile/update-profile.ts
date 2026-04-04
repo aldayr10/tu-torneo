@@ -38,15 +38,20 @@ export class UpdateProfile implements OnInit {
   }
 
   ngOnInit(): void {
-    const user=this.profileService.getProfile()
-    this.player = this.playerService.getPlayerByIdUser(user.idUser);
-    console.log(this.player);
-    
+
+  this.profileService.getProfile().subscribe(player => {
+  if (player) {
+    this.player = player;
+
     this.updateProfileForm.patchValue({
-      idPlayer:this.player.idPlayer,
-      nombre: this.player.name, 
-      fechaNacimiento: this.player.dateBirth ? new Date(this.player.dateBirth).toISOString().substring(0, 10) : ''
+      idPlayer: player.idPlayer,
+      nombre: player.name,
+      fechaNacimiento: player.dateBirth
+        ? new Date(player.dateBirth).toISOString().substring(0, 10)
+        : ''
     });
+  }
+});
     
     
   }
