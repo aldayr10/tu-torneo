@@ -33,7 +33,8 @@ export const routes: Routes = [
     { path: 'register', component: Register },
     // principal
     { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
-
+    //listas reusables
+    { path: 'view-created-teams/:typeForm', component: ViewCreatedTeams, canActivate: [authGuard] },
     //modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
@@ -47,13 +48,14 @@ export const routes: Routes = [
         path: 'teams', component: Teams, canActivateChild: [authGuard],
         children: [
             { path: 'create-team', component: CreateTeam },
-            { path: 'view-created-teams', component: ViewCreatedTeams },
             { path: 'delete-team', component: DeleteTeam },
             //gestion equipos
             { path: 'player-join-team', component: addPlayerTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
         ]
+        
     },
+    
 
 
 

@@ -4,25 +4,25 @@ import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root'
 })
-export class TournamentService{
+export class TournamentService {
   private tournaments: Tournament[] = [];
-    private teamsSource = new BehaviorSubject<Tournament[]>([]);
-    teams$ = this.teamsSource.asObservable();
+  private teamsSource = new BehaviorSubject<Tournament[]>([]);
+  teams$ = this.teamsSource.asObservable();
 
 
-  getTournaments(){
+  getTournaments() {
     return this.tournaments;
   }
 
-  addTeamToTournament(tournamentId:number,team:any){
+  addTeamToTournament(tournamentId: number, team: any) {
 
     const tournament = this.tournaments.find(
       t => t.idTournament === tournamentId
     );
 
-    if(tournament){
+    if (tournament) {
       tournament.teams.push(team);
     }
 

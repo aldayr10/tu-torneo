@@ -25,5 +25,8 @@ export class Dashboard {
   goToTournament() {
     this.router.navigate(['/tournament']);
   }
- 
+  
+  goToGame() {
+    this.router.navigate(['view-created-teams',1]);
+  }
 }

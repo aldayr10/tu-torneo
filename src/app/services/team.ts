@@ -28,13 +28,19 @@ export class TeamService {
     this.teams.find(team => team.idTeam !== id)
     this.teams = this.teams.filter(team => team.idTeam !== id);
     this.teamsSource.next([...this.teams]);
-    
   }
   getTeamsByOwner(ownerId: number) {
-    this.teams= this.teams.filter(team => team.ownerId === ownerId);
-    this.teamsSource.next([...this.teams]);
+    const filter=this.teams.filter(team => team.ownerId === ownerId);
+    this.teamsSource.next([...filter]);
     return this.teams$;
   }
+
+  getTeamsByOwnerByCategory(ownerId: number,category:number) {
+    const filter= this.teams.filter(team => team.ownerId === ownerId && team.category===category);
+    this.teamsSource.next([...filter]);
+    return this.teams$;
+  }
+
   getTeamByIdTeam(teamId: number): Team | undefined {
     return this.teams.find(team => team.idTeam === teamId);
   }
