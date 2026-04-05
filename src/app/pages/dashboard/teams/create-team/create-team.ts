@@ -37,22 +37,27 @@ export class CreateTeam implements OnInit {
     this.teamForm = this.fb.group({
       name: ['', Validators.required],
       ownerId: ['',],
-      category: [0, Validators.required],
+      category: [0, [Validators.required]],
       primaryColor: ['#000000'],
       alternativeColor: ['#000000',],
       image: [null]
     });
     
-  }
-
-  ngOnInit(): void {
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
+    console.log(this.catalogoTeam);
+    
     this.owner=this.profileService.getProfile();
-
+    this.owner=this.owner.source.value
+    console.log(this.owner);
+    
     
     this.teamForm.patchValue({
       ownerId: this.owner.idPlayer
     });
+  }
+
+  ngOnInit(): void {
+    
 
   }
 
@@ -72,26 +77,27 @@ export class CreateTeam implements OnInit {
   createTeam() {
 
     if (this.teamForm.invalid) return;
+    console.log(this.teamForm);
+    let category = Number.parseInt(this.teamForm.value.category)
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-
+    
+    
     const newTeam = {
       idTeam: 0,
       name: this.teamForm.value.name,
-      category: this.teamForm.value.category,
+      category: category,
       ownerId: this.owner.idPlayer,
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
       players: []
     };
-
+    console.log(newTeam);
     const createdTeam:any = this.teamService.createTeam(newTeam);
     this.teamIdCreated = createdTeam;
     this.resetForm();
   }
-
-  
 
   onDragOver(event: DragEvent) {
     event.preventDefault();

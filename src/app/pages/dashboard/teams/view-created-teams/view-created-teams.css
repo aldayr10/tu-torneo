@@ -11,14 +11,14 @@ h2 {
     padding: 10px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0px 8px 20px 20px rgb(2 0 0 / 71%);
+    box-shadow: 0px 8px 20px 20px rgb(0 0 0 / 71%);
     transition: 0.2s;
     margin-bottom: 20px;
 }
 
 
 .team-card:hover {
-    box-shadow: 0px 8px 20px 20px rgba(47, 185, 9, 0.71);
+    box-shadow: 0px 8px 20px 20px rgba(0,0,0, 0.71);
 }
 
 .buttos-card-team {
@@ -58,7 +58,7 @@ button[type="submit"]:enabled {
 
 .settings:hover {
     background: white;
-    box-shadow: 0px 0px 20px 3px rgb(2 0 0 / 71%);
+    box-shadow: 0px 0px 20px 20px rgb(2 0 0 / 71%);
     transition: 0.2s;
 }
 
@@ -69,15 +69,11 @@ button[type="submit"]:enabled {
 
 .delete:hover {
     background: white;
-    box-shadow: 0px 0px 20px 3px red;
+    box-shadow: 0px 0px 20px 20px red;
     transition: 0.2s;
 }
 
-.delete::selection {
-    background: white;
-    box-shadow: 0px 0px 20px 3px red;
-    transition: 0.2s;
-}
+
 
 .group-exist {
     display: flex;

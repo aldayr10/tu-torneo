@@ -36,8 +36,8 @@ export const routes: Routes = [
     { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
 
     //listas reusables
-    { path: 'view-created-teams/:typeForm', component: ViewCreatedTeams, canActivate: [authGuard] },
-    { path: 'view-created-tournament/:typeForm', component: ViewCreatedTournament },
+    { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
+    { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
 
     //modulo torneos
     {

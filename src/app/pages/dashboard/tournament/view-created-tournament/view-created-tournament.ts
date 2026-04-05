@@ -1,13 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTournament } from '../create-tournament/create-tournament';
 import { Observable } from 'rxjs';
-import { Team } from '../../../../models/team';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 
 
@@ -22,7 +20,7 @@ export class ViewCreatedTournament implements OnInit {
 
   @Input() typeForm!: number;
   tournaments$!: Observable<Tournament[]>;
-  gestion:any
+  gestion: any
   owner: any
   currentPage = 1;
   itemsPerPage = 5;
@@ -31,7 +29,6 @@ export class ViewCreatedTournament implements OnInit {
     private dialog: MatDialog,
     private tournamentService: TournamentService,
     private profile: ProfileService,
-    private router: Router
   ) {
     this.owner = this.profile.getProfile()
   }
@@ -40,14 +37,14 @@ export class ViewCreatedTournament implements OnInit {
 
     switch (this.typeForm) {
       case -1:
-        this.gestion=true
+        this.gestion = true
         this.loadMyTournaments();
-        
+
         break;
       case -2:
-        this.gestion=false
+        this.gestion = false
         this.loadTournaments()
-        
+
         break;
       default:
 
@@ -63,7 +60,7 @@ export class ViewCreatedTournament implements OnInit {
   loadTournaments(): void {
     this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer);
   }
-  
+
 
   editTournament() {
 
@@ -86,16 +83,22 @@ export class ViewCreatedTournament implements OnInit {
     return Math.ceil(tournaments.length / this.itemsPerPage);
   }
 
-  addTeamTournament(tournament:Tournament){
+  addTeamTournament(tournament: Tournament) {
     console.log(tournament);
-     const dialogRef = this.dialog.open(ViewCreatedTeams, {
-          width: '4000px',
-        });
+    const dialogRef = this.dialog.open(ViewCreatedTeams, {
+      data: {
+        tournament: tournament,
+        typeForm: -2,
+      },
+      width: '1000px',
+    });
+    console.log(dialogRef);
+    alert('solo podras ver los equipos que sean de la misma categoria')
     
-        dialogRef.afterClosed().subscribe(result => {
-          
-        });
-    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+
   }
 
 }

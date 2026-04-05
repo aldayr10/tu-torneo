@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TeamService } from '../../../../services/team';
 import { DeleteTeam } from '../delete-team/delete-team';
@@ -8,52 +8,86 @@ import { ManageTeam } from '../manage-team/manage-team';
 import { Team } from '../../../../models/team';
 import { ProfileService } from "../../../../services/profile";
 import { ActivatedRoute } from '@angular/router';
+import { Optional } from '@angular/core';
 
+interface DialogData {
+  typeForm?: number;
+  tournament?: any;
+}
 
 @Component({
   selector: 'app-view-created-teams',
   standalone: true,
-  imports: [CommonModule, MatDialogModule],
+  imports: [CommonModule, MatDialogModule,],
   templateUrl: './view-created-teams.html',
   styleUrl: './view-created-teams.css',
 })
 export class ViewCreatedTeams implements OnInit {
+
+
   @Input() typeForm!: number;
-  owner: any
+
+  owner: any;
   teams$!: Observable<Team[]>;
-  gestion: any
+  gestion: boolean = false;
+  type:Number=-1;
   currentPage = 1;
   itemsPerPage = 5;
+
+
 
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog,
     private profileService: ProfileService,
-    private route: ActivatedRoute
+    @Optional() private route: ActivatedRoute,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData | null
+  ) { }
 
-  ) {
-    this.owner = profileService.getProfile()
-
-
-  }
-  
   ngOnInit(): void {
+    console.log(this.data);
+    let typeData:any,tournamentData
 
-    switch (this.typeForm) {
-      case -1:
-        this.teams$ = this.teamService.getTeamsByOwner(this.owner.idPlayer)
 
-        this.gestion = true
-        break;
-      case 0:
+    this.profileService.getProfile().subscribe(owner => {
+      if(this.data){
+        typeData= this.data.typeForm
+        tournamentData= this.data.tournament
+        this.type = typeData
+      }
+      if (!owner) return;
 
-        break;
-      default:
-        this.teams$ = this.teamService.getTeamsByOwnerByCategory(this.owner.idPlayer, 1)
-        this.gestion = false;
-        break;
-    }
+      this.owner = owner;
+      
+      //let params = Number(this.route?.snapshot.paramMap.get('typeForm')) == 0 ? Number(this.route?.snapshot.paramMap.get('typeForm')) : undefined;
+      
+      
+      console.log(this.route?.snapshot.paramMap);
+      console.log('DATA:', this.data);
+      console.log(this.typeForm);
+
+
+      console.log('TYPE FINAL:', this.type);
+
+      switch (this.type) {
+
+        case -1:
+          this.teams$ = this.teamService.getTeamsByOwner(owner.idPlayer);
+          this.gestion = true;
+          break;
+
+        case -2:
+          let tournament =this.data?.tournament
+          this.teams$ =this.teamService.getTeamsByOwnerByCategory(owner.idPlayer, tournament.idTournament)
+          this.gestion = false;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
+
 
   getPaginatedTeams(teams: Team[]) {
     const start = (this.currentPage - 1) * this.itemsPerPage;
@@ -83,5 +117,4 @@ export class ViewCreatedTeams implements OnInit {
       }
     });
   }
-
 }

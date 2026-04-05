@@ -12,9 +12,9 @@
 
   <div>
     <label>Categoría</label>
-    <select formControlName="category">
+    <select formControlName="category" >
       @for (tipo of catalogoTeam; track tipo.id) {
-      <option [value]="tipo.id" [defaultSelected]="1">
+      <option [value]="tipo.id" >
         {{ tipo.name }}
       </option>
       }

@@ -16,19 +16,13 @@ export class UserService{
     this.users.push(user);
 
   }
-
   getUsers(){
     return this.users;
   }
-
-  // 🔹 Buscar usuario por username
   getUserByUsername(name: string){
-
     return this.users.find(u => u.name === name);
-
   }
 
-  // 🔹 Buscar usuario por id
   getUserById(id: number){
 
     return this.users.find(u => u.idUser === id);

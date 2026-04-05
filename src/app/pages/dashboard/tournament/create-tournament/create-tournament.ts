@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../../../services/tournament.service';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
 import { ProfileService } from "../../../../services/profile";
-import { Team } from "../../../../models/team";
+
 
 @Component({
   selector: 'app-create-tournament',
@@ -41,10 +41,14 @@ export class CreateTournament implements OnInit {
   }
 
    ngOnInit(): void {
-    this.owner=this.profileService.getProfile();
+    this.profileService.getProfile().subscribe(data=>{
+      this.owner=data
+    });
+    console.log(this.owner);
     this.tournamentForm.patchValue({
         idOwner:this.owner.idPlayer,
     })
+    
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
   }
 
@@ -62,7 +66,7 @@ export class CreateTournament implements OnInit {
 
       this.tournamentForm.patchValue({
         idOwner:this.owner.idPlayer,
-        category:'0'
+        category: 0
       })
 
     }

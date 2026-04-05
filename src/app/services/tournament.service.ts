@@ -20,6 +20,8 @@ export class TournamentService {
   }
 
   addTournament(tournament: Tournament) {
+    console.log(tournament);
+    
     tournament.idTournament=this.tournaments.length+1;
     this.tournaments.push(tournament);
     
