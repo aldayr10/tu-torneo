@@ -61,7 +61,6 @@ export class ViewCreatedTournament implements OnInit {
     this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer);
   }
 
-
   editTournament() {
 
     const dialogRef = this.dialog.open(CreateTournament, {
