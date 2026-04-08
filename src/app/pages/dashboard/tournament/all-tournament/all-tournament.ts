@@ -1,67 +1,61 @@
+
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreateTournament } from '../create-tournament/create-tournament';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
+import { Router } from '@angular/router'
 
 
 @Component({
   selector: 'app-view-created-tournament',
   standalone: true,
   imports: [CommonModule, MatDialogModule],
-  templateUrl: './view-created-tournament.html',
-  styleUrl: './view-created-tournament.css',
+  templateUrl: './all-tournament.html',
+  styleUrl: './all-tournament.css',
 })
-export class ViewCreatedTournament implements OnInit {
+
+export class AllTournament implements OnInit {
 
   @Input() typeForm!: number;
-
-  tournaments$ = new BehaviorSubject<Tournament[]>([]);
-  gestion: any =true
+  tournaments$!: Observable<Tournament[]>;
+  gestion: any
   owner: any
   currentPage = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 6;
+  containers: number = 3
 
   constructor(
     private dialog: MatDialog,
     private tournamentService: TournamentService,
     private profile: ProfileService,
+    private router:Router
   ) {
-    this.profile.getProfile().subscribe(data=>{
-      this.owner=data
-    })
-    
+    this.owner = this.profile.getProfile()
   }
+
+
 
   ngOnInit(): void {
-    
-    
-    this.loadMyTournaments();
-    console.log(this.loadMyTournaments);
+    this.gestion = false
+    this.loadTournaments()
   }
 
-  loadMyTournaments(): void {
-    this.tournamentService.myTournamens(this.owner.idPlayer).subscribe(data=>{
-      this.tournaments$.next(data);
-    });
+  loadTournaments(): void {
+    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer);
   }
 
-
-  editTournament() {
-
-    const dialogRef = this.dialog.open(CreateTournament, {
-      width: '400px'
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      
-    });
-
+  groupedTournaments(tournaments: Tournament[]) {
+    const groups = [];
+    for (let i = 0; i < tournaments.length; i += 3) {
+      groups.push(tournaments.slice(i, i + 3));
+    }
+    return groups;
   }
+
 
   getPaginatedTeams(tournaments: Tournament[]) {
     const start = (this.currentPage - 1) * this.itemsPerPage;
@@ -83,11 +77,17 @@ export class ViewCreatedTournament implements OnInit {
     });
     console.log(dialogRef);
     alert('solo podras ver los equipos que sean de la misma categoria')
-    
+
     dialogRef.afterClosed().subscribe(result => {
 
     });
 
+  }
+
+  
+
+  goToDAshboard(){
+    this.router.navigate(['/dashboard']);
   }
 
 }

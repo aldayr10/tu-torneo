@@ -22,6 +22,8 @@ import { CreateTeam } from "./pages/dashboard/teams/create-team/create-team";
 import { Tournament } from "./pages/dashboard/tournament/tournament";
 import { CreateTournament } from "./pages/dashboard/tournament/create-tournament/create-tournament";
 import { ViewCreatedTournament } from "./pages/dashboard/tournament/view-created-tournament/view-created-tournament";
+import { AllTournament } from "./pages/dashboard/tournament/all-tournament/all-tournament";
+
 import { authGuard } from './guards/auth-guard';
 
 
@@ -38,6 +40,7 @@ export const routes: Routes = [
     //listas reusables
     { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
     { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
+    {path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
 
     //modulo torneos
     {

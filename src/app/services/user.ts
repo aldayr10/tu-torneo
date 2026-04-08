@@ -10,11 +10,8 @@ export class UserService{
   users: User[] = USERS;
 
   register(user: User){
-
     user.idUser = Date.now();
-
     this.users.push(user);
-
   }
   getUsers(){
     return this.users;
@@ -24,22 +21,15 @@ export class UserService{
   }
 
   getUserById(id: number){
-
     return this.users.find(u => u.idUser === id);
-
   }
 
-
   getCurrentUser(){
-
     const user = localStorage.getItem('user');
-
     if(!user){
       return null;
     }
-
     return JSON.parse(user);
-
   }
 
   getUserByEmail(email:String){

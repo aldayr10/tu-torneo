@@ -11,7 +11,7 @@
 
 .card-tournamens{
   margin: 30px;
-  background:white;
+  background:rgb(255, 255, 255);
   border-radius:20px;
   padding:30px;
   text-align:left;
@@ -23,19 +23,32 @@
 
 
 .card{
-  background:white;
+  background:rgb(255, 255, 255);
   border-radius:20px;
   padding:30px;
   text-align:left;
-  box-shadow:0 10px 20px rgba(0,0,0,0.08);
   transition:0.2s;
   box-shadow:0px 0px 16px 3px rgb(2 0 0 / 71%);
 }
 
-
 .card:hover{
   transform:translateY(-5px);
   box-shadow:0px 0px 16px 20px rgba(47, 185, 9, 0.71);
+}
+
+.card-all-tournament{
+  background:rgba(173, 142, 37, 0.71);
+  border-radius:20px;
+  padding:30px;
+  text-align:left;
+  transition:2s;
+  box-shadow:0px 0px 16px 3px rgb(2 0 0 / 71%);
+}
+
+.card-all-tournament:hover{
+  background:rgba(224, 175, 14, 0.71);
+  transform:translateY(-20px);
+  box-shadow:0px 0px 16px 20px rgba(224, 175, 14, 0.71);
 }
 
 .icon-circle{

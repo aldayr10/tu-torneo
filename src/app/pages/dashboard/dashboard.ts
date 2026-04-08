@@ -49,8 +49,6 @@ export class Dashboard implements OnInit{
   }
 
   goToAllTournament(){
-    
-    
-    this.router.navigate(['/view-created-teams']);
+    this.router.navigate(['/all-tournament']);
   }
 }

@@ -1,0 +1,68 @@
+<div class="go-dashboad" (click)="goToDAshboard()">
+
+    <span class="material-symbols-outlined">
+        arrow_back
+    </span>
+
+    <a class="go-dashboad-link">
+        Volver al Dashboard
+    </a>
+
+</div>
+<div class="container">
+
+    <h2>Torneos creados</h2>
+
+    @if (tournaments$ | async; as tournaments) {
+
+    @if (tournaments.length > 0) {
+
+
+@for (group of groupedTournaments(getPaginatedTeams(tournaments)); track $index) {
+
+  <div class="dashboard-container">
+
+    @for (tournament of group; track tournament.idTournament) {
+      <div class="card">
+        <div class="icon-circle blue">
+          <span class="material-symbols-outlined">trophy</span>
+        </div>
+        <h3>{{ tournament.name }}</h3>
+        <p>Inicia un nuevo torneo</p>
+        <div class="apuntar">
+            <button type="button" (click)="addTeamTournament(tournament)" >Inscribir</button>
+        </div>
+        
+      </div>
+    }
+
+  </div>
+
+}
+
+    @if (tournaments.length > itemsPerPage) {
+    <div class="paginator">
+
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+            <span class="material-symbols-outlined">arrow_circle_left</span>
+        </button>
+
+
+
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(tournaments)">
+            <span class="material-symbols-outlined">arrow_circle_right</span>
+        </button>
+
+    </div>
+    }
+
+    } @else {
+    <div class="group-exist">
+        <span class="material-symbols-outlined">group</span>
+        <div>No hay torneos aún.</div>
+    </div>
+    }
+
+    }
+
+</div>

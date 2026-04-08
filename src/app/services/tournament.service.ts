@@ -34,8 +34,8 @@ export class TournamentService {
     return this.tournament$
   }
 
-  myTournamens(id: number) {
-    const filter=this.tournaments.filter(t => t.idOwner === id);
+  myTournamens(idOwner: number) {
+    const filter=this.tournaments.filter(t => t.idOwner === idOwner);
     this.tournamentsSource.next([...filter]);
     return this.tournament$
   }
