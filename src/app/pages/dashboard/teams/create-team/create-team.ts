@@ -37,7 +37,7 @@ export class CreateTeam implements OnInit {
     this.teamForm = this.fb.group({
       name: ['', Validators.required],
       ownerId: ['',],
-      category: [0, [Validators.required]],
+      categoryId: [0, [Validators.required]],
       primaryColor: ['#000000'],
       alternativeColor: ['#000000',],
       image: [null]
@@ -86,7 +86,7 @@ export class CreateTeam implements OnInit {
     const newTeam = {
       idTeam: 0,
       name: this.teamForm.value.name,
-      category: category,
+      categoryId: category,
       ownerId: this.owner.idPlayer,
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,

@@ -1,4 +1,4 @@
-import { Injectable,OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
@@ -10,7 +10,7 @@ import { TEAMS } from '../fake-data/teams.data';
 export class TeamService {
   private teams: Team[] = TEAMS;
   private teamsSource = new BehaviorSubject<Team[]>([]);
-  private teams$ = this.teamsSource.asObservable();
+  teams$ = this.teamsSource.asObservable();
 
 
   createTeam(team: Team) {
@@ -19,26 +19,41 @@ export class TeamService {
     this.teamsSource.next([...this.teams]);
     return this.teams$;
   }
-//post , put ,delete
+  //post , put ,delete
   getTeams() {
     return this.teams$;
   }
 
-  deteleTeam(id: number){
+  deteleTeam(id: number) {
     this.teams.find(team => team.idTeam !== id)
     this.teams = this.teams.filter(team => team.idTeam !== id);
     this.teamsSource.next([...this.teams]);
   }
   getTeamsByOwner(ownerId: number) {
-    const filter=this.teams.filter(team => team.ownerId === ownerId);
+    const filter = this.teams.filter(team => team.ownerId === ownerId);
     this.teamsSource.next([...filter]);
-    return this.teams$;
+
   }
 
-  getTeamsByOwnerByCategory(ownerId: number,category:number) {
-    const filter= this.teams.filter(team => team.ownerId === ownerId && team.category===category);
+  getTeamsByOwnerByCategory(ownerId: number, categoryId: number) {
+    console.log(ownerId, categoryId);
+
+    console.log(this.teams.filter(team => {
+      console.log(team.ownerId == ownerId);
+      console.log(team.categoryId == categoryId);
+
+      team.ownerId == ownerId && team.categoryId == categoryId
+    }));
+    console.log(this.teams);
+
+    const filter = this.teams.filter(team =>
+      team.ownerId === ownerId &&
+      team.categoryId === categoryId
+    )
+    console.log(filter);
+
     this.teamsSource.next([...filter]);
-    return this.teams$;
+
   }
 
   getTeamByIdTeam(teamId: number): Team | undefined {

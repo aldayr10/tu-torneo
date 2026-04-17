@@ -4,7 +4,7 @@ export interface Team {
 
   idTeam: number;
   name: string;
-  category: number;
+  categoryId: number;
   ownerId: number;
   primaryColor: string;
   alternativeColor: string;

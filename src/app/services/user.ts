@@ -10,8 +10,9 @@ export class UserService{
   users: User[] = USERS;
 
   register(user: User){
-    user.idUser = Date.now();
+    user.idUser = this.users.length+1
     this.users.push(user);
+    return user.idUser;
   }
   getUsers(){
     return this.users;

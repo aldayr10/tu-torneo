@@ -6,8 +6,9 @@ import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 import { Router } from '@angular/router'
+import { DescriptionTournament } from '../../tournament/description-tournament/description-tournament';
+import { SelectTeam } from '../../teams/select-team/select-team';
 
 
 @Component({
@@ -37,8 +38,6 @@ export class AllTournament implements OnInit {
     this.owner = this.profile.getProfile()
   }
 
-
-
   ngOnInit(): void {
     this.gestion = false
     this.loadTournaments()
@@ -56,7 +55,6 @@ export class AllTournament implements OnInit {
     return groups;
   }
 
-
   getPaginatedTeams(tournaments: Tournament[]) {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return tournaments.slice(start, start + this.itemsPerPage);
@@ -66,12 +64,29 @@ export class AllTournament implements OnInit {
     return Math.ceil(tournaments.length / this.itemsPerPage);
   }
 
-  addTeamTournament(tournament: Tournament) {
+  openDescription(tournament: Tournament) {
     console.log(tournament);
-    const dialogRef = this.dialog.open(ViewCreatedTeams, {
+    const dialogRef = this.dialog.open(DescriptionTournament, {
       data: {
         tournament: tournament,
-        typeForm: -2,
+      },
+      width: '1000px',
+    });
+    console.log(dialogRef);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getTeamTournament(tournament)
+      }
+    });
+
+  }
+
+  getTeamTournament(tournament: Tournament) {
+    console.log(tournament);
+    const dialogRef = this.dialog.open(SelectTeam, {
+      data: {
+        tournament: tournament,
       },
       width: '1000px',
     });
@@ -79,12 +94,19 @@ export class AllTournament implements OnInit {
     alert('solo podras ver los equipos que sean de la misma categoria')
 
     dialogRef.afterClosed().subscribe(result => {
-
+      if (result) {
+        console.log(result);
+        
+        dialogRef.close()
+      alert('equipo inscrito con exito')
+      }
+      
     });
-
   }
 
-  
+  addTeamTournament(tournament: Tournament){
+
+  }
 
   goToDAshboard(){
     this.router.navigate(['/dashboard']);

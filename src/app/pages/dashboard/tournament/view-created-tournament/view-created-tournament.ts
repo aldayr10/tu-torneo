@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component,  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTournament } from '../create-tournament/create-tournament';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 
 
@@ -16,9 +16,9 @@ import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-te
   templateUrl: './view-created-tournament.html',
   styleUrl: './view-created-tournament.css',
 })
-export class ViewCreatedTournament implements OnInit {
+export class ViewCreatedTournament {
 
-  @Input() typeForm!: number;
+
 
   tournaments$ = new BehaviorSubject<Tournament[]>([]);
   gestion: any =true
@@ -33,16 +33,12 @@ export class ViewCreatedTournament implements OnInit {
   ) {
     this.profile.getProfile().subscribe(data=>{
       this.owner=data
+      this.loadMyTournaments()
     })
     
   }
 
-  ngOnInit(): void {
-    
-    
-    this.loadMyTournaments();
-    console.log(this.loadMyTournaments);
-  }
+  
 
   loadMyTournaments(): void {
     this.tournamentService.myTournamens(this.owner.idPlayer).subscribe(data=>{

@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Equipos creados</h2>
+  <h2>Selecciona Tu Equipo</h2>
 
   @if (teams$ | async; as teams) {
 
@@ -8,25 +8,9 @@
 
 
       @for (team of getPaginatedTeams(teams); track team.idTeam) {
-      <div class="team-card">
+      <div class="team-card" (click)="selectTeam(team)">
         <div>
           <h3>{{ team.name }}</h3>
-        </div>
-
-
-
-        <div class="buttos-card-team">
-         
-          
-          <button class="settings" (click)="openManageTeam(team.idTeam)">
-            <span class="material-symbols-outlined">stadia_controller</span>
-          </button>
-
-          <button class="delete" (click)="deleteTeam(team.idTeam)">
-            <span class="material-symbols-outlined">delete</span>
-          </button>
-          
-
         </div>
       </div>
       }
@@ -52,6 +36,7 @@
       <div class="group-exist">
         <span class="material-symbols-outlined">group</span>
         <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
+        <button (click)="goToTeams()">Crear Equipo</button>
       </div>
     }
 
