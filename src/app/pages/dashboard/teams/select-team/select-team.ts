@@ -38,13 +38,13 @@ export class SelectTeam implements OnInit {
   this.profileService.getProfile().subscribe(owner => {
     if (owner) {
       this.owner = owner;
-
-      this.teamService.getTeamsByOwnerByCategory(
+      this.teams$  = this.teamService.getTeamsByOwnerByCategory(
         this.owner.idPlayer,
         this.tournament.category
       );
+      console.log(this.teams$);
+      
 
-      this.teams$ = this.teamService.teams$;
     }
   });
 }

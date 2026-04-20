@@ -10,9 +10,6 @@ import { ProfileService } from "../../../../services/profile";
 import { ActivatedRoute } from '@angular/router';
 import { Optional } from '@angular/core';
 
-interface DialogData {
-
-}
 
 @Component({
   selector: 'app-view-created-teams',
@@ -41,8 +38,9 @@ export class ViewCreatedTeams implements OnInit {
     this.profileService.getProfile().subscribe(owner => {
       if (!owner) return;
       this.owner = owner;
-      this.teamService.getTeamsByOwner(owner.idPlayer);
-      this.teams$ =this.teamService.teams$
+      this.teams$=this.teamService.getTeamsByOwner(owner.idPlayer);
+      
+      
     })
   }
     

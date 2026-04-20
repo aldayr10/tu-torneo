@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
 import { User } from '../models/user';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { TEAMS } from '../fake-data/teams.data';
 
 @Injectable({
@@ -17,10 +17,10 @@ export class TeamService {
     team.idTeam = this.teams.length + 1;
     this.teams.push(team);
     this.teamsSource.next([...this.teams]);
-    return this.teams$;
   }
-  //post , put ,delete
+
   getTeams() {
+    this.teamsSource.next([...this.teams]);
     return this.teams$;
   }
 
@@ -29,31 +29,29 @@ export class TeamService {
     this.teams = this.teams.filter(team => team.idTeam !== id);
     this.teamsSource.next([...this.teams]);
   }
-  getTeamsByOwner(ownerId: number) {
-    const filter = this.teams.filter(team => team.ownerId === ownerId);
-    this.teamsSource.next([...filter]);
 
+  getTeamsByOwner(ownerId: number) {
+    this.teamsSource.next([...this.teams]);
+    return this.teams$.pipe(
+      map(teams =>
+        teams.filter(team =>
+          team.ownerId === ownerId
+        )
+      )
+    );
   }
 
   getTeamsByOwnerByCategory(ownerId: number, categoryId: number) {
-    console.log(ownerId, categoryId);
-
-    console.log(this.teams.filter(team => {
-      console.log(team.ownerId == ownerId);
-      console.log(team.categoryId == categoryId);
-
-      team.ownerId == ownerId && team.categoryId == categoryId
-    }));
-    console.log(this.teams);
-
-    const filter = this.teams.filter(team =>
-      team.ownerId === ownerId &&
-      team.categoryId === categoryId
-    )
-    console.log(filter);
-
-    this.teamsSource.next([...filter]);
-
+    this.teamsSource.next([...this.teams]);
+    return this.teams$.pipe(
+      map(teams =>
+        teams.filter(team => 
+          team.ownerId === ownerId &&
+          team.categoryId === categoryId
+        
+        )
+      )
+    );
   }
 
   getTeamByIdTeam(teamId: number): Team | undefined {

@@ -44,12 +44,9 @@ export class CreateTeam implements OnInit {
     });
     
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
-    console.log(this.catalogoTeam);
     
     this.owner=this.profileService.getProfile();
     this.owner=this.owner.source.value
-    console.log(this.owner);
-    
     
     this.teamForm.patchValue({
       ownerId: this.owner.idPlayer
@@ -78,7 +75,7 @@ export class CreateTeam implements OnInit {
 
     if (this.teamForm.invalid) return;
     console.log(this.teamForm);
-    let category = Number.parseInt(this.teamForm.value.category)
+    let category = Number.parseInt(this.teamForm.value.categoryId)
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     
