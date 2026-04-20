@@ -1,0 +1,128 @@
+body{
+  background: #f5f0f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+  width: 900px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.header{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.back{
+  text-align: left;
+  cursor: pointer;
+  color: purple;
+  margin-bottom: 10px;
+}
+
+.icon{
+  font-size: 40px;
+}
+
+.header h2{
+  margin: 5px 0;
+}
+
+.header p{
+  color: gray;
+}
+
+/* CARD TORNEO */
+.tournament-card{
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.tournament-header{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.circle{
+  background: linear-gradient(135deg,#6c63ff,#a855f7);
+  color: white;
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.jornada{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.match{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f3f3f3;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+.team{
+  text-align: center;
+}
+
+.team-icon{
+  background: #22c55e;
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.vs{
+  background: linear-gradient(90deg,#ff00cc,#a855f7);
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* STATS */
+.stats{
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stat-card{
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.title-icon{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.material-symbols-outlined{
+  font-size: 45px;
+  color: #a855f7;
+}
+
+.material-symbols-outlined{
+  font-size: 20px;
+}
+
+.circle .material-symbols-outlined,
+.team-icon .material-symbols-outlined{
+  font-size: 22px;
+}

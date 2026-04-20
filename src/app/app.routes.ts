@@ -27,9 +27,14 @@ import { AllTournament } from "./pages/dashboard/tournament/all-tournament/all-t
 import { authGuard } from './guards/auth-guard';
 import { SelectTeam } from './pages/dashboard/teams/select-team/select-team';
 
+import { ViewGames} from './pages/dashboard/games/view-games/view-games';
+
+
 
 export const routes: Routes = [
     // principal
+
+    {path: 'view-games',component:ViewGames },//partidos
 
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login, },
@@ -73,15 +78,8 @@ export const routes: Routes = [
     { path: 'join-team', component: JoinTeam },
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
-
-
-
-
-
-
-
-
     { path: 'nav-bar', component: NavBar },
+    
 
 
 ];
