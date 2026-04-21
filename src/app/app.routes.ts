@@ -11,7 +11,7 @@ import { RequestStatus } from './pages/dashboard/teams/request/request-status/re
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Teams } from "./pages/dashboard/teams/teams";
 import { addPlayerTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
-import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
+
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from './pages/dashboard/teams/request/delete-player-team/delete-player-team';
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';
@@ -77,7 +77,6 @@ export const routes: Routes = [
 
     //player
     { path: 'update-profile', component: UpdateProfile },
-    { path: 'join-team', component: JoinTeam },
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
     { path: 'nav-bar', component: NavBar },

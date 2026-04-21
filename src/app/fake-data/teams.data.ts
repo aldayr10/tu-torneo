@@ -10,6 +10,7 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
+    invitationCode:'',
     players: []
   },
 
@@ -21,6 +22,7 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
+    invitationCode:'',
     players: []
   },
 
@@ -32,6 +34,7 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
+    invitationCode:'',
     players: [
       {
         idPlayer: 0,
@@ -51,6 +54,7 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
+    invitationCode:'',
     players: [
       {
         idPlayer: 0,

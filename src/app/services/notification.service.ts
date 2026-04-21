@@ -1,26 +1,49 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Notification } from '../models/notification';
 
-export interface Notification {
-  id: number;
-  message: string;
-  userId: number;
-  date: Date;
-  read: boolean;
-}
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationService {
 
-  private notifications: Notification[] = [];
-  private notifications$ = new BehaviorSubject<Notification[]>([]);
+  private notifications: Notification[] = JSON.parse(localStorage.getItem('notifications') || '[]');
+  private notifications$ = new BehaviorSubject<Notification[]>(this.notifications);
 
-  getNotifications() {
+  getNotifications(idUser: number) {
     return this.notifications$.asObservable();
   }
 
-  sendNotification(notification: Notification) {
-    this.notifications.push(notification);
-    this.notifications$.next(this.notifications);
+  getUserNotifications(idUser: number) {
+    return this.notifications$.asObservable();
   }
+
+  getUnreadCount(idUser: number): number {
+    return this.notifications.filter(n => !n.read && n.idUser === idUser).length;
+  }
+
+  createNotification(idUser: number, message: string) {
+
+    this.notifications.push({
+      idNotification: Date.now(),
+      idUser,
+      message,
+      read: false,
+      date: new Date()
+    });
+
+    this.update();
+  }
+
+  markAsRead(id: number) {
+    const n = this.notifications.find(x => x.idNotification === id);
+    if (n) n.read = true;
+    this.update();
+  }
+
+  private update() {
+    localStorage.setItem('notifications', JSON.stringify(this.notifications));
+    this.notifications$.next([...this.notifications]);
+  }
+
 }

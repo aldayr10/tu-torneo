@@ -12,44 +12,4 @@ import { Request } from '../../../../../models/request';
 })
 export class addPlayerTeam {
 
-  solicitudes: Request[] = [];
-  userId!: number;
-
-  constructor(private requestService: RequestService) {
-
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.userId = user.id;
-
-    this.cargarSolicitudes();
-  }
-
-  cargarSolicitudes() {
-
-    const todasLasSolicitudes = this.requestService.getAllRequests();
-    this.solicitudes = todasLasSolicitudes.filter(
-      solicitud => solicitud.playerId === this.userId
-    );
-
-  }
-
-  aceptarSolicitud(solicitud: Request) {
-
-    this.requestService.updateRequestStatus(solicitud.id, 'Aceptada');
-
-    solicitud.status = 'Aceptada';
-
-    console.log('Solicitud aceptada:', solicitud);
-
-  }
-
-  rechazarSolicitud(solicitud: Request) {
-
-    this.requestService.updateRequestStatus(solicitud.id, 'Rechazada');
-
-    solicitud.status = 'Rechazada';
-
-    console.log('Solicitud rechazada:', solicitud);
-
-  }
-
 }

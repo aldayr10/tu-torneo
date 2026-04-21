@@ -1,9 +1,8 @@
 export interface Request {
-
-  id: number;
-  teamId: number;
-  playerId: number;
-  playerName: string;
+  idRequest: number;
+  idTeam: number;
+  idPlayer: number;
+  type: 'Unirse' | 'Invitar';
   status: 'Pendiente' | 'Aceptada' | 'Rechazada';
-
+  createdAt: Date| '';
 }

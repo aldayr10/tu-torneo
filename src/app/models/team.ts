@@ -10,6 +10,7 @@ export interface Team {
   primaryColor: string;
   alternativeColor: string;
   image: {};
+  invitationCode:String;
   players: Player[];
 
 }
