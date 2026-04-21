@@ -73,14 +73,7 @@ export const routes: Routes = [
     { path: 'request-status', component: RequestStatus },
 
 
-
-
-
-
-
-
     { path: 'nav-bar', component: NavBar },
-
 
 ];
 
