@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Player } from '../models/player';
-import { log } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +16,8 @@ export class ProfileService {
   }
 
   getProfile() {
+    console.log(this.profile$);
+    
     return this.profile$;
   }
 }

@@ -11,7 +11,7 @@ import { RequestStatus } from './pages/dashboard/teams/request/request-status/re
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Teams } from "./pages/dashboard/teams/teams";
 import { addPlayerTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
-import { JoinTeam } from './pages/dashboard/teams/request/join-team/join-team';
+
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from './pages/dashboard/teams/request/delete-player-team/delete-player-team';
 import { ViewCreatedTeams } from './pages/dashboard/teams/view-created-teams/view-created-teams';
@@ -25,10 +25,17 @@ import { ViewCreatedTournament } from "./pages/dashboard/tournament/view-created
 import { AllTournament } from "./pages/dashboard/tournament/all-tournament/all-tournament";
 
 import { authGuard } from './guards/auth-guard';
+import { SelectTeam } from './pages/dashboard/teams/select-team/select-team';
+
+import { ViewGames} from './pages/dashboard/games/view-games/view-games';
+import { InfoTournament } from './pages/dashboard/tournament/info-tournament/info-tournament';
+
 
 
 export const routes: Routes = [
     // principal
+
+    {path: 'view-games',component:ViewGames },//partidos
 
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login, },
@@ -40,13 +47,14 @@ export const routes: Routes = [
     //listas reusables
     { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
     { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
-    {path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
-
+    { path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
+    { path: 'info-tournament/:id', component: InfoTournament},
     //modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
         children: [
             { path: 'create-tournament', component: CreateTournament },
+            
             
         ]
     },
@@ -59,6 +67,7 @@ export const routes: Routes = [
             //gestion equipos
             { path: 'player-join-team', component: addPlayerTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
+            { path: 'select-team', component: SelectTeam },
         ]
         
     },
@@ -68,12 +77,12 @@ export const routes: Routes = [
 
     //player
     { path: 'update-profile', component: UpdateProfile },
-    { path: 'join-team', component: JoinTeam },
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
 
 
     { path: 'nav-bar', component: NavBar },
+    
 
 ];
 

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CatTypeTeam {
-  catalogo:any=[
+  public catalogo:any=[
     {
       id:0,
       name:"Fútbol 11"
@@ -24,7 +24,8 @@ export class CatTypeTeam {
   ]
 
 
-  getCatTypeTournamentTeam(){
+  getCatTypeTournamentTeam():[]{
     return this.catalogo;
   }
+  
 }

@@ -1,8 +1,8 @@
-import { Injectable,OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
-import { User } from '../models/user';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { TEAMS } from '../fake-data/teams.data';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -10,42 +10,81 @@ import { TEAMS } from '../fake-data/teams.data';
 export class TeamService {
   private teams: Team[] = TEAMS;
   private teamsSource = new BehaviorSubject<Team[]>([]);
-  private teams$ = this.teamsSource.asObservable();
+  teams$ = this.teamsSource.asObservable();
 
 
   createTeam(team: Team) {
     team.idTeam = this.teams.length + 1;
     this.teams.push(team);
     this.teamsSource.next([...this.teams]);
-    return this.teams$;
   }
-//post , put ,delete
+
   getTeams() {
+    this.teamsSource.next([...this.teams]);
     return this.teams$;
   }
 
-  deteleTeam(id: number){
+  deteleTeam(id: number) {
     this.teams.find(team => team.idTeam !== id)
     this.teams = this.teams.filter(team => team.idTeam !== id);
     this.teamsSource.next([...this.teams]);
   }
+
   getTeamsByOwner(ownerId: number) {
-    const filter=this.teams.filter(team => team.ownerId === ownerId);
-    this.teamsSource.next([...filter]);
-    return this.teams$;
+    this.teamsSource.next([...this.teams]);
+    return this.teams$.pipe(
+      map(teams =>
+        teams.filter(team =>
+          team.ownerId === ownerId
+        )
+      )
+    );
   }
 
-  getTeamsByOwnerByCategory(ownerId: number,category:number) {
-    const filter= this.teams.filter(team => team.ownerId === ownerId && team.category===category);
-    this.teamsSource.next([...filter]);
-    return this.teams$;
+  getTeamsByOwnerByCategory(ownerId: number, categoryId: number) {
+    this.teamsSource.next([...this.teams]);
+    return this.teams$.pipe(
+      map(teams =>
+        teams.filter(team => 
+          team.ownerId === ownerId &&
+          team.categoryId === categoryId
+        
+        )
+      )
+    );
   }
 
   getTeamByIdTeam(teamId: number): Team | undefined {
     return this.teams.find(team => team.idTeam === teamId);
   }
 
-  invitePlayer(teamId: number, player: User) {
+  addTeam(team: Team) {
+    team.idTeam = this.teams.length + 1;
+    team.players = [];
+    team.invitationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    this.teams.push(team);
+    this.teamsSource.next([...this.teams]);
+  }
+
+  addPlayerToTeam(idTeam: number, player: any) {
+    const team = this.getTeamByIdTeam(idTeam);
+    if (!team) return;
+
+    team.players = team.players || [];
+
+    const exists = team.players.some(p => p.idPlayer === player.idPlayer);
+    if (!exists) {
+      team.players.push(player);
+      this.teamsSource.next([...this.teams]);
+    }
+  }
+
+  joinTeamFromRequest(idTeam: number, player: any) {
+  this.addPlayerToTeam(idTeam, player);
+}
+
+  invitePlayer(teamId: number, player: Player) {
     const team = this.getTeamByIdTeam(teamId);
 
     if (team) {

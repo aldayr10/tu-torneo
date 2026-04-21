@@ -1,0 +1,31 @@
+<div class="card">
+
+    <h2>Descripción del Torneo</h2>
+    <div class="center">
+        <h2>Torneo:</h2>
+        <label>{{ tournamentData.name }}</label>
+    </div>
+
+    <div>
+        <h3 for="">Creado Por:</h3>
+        <label>{{ tournamentData.owner }}</label>
+    </div>
+
+    <div>
+        <h3 for="">Descricion:</h3>
+        <label>{{ tournamentData.descrilabeltion }}</label>
+    </div>
+
+    <div>
+        <h3 for="">Categoria:</h3>
+        <label>{{ tournamentData.category }}</label>
+    </div>
+
+
+
+    <div class="actions">
+        <button type="button" (click)="close()">cerrar</button>
+        <button type="delete" (click)="inscribirse()">Inscribirse</button>
+    </div>
+
+</div>

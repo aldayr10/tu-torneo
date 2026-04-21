@@ -3,19 +3,21 @@ import { Request } from '../models/request';
 export const REQUESTS_FAKE: Request[] = [
 
   {
-    id: 1,
-    teamId: 1,
-    playerId: 2,
-    playerName: "Carlos Perez",
-    status: "Pendiente"
+    idRequest: 1,
+    idTeam: 1,
+    idPlayer: 2,
+    type: 'Unirse',
+    status: 'Pendiente',
+    createdAt: '',
   },
 
   {
-    id: 2,
-    teamId: 1,
-    playerId: 3,
-    playerName: "Luis Gomez",
-    status: "Pendiente"
+    idRequest: 2,
+    idTeam: 1,
+    idPlayer: 3,
+    type: 'Unirse',
+    status: 'Pendiente',
+    createdAt: '',
   }
 
 ];

@@ -16,13 +16,17 @@ export class PlayerService {
 
   createPlayer(player: Player) {
     player.idPlayer = this.players.length + 1;
+    
+    
     this.players.push(player);
     this.playerSource.next(this.players);
+    console.log(this.players);
     return player;
+    
   }
 
-  getPlayerByIdUser(playerId: number) {
-    console.log();
+  getPlayerByIdUser(playerId: number) :Player|any{
+
     return this.players.find(player => player.idUser === playerId);
   }
 

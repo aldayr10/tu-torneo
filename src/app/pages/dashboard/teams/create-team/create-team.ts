@@ -37,19 +37,16 @@ export class CreateTeam implements OnInit {
     this.teamForm = this.fb.group({
       name: ['', Validators.required],
       ownerId: ['',],
-      category: [0, [Validators.required]],
+      categoryId: [0, [Validators.required]],
       primaryColor: ['#000000'],
       alternativeColor: ['#000000',],
       image: [null]
     });
     
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
-    console.log(this.catalogoTeam);
     
     this.owner=this.profileService.getProfile();
     this.owner=this.owner.source.value
-    console.log(this.owner);
-    
     
     this.teamForm.patchValue({
       ownerId: this.owner.idPlayer
@@ -78,7 +75,7 @@ export class CreateTeam implements OnInit {
 
     if (this.teamForm.invalid) return;
     console.log(this.teamForm);
-    let category = Number.parseInt(this.teamForm.value.category)
+    let category = Number.parseInt(this.teamForm.value.categoryId)
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     
@@ -86,11 +83,12 @@ export class CreateTeam implements OnInit {
     const newTeam = {
       idTeam: 0,
       name: this.teamForm.value.name,
-      category: category,
+      categoryId: category,
       ownerId: this.owner.idPlayer,
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
+      invitationCode:'',
       players: []
     };
     console.log(newTeam);

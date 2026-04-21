@@ -14,7 +14,7 @@
     <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
     <div>
       <label>Categoría</label>
-      <select formControlName="category">
+      <select formControlName="categoryId">
         @for (tipo of catalogoTeam; track tipo.id) {
         <option [value]="tipo.id" [defaultSelected]="1">
           {{ tipo.name }}

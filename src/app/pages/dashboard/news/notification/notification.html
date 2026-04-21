@@ -1,0 +1,38 @@
+<div class="notifications-container">
+
+  <h3>Notificaciones</h3>
+
+  <div class="section">
+
+    <h4>Solicitudes</h4>
+
+    @if (requests.length > 0) {
+      @for (r of requests; track r.idRequest) {
+        <div class="item">
+          <span>Jugador {{ r.idPlayer }}</span>
+
+          <div>
+            <button (click)="accept(r)">✔</button>
+            <button (click)="reject(r)">✖</button>
+          </div>
+        </div>
+      }
+    } @else {
+      <p>Sin solicitudes</p>
+    }
+
+  </div>
+
+  <div class="section">
+
+    <h4>Actividad</h4>
+
+    @for (n of notifications; track n.idNotification) {
+      <div class="item">
+        {{ n.message }}
+      </div>
+    }
+
+  </div>
+
+</div>

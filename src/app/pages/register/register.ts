@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user';
+import { PlayerService } from '../../services/player';
+import { Player } from '../../models/player';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +19,8 @@ export class Register {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private playerService:PlayerService
   ) {
 
     this.registerForm = this.fb.group({
@@ -56,8 +59,14 @@ export class Register {
         password: formValue.password
       };
 
-      this.userService.register(newUser);
+      const newPlayer:Player = {
+        idPlayer:0,
+        idUser: this.userService.register(newUser),
 
+        name: formValue.nombre,
+        dateBirth: formValue.fechaNacimiento
+      };
+      this.playerService.createPlayer(newPlayer)
       alert("Registro exitoso");
 
       this.router.navigate(['/login']);

@@ -1,14 +1,16 @@
-import { User } from "./user";
+import { Player } from "./player";
+
 
 export interface Team {
 
   idTeam: number;
   name: string;
-  category: number;
+  categoryId: number;
   ownerId: number;
   primaryColor: string;
   alternativeColor: string;
   image: {};
-  players: User[];
+  invitationCode:String;
+  players: Player[];
 
 }

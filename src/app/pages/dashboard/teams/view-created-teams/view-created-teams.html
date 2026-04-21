@@ -16,14 +16,8 @@
 
 
         <div class="buttos-card-team">
-          @if(!gestion){
-          <button class="settings" (click)="openManageTeam(team.idTeam)">
-            <span class="material-symbols-outlined">
-              recent_patient
-            </span>
-          </button>
-          }
-          @if(gestion){
+         
+          
           <button class="settings" (click)="openManageTeam(team.idTeam)">
             <span class="material-symbols-outlined">stadia_controller</span>
           </button>
@@ -31,7 +25,7 @@
           <button class="delete" (click)="deleteTeam(team.idTeam)">
             <span class="material-symbols-outlined">delete</span>
           </button>
-          }
+          
 
         </div>
       </div>
