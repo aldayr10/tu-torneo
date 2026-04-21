@@ -26,7 +26,7 @@ export class PlayerService {
   }
 
   getPlayerByIdUser(playerId: number) :Player|any{
-    console.log();
+
     return this.players.find(player => player.idUser === playerId);
   }
 

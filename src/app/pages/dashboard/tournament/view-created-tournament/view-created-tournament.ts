@@ -7,6 +7,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTournament } from '../create-tournament/create-tournament';
 import { BehaviorSubject } from 'rxjs';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -30,6 +32,7 @@ export class ViewCreatedTournament {
     private dialog: MatDialog,
     private tournamentService: TournamentService,
     private profile: ProfileService,
+    private router:Router
   ) {
     this.profile.getProfile().subscribe(data=>{
       this.owner=data
@@ -47,16 +50,8 @@ export class ViewCreatedTournament {
   }
 
 
-  editTournament() {
-
-    const dialogRef = this.dialog.open(CreateTournament, {
-      width: '400px'
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      
-    });
-
+  editTournament(tournament:Tournament) {
+    this.router.navigate(['/info-tournament', tournament.idTournament]);
   }
 
   getPaginatedTeams(tournaments: Tournament[]) {

@@ -28,6 +28,7 @@ import { authGuard } from './guards/auth-guard';
 import { SelectTeam } from './pages/dashboard/teams/select-team/select-team';
 
 import { ViewGames} from './pages/dashboard/games/view-games/view-games';
+import { InfoTournament } from './pages/dashboard/tournament/info-tournament/info-tournament';
 
 
 
@@ -47,12 +48,13 @@ export const routes: Routes = [
     { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
     { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
     { path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
-
+    { path: 'info-tournament/:id', component: InfoTournament},
     //modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
         children: [
             { path: 'create-tournament', component: CreateTournament },
+            
             
         ]
     },

@@ -32,7 +32,15 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
-    players: []
+    players: [
+      {
+        idPlayer: 0,
+        idUser: 0,
+        name: 'Admin',
+        dateBirth: new Date('2000-01-01')
+      },
+
+    ]
   },
 
   {
@@ -43,7 +51,14 @@ export const TEAMS: Team[] = [
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
     image: {},
-    players: []
+    players: [
+      {
+        idPlayer: 0,
+        idUser: 0,
+        name: 'Admin',
+        dateBirth: new Date('2000-01-01')
+      },
+    ]
   },
 
 ];

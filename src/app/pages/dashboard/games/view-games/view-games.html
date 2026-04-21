@@ -1,83 +1,61 @@
 <div class="container">
 
-
   <div class="header">
-    <div class="back" (click)="volver()">← Volver al Dashboard</div>
-
-    <div class="title-icon">
-      <span class="material-symbols-outlined">calendar_month</span>
-    </div>
+    <div class="back" (click)="volver()">← Volver</div>
     <h2>Partidos por Torneo</h2>
-    <p>Consulta todos los partidos organizados por torneo</p>
   </div>
 
-  <div *ngFor="let torneo of torneos" class="tournament-card">
+  <div class="tournaments-grid">
 
+    @for (torneo of torneos; track torneo.idTournament) {
 
-    <div class="tournament-header">
-      <div class="circle">
-        <span class="material-symbols-outlined">schedule</span>
-      </div>
+      <div class="tournament-card">
 
-      <div>
-        <h3>{{ torneo.nombre }}</h3>
-        <p>
-          Categoría: {{ torneo.categoria }} <br>
-          {{ torneo.equipos.length }} equipos •
-          {{ torneo.partidos.length }} partidos •
-          Tipo: {{ torneo.tipo }}
-        </p>
-      </div>
-    </div>
+        <h3>{{ torneo.name }}</h3>
 
-    <hr>
+        <!-- 🔥 STATS POR TORNEO -->
+        <div class="stats">
+          <div class="stat-card">
+            <p>Equipos</p>
+            <h3>{{ torneo.totalEquipos }}</h3>
+          </div>
 
-
-    <div class="jornada">
-      <span class="dot">🟣</span>
-      <h4>Jornada 1</h4>
-    </div>
-
-    <div *ngFor="let partido of torneo.partidos" class="match">
-
-      <div class="team">
-        <div class="team-icon">
-          <span class="material-symbols-outlined">groups</span>
+          <div class="stat-card">
+            <p>Partidos</p>
+            <h3>{{ torneo.totalPartidos }}</h3>
+          </div>
         </div>
-        <p>{{ partido.equipo1 }}</p>
-        <small>0 jugadores</small>
+
+        @for (ronda of torneo.rondas; track ronda.numero) {
+
+          <div class="jornada">
+            <span>🟣</span>
+            <h4>Jornada {{ ronda.numero }}</h4>
+          </div>
+
+          @for (partido of ronda.partidos; track partido.idMatch) {
+
+            <div class="match">
+
+              <div class="team">
+                <p>{{ partido.teamA.name }}</p>
+              </div>
+
+              <div class="vs">VS</div>
+
+              <div class="team">
+                <p>{{ partido.teamB.name }}</p>
+              </div>
+
+            </div>
+
+          }
+
+        }
+
       </div>
 
-      <div class="vs">VS</div>
-
-      <div class="team">
-        <div class="team-icon">
-          <span class="material-symbols-outlined">groups</span>
-        </div>
-        <p>{{ partido.equipo2 }}</p>
-        <small>0 jugadores</small>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="stats">
-
-    <div class="stat-card">
-      <p>Torneos con Partidos</p>
-      <h3>{{ torneos.length }}</h3>
-    </div>
-
-    <div class="stat-card">
-      <p>Total Partidos</p>
-      <h3>{{ totalPartidos }}</h3>
-    </div>
-
-    <div class="stat-card">
-      <p>Total Equipos</p>
-      <h3>{{ totalEquipos }}</h3>
-    </div>
+    }
 
   </div>
 

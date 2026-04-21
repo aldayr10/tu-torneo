@@ -1,6 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="dashboard-container">
+
   <div class="card" (click)="goToTournament()">
     <div class="icon-circle blue">
       <span class="material-symbols-outlined">trophy</span>
@@ -32,15 +33,19 @@
 </h1>
 
 @if (tournaments$ | async; as tournaments) {
-  @if(tournaments.length>0){
-  <div class="card-tournamens">
-    <div class="card-all-tournament" (click)="goToAllTournament()">
-      <div class="icon-circle purple">
-        <span class="material-symbols-outlined">calendar_today</span>
+
+  @if (tournaments.length > 0) {
+
+    <div class="card-tournamens">
+      <div class="card-all-tournament" (click)="goToAllTournament()">
+        <div class="icon-circle purple">
+          <span class="material-symbols-outlined">calendar_today</span>
+        </div>
+        <h3>Ver Todos Los Torneos Creados</h3>
+        <p>tienes {{ tournaments.length }} torneos creados</p>
       </div>
-      <h3>Ver Todos Los Torneos Creados</h3>
-      <p>tienes {{tournaments.length}} torneos creados</p>
     </div>
-  </div>
+
   }
+
 }
