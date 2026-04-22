@@ -38,6 +38,8 @@ export const routes: Routes = [
     {path: 'view-games',component:ViewGames },//partidos
 
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+    
     { path: 'login', component: Login, },
     { path: 'recover-password', component: RecoverPassword },
     { path: 'check-email', component: CheckEmail },
