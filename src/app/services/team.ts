@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
-import { User } from '../models/user';
 import { BehaviorSubject, map } from 'rxjs';
 import { TEAMS } from '../fake-data/teams.data';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +58,33 @@ export class TeamService {
     return this.teams.find(team => team.idTeam === teamId);
   }
 
-  invitePlayer(teamId: number, player: User) {
+  addTeam(team: Team) {
+    team.idTeam = this.teams.length + 1;
+    team.players = [];
+    team.invitationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    this.teams.push(team);
+    this.teamsSource.next([...this.teams]);
+  }
+
+  addPlayerToTeam(idTeam: number, player: any) {
+    const team = this.getTeamByIdTeam(idTeam);
+    if (!team) return;
+
+    team.players = team.players || [];
+
+    const exists = team.players.some(p => p.idPlayer === player.idPlayer);
+    if (!exists) {
+      team.players.push(player);
+      this.teamsSource.next([...this.teams]);
+    }
+  }
+
+  joinTeamFromRequest(idTeam: number, player: any) {
+  this.addPlayerToTeam(idTeam, player);
+}
+
+  invitePlayer(teamId: number, player: Player) {
     const team = this.getTeamByIdTeam(teamId);
 
     if (team) {

@@ -88,6 +88,7 @@ export class CreateTeam implements OnInit {
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
+      invitationCode:'',
       players: []
     };
     console.log(newTeam);

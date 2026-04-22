@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '../../../../services/user';
 import { TeamService } from '../../../../services/team';
 import { Team } from '../../../../models/team';
+import { PlayerService } from '../../../../services/player';
 
 @Component({
   selector: 'app-manage-team',
@@ -25,6 +26,7 @@ export class ManageTeam implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private teamService: TeamService,
     private userService: UserService,
+    private playerService:PlayerService,
     private fb: FormBuilder
   ) { }
 
@@ -52,7 +54,10 @@ export class ManageTeam implements OnInit {
 
     if (this.inviteForm.valid) {
       let user = this.userService.getUserByEmail(this.inviteForm.value.useremail)
-      console.log(user);
+      if (user) {
+        let player = this.playerService.getPlayerByIdUser(user?.idUser);
+
+        console.log(user);
 
       setTimeout(() => {
 
@@ -62,7 +67,7 @@ export class ManageTeam implements OnInit {
 
           alert('Usuario No Existe');
         } else {
-          this.teamService.invitePlayer(this.team.idTeam, user);
+          this.teamService.invitePlayer(this.team.idTeam, player);
 
           alert('Invitación enviada');
 
@@ -71,6 +76,10 @@ export class ManageTeam implements OnInit {
         }
 
       }, 2000);
+      }
+      
+      
+      
 
 
     }

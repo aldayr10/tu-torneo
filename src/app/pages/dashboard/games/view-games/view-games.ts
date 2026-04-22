@@ -1,6 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TournamentService } from '../../../../services/tournament.service';
+
+import { Tournament } from '../../../../models/tournament';
+import { ProfileService } from '../../../../services/profile';
+import { TeamService } from '../../../../services/team';
+import { TournamentMatchService } from '../../../../services/tournament-match-service';
+
+type TournamentView = Tournament & {
+  rondas?: {
+    numero: number;
+    partidos: any[];
+  }[];
+  totalPartidos?: number;
+  totalEquipos?: number;
+};
 
 @Component({
   selector: 'app-view-games',
@@ -9,37 +24,83 @@ import { Router } from '@angular/router';
   templateUrl: './view-games.html',
   styleUrls: ['./view-games.css']
 })
-export class ViewGames {
+export class ViewGames implements OnInit {
 
-  torneos: any[] = [];
+  torneos: TournamentView[] = [];
+  player: any;
 
-  totalPartidos = 0;
-  totalEquipos = 0;
+  constructor(
+    private router: Router,
+    private tournamentService: TournamentService,
+    private matchService: TournamentMatchService,
+    private profileService: ProfileService,
+    private teamService: TeamService
+  ) {}
 
-  constructor(private router: Router) {
-    this.cargarDatos();
+  ngOnInit() {
+    this.profileService.getProfile().subscribe(profile => {
+      this.player = profile;
+      this.cargarDatos();
+    });
   }
 
   cargarDatos() {
 
-    // Simulación (puedes cambiar por tu servicio real)
-    this.torneos = [
-      {
-        nombre: 'Torneo Demo',
-        categoria: 'A',
-        tipo: 'Fútbol 11',
-        equipos: ['Equipo 1', 'Equipo 2'],
-        partidos: [
-          { equipo1: 'Equipo 1', equipo2: 'Equipo 2' }
-        ]
-      }
-    ];
+    this.tournamentService.getTournaments().subscribe(tournaments => {
 
-    this.totalPartidos = this.torneos.reduce((acc, t) => acc + t.partidos.length, 0);
-    this.totalEquipos = this.torneos.reduce((acc, t) => acc + t.equipos.length, 0);
+      const enCurso = tournaments.filter(t => t.estado === 'EN_CURSO');
+
+      const misTorneos: TournamentView[] = enCurso.filter(t =>
+        t.teams?.some(team => {
+
+          const fullTeam = this.teamService.getTeamByIdTeam(team.idTeam);
+
+          if (!fullTeam?.players) return false;
+
+          return fullTeam.players.some(p => p.idPlayer === this.player.idPlayer);
+
+        })
+      );
+
+      misTorneos.forEach(torneo => {
+
+        this.matchService.generateRounds(torneo);
+
+        this.matchService.getMatchesByTournament(torneo.idTournament)
+          .subscribe(matches => {
+
+            const grouped: any = {};
+
+            matches.forEach(m => {
+              if (!grouped[m.round]) grouped[m.round] = [];
+              grouped[m.round].push(m);
+            });
+
+            torneo.rondas = Object.keys(grouped)
+              .map(r => ({
+                numero: Number(r),
+                partidos: grouped[r]
+              }))
+              .sort((a, b) => a.numero - b.numero);
+
+            torneo.totalPartidos = torneo.rondas.reduce(
+              (acc, r) => acc + r.partidos.length,
+              0
+            );
+
+            torneo.totalEquipos = torneo.teams?.length || 0;
+
+          });
+
+      });
+
+      this.torneos = misTorneos;
+
+    });
+
   }
 
-  volver(){
+  volver() {
     this.router.navigate(['/dashboard']);
   }
 

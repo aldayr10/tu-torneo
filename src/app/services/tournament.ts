@@ -25,7 +25,9 @@ export class TournamentService {
     if (tournament) {
       tournament.teams.push(team);
     }
-
+    console.log(tournament);
+    
   }
+
 
 }
