@@ -33,19 +33,17 @@
 </h1>
 
 @if (tournaments$ | async; as tournaments) {
-
-  @if (tournaments.length > 0) {
-
-    <div class="card-tournamens">
-      <div class="card-all-tournament" (click)="goToAllTournament()">
-        <div class="icon-circle purple">
-          <span class="material-symbols-outlined">calendar_today</span>
-        </div>
-        <h3>Ver Todos Los Torneos Creados</h3>
-        <p>tienes {{ tournaments.length }} torneos creados</p>
-      </div>
+<div class="mockup-tournament-card" (click)="goToAllTournament()">
+  <div class="mockup-card-content">
+    <div class="icon-circle blue-tournament">
+      <span class="material-symbols-outlined">trophy</span>
     </div>
-
-  }
-
+    <div class="alinear">
+      <h3 class="mockup-title">Ver Todos los Torneos Creados</h3>
+      <p class="mockup-count">
+        Tienes {{ tournaments.length }} {{ tournaments.length === 1 ? 'torneo creado' : 'torneos creados' }}
+      </p>
+    </div>
+  </div>
+</div>
 }

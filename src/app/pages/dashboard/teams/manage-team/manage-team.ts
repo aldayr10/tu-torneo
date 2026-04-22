@@ -82,10 +82,6 @@ export class ManageTeam implements OnInit {
       
 
 
-
-
-
-
     }
 
   }
