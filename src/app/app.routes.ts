@@ -29,17 +29,14 @@ import { SelectTeam } from './pages/dashboard/teams/select-team/select-team';
 
 import { ViewGames} from './pages/dashboard/games/view-games/view-games';
 import { InfoTournament } from './pages/dashboard/tournament/info-tournament/info-tournament';
+import { ManageTeam } from './pages/dashboard/teams/manage-team/manage-team';
 
 
 
 export const routes: Routes = [
     // principal
-
     {path: 'view-games',component:ViewGames },//partidos
-
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-    
     { path: 'login', component: Login, },
     { path: 'recover-password', component: RecoverPassword },
     { path: 'check-email', component: CheckEmail },
@@ -51,6 +48,7 @@ export const routes: Routes = [
     { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
     { path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
     { path: 'info-tournament/:id', component: InfoTournament},
+    { path: 'manage-team/:id', component: ManageTeam },
     //modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
@@ -70,20 +68,16 @@ export const routes: Routes = [
             { path: 'player-join-team', component: addPlayerTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
             { path: 'select-team', component: SelectTeam },
+            
         ]
         
     },
     
-
-
-
     //player
     { path: 'update-profile', component: UpdateProfile },
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
     { path: 'nav-bar', component: NavBar },
     
-
-
 ];
 
