@@ -1,0 +1,43 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-main {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.badges {
+  display: flex;
+  gap: 10px;
+}
+
+.tabs {
+  display: flex;
+  margin-top: 20px;
+  border-bottom: 1px solid #ddd;
+  justify-content: center;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-bottom: 3px solid #3b82f6;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

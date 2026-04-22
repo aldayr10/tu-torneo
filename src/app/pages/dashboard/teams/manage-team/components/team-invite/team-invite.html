@@ -1,0 +1,77 @@
+<div class="invite-container">
+
+  <!-- EMPTY STATE (sin solicitudes, solo decorativo) -->
+  <div class="empty-state">
+    <span class="material-symbols-outlined">schedule</span>
+    <p>No hay solicitudes pendientes en este momento.</p>
+  </div>
+
+  <!-- GRID -->
+  <div class="invite-grid">
+
+    <!-- CODIGO -->
+    <div class="card code-card">
+
+      <h3>
+        <span>#</span> Código de Invitación
+      </h3>
+
+      <div class="box">
+
+        <p>Comparte este código:</p>
+
+        <div class="code-row">
+
+          <div class="code">
+            {{ team.code }}
+          </div>
+
+          <button (click)="copyCode()">
+            <span class="material-symbols-outlined">content_copy</span>
+          </button>
+
+        </div>
+
+        <small>
+          Los jugadores lo ingresan en "Unirse a un Equipo"
+        </small>
+
+      </div>
+
+    </div>
+
+    <!-- LINK -->
+    <div class="card link-card">
+
+      <h3>
+        <span class="material-symbols-outlined">link</span>
+        Link Directo
+      </h3>
+
+      <div class="box">
+
+        <p>O comparte este link:</p>
+
+        <div class="code-row">
+
+          <div class="link">
+            {{ inviteLink }}
+          </div>
+
+          <button (click)="copyLink()">
+            <span class="material-symbols-outlined">content_copy</span>
+          </button>
+
+        </div>
+
+        <small>
+          Click directo para solicitar unirse
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
