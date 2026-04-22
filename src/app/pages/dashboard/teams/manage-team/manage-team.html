@@ -1,51 +1,67 @@
-<h2>Gestión del equipo</h2>
+<div class="container">
+  
+  @if (team) {
+    <div class="header">
 
-<div *ngIf="team">
+      <div class="team-main">
+        <div class="icon"></div>
 
-  <h3>{{team.name}}</h3>
-  <p>Categoría: {{team.categoryId}}</p>
+        <div>
+          <h2>{{ team.name }}</h2>
 
-  <h4>Jugadores actuales</h4>
+          <div class="badges">
+            <span class="type">{{ team.type }}</span>
+            <span class="players">{{ team.players?.length || 0 }} jugadores</span>
+          </div>
+        </div>
+      </div>
 
-  <ul>
-    <li *ngFor="let player of team.players">
-      Jugador: {{player.name}}
-    </li>
-  </ul>
+      <span class="owner">Creador</span>
 
-  <br>
-
-  <button (click)="openInviteForm()">Invitar jugador</button>
-  <button (click)="generateInviteLink()">Generar enlace</button>
-
-  <br><br>
-
-  <div *ngIf="inviteLink">
-    <input type="text" [value]="inviteLink" readonly>
-    <button (click)="copyLink()">Copiar enlace</button>
-  </div>
-
-</div>
-
-<!-- Formulario invitar jugador -->
-
-<div *ngIf="showInviteForm">
-
-  <h3>Invitar jugador</h3>
-
-  <form [formGroup]="inviteForm" (ngSubmit)="invitePlayer()">
-
-    <label>Email de usuario</label>
-    <input type="email" formControlName="useremail">
-
-    <div *ngIf="inviteForm.get('useremail')?.invalid && inviteForm.get('useremail')?.touched">
-      El email es obligatorio
     </div>
 
-    <br><br>
+    <div class="tabs">
 
-    <button type="submit">Enviar invitación</button>
+      <div 
+        class="tab"
+        [class.active]="activeTab === 'info'"
+        (click)="changeTab('info')">
+        Info del Equipo
+      </div>
 
-  </form>
+      <div 
+        class="tab"
+        [class.active]="activeTab === 'players'"
+        (click)="changeTab('players')">
+        Jugadores
+      </div>
+
+      <div 
+        class="tab"
+        [class.active]="activeTab === 'invite'"
+        (click)="changeTab('invite')">
+        Invitar
+      </div>
+
+    </div>
+
+
+    <div class="content">
+
+      @if (activeTab === 'info') {
+        <app-team-info [team]="team"></app-team-info>
+      }
+
+      @if (activeTab === 'players') {
+        <app-team-players [team]="team"></app-team-players>
+      }
+
+      @if (activeTab === 'invite') {
+        <app-team-invite [team]="team"></app-team-invite>
+      }
+
+    </div>
+
+  }
 
 </div>

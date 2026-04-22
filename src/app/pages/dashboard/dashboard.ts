@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NavBar } from "./nav-bar/nav-bar";
 import { TournamentService } from '../../services/tournament.service';
 import { ProfileService } from '../../services/profile';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Tournament } from '../../models/tournament';
 import { CommonModule } from '@angular/common';
 
