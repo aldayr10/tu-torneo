@@ -73,10 +73,6 @@ export class ManageTeam implements OnInit {
       }, 2000);
 
 
-
-
-
-
     }
 
   }
