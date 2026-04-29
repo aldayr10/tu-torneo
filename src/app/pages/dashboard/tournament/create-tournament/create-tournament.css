@@ -1,49 +1,60 @@
-
-body{
+body {
     background-color: #c9d6e5;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
-.container{
+.container {
     width: 420px;
-    
     background: #ffffff;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-
-.icon-blue{
+.icon-blue {
     text-align: center;
-    font-size: 150px;
+    font-size: 65px;
     color: #2d6cdf;
     margin-bottom: 10px;
-
 }
 
-h2{
+.material-symbols-outlined {
+    font-size: 65px;
+}
+
+h2 {
     text-align: center;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 30px;
 }
 
-.subtitle{
+.subtitle {
     text-align: center;
     color: #6b7280;
     font-size: 14px;
     margin-bottom: 25px;
 }
 
-label{
-    font-weight: 600;
+.form-wrapper {
+  max-width: 700px;          
+  margin: 40px auto;         
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+label {
+    font-weight: 500;
     display: block;
     margin-bottom: 6px;
     margin-top: 15px;
 }
 
-input, textarea, select{
+input,
+textarea,
+select {
     width: 100%;
     padding: 12px;
     border-radius: 12px;
@@ -53,29 +64,35 @@ input, textarea, select{
     transition: border 0.2s;
 }
 
-input:focus, textarea:focus, select:focus{
+.field {
+    width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
     border: 1px solid #2d6cdf;
 }
 
-textarea{
+textarea {
     resize: none;
     height: 90px;
 }
 
-.char-count{
+.char-count {
     text-align: right;
     font-size: 12px;
     color: #9ca3af;
     margin-top: 5px;
 }
 
-button{
+button {
     width: 100%;
     margin-top: 25px;
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(90deg,#7aa2e3,#6b8ed6);
+    background: linear-gradient(90deg, #2563eb, #2563eb);
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -83,6 +100,6 @@ button{
     transition: 0.2s;
 }
 
-button:hover{
+button:hover {
     opacity: 0.9;
 }

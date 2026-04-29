@@ -3,7 +3,6 @@
   grid-template-columns: repeat(3,1fr);
   gap:30px;
   padding:40px;
-  
 }
 
 .card-tournamens{
@@ -16,7 +15,6 @@
   transition:0.2s;
   box-shadow:0px 0px 16px 3px rgb(2 0 0 / 71%);
 }
-
 
 
 .card{
@@ -49,7 +47,6 @@
 }
 
 .icon-circle{
-
   width:60px;
   height:60px;
   border-radius:50%;
@@ -102,7 +99,6 @@ h1{
   font-size: 40px;
 }
 
-/* Nuevo estilo para el panel de torneos (mockup) */
 .mockup-tournament-card {
   background: linear-gradient(90deg, #2567e8, #7a21e3);
   border-radius: 20px;
@@ -166,32 +162,3 @@ h1{
 .mockup-ver-button:active {
   transform: scale(0.98);
 }
-
-/* Elimina o comenta estos estilos antiguos que ya no se usan */
-/*
-.card-tournamens {
-  margin: 30px;
-  background: rgb(255, 255, 255);
-  border-radius: 20px;
-  padding: 30px;
-  text-align: left;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.2s;
-  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
-}
-
-.card-all-tournament {
-  background: rgba(173, 142, 37, 0.71);
-  border-radius: 20px;
-  padding: 30px;
-  text-align: left;
-  transition: 2s;
-  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
-}
-
-.card-all-tournament:hover {
-  background: rgba(224, 175, 14, 0.71);
-  transform: translateY(-20px);
-  box-shadow: 0px 0px 16px 20px rgba(224, 175, 14, 0.71);
-}
-*/
