@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-team-players',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './team-players.html',
   styleUrls: ['./team-players.css']
 })
@@ -15,8 +15,8 @@ export class TeamPlayers {
   constructor(private dialog: MatDialog){}
   openInvite() {
   this.dialog.open(JoinTeam, {
-    width: '400px',
-    data: { teamId: this.team.id }
+    width: '800px',
+    data: { team: this.team }
   });
 }
 }

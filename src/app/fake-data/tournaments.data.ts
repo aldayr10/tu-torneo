@@ -29,7 +29,8 @@ export const TOURNAMENTS: Tournament[] = [
       alternativeColor: "#000000",
       image: {},
       invitationCode:'',
-      players: []
+      players: [],
+      pendingInvitations :[]
     },
 
     {
@@ -41,7 +42,8 @@ export const TOURNAMENTS: Tournament[] = [
       alternativeColor: "#000000",
       image: {},
       invitationCode:'',
-      players: []
+      players: [],
+      pendingInvitations :[]
     }
   ]
 
@@ -63,7 +65,8 @@ export const TOURNAMENTS: Tournament[] = [
       alternativeColor: "#000000",
       image: {},
       invitationCode:'',
-      players: []
+      players: [],
+      pendingInvitations :[]
     },
 
     {
@@ -75,7 +78,8 @@ export const TOURNAMENTS: Tournament[] = [
       alternativeColor: "#000000",
       image: {},
       invitationCode:'',
-      players: []
+      players: [],
+      pendingInvitations :[]
     }
   ]
 

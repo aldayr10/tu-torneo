@@ -5,7 +5,7 @@ import { Player } from '../../../models/player';
 import { ProfileService } from "../../../services/profile";
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Notification } from '../news/notification/notification';
+import { Notifications } from '../news/notification/notification';
 
 
 import { NotificationService } from '../../../services/notification.service';
@@ -15,7 +15,7 @@ import { RequestService } from '../../../services/request';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, Notification],
+  imports: [CommonModule, Notifications],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 })

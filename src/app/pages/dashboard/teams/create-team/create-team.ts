@@ -89,7 +89,9 @@ export class CreateTeam implements OnInit {
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
       invitationCode:'',
-      players: []
+      players: [],
+      pendingInvitations :[]
+
     };
     console.log(newTeam);
     const createdTeam:any = this.teamService.createTeam(newTeam);

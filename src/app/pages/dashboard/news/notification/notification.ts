@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestService } from '../../../../services/request';
 import { NotificationService } from '../../../../services/notification.service';
 import { TeamService } from '../../../../services/team';
-
-
+import { AuthService } from '../../../../services/auth';
+import { Notification } from '../../../../models/notification';
 
 @Component({
   selector: 'app-notifications',
@@ -13,61 +12,46 @@ import { TeamService } from '../../../../services/team';
   templateUrl: './notification.html',
   styleUrls: ['./notification.css']
 })
-export class Notification implements OnInit {
+export class Notifications implements OnInit {
 
-  requests: any[] = [];
-  notifications: any[] = [];
-  user: any;
+  notifications: Notification[] = [];
+  teamInvitations: Notification[] = [];
 
   constructor(
-    private requestService: RequestService,
+    private authService: AuthService,
     private notificationService: NotificationService,
     private teamService: TeamService
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
 
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!currentUser) return;
 
-    this.loadRequests();
+    this.notificationService
+      .getUserNotifications(currentUser.idUser)
+      .subscribe(notifications => {
+        this.notifications = notifications;
 
-    this.notificationService.getNotifications(this.user.idPlayer)
-      .subscribe(n => this.notifications = n);
-
-  }
-
-  loadRequests() {
-    this.requestService.getRequests()
-      .subscribe(r => {
-        this.requests = r.filter(x => x.status === 'Pendiente');
+        this.teamInvitations = notifications.filter(
+          notification => notification.type === 'team_invitation'
+        );
       });
   }
 
-  accept(req: any) {
-    this.requestService.updateStatus(req.idRequest, 'Aceptada');
-
-    this.teamService.addPlayerToTeam(req.idTeam, {
-      idPlayer: req.idPlayer,
-      name: 'Jugador'
-    });
-
-    this.notificationService.createNotification(
-      req.idPlayer,
-      'Has sido aceptado en el equipo'
-    );
-
-    this.loadRequests();
+  acceptInvitation(notification: Notification) { 
+    const team = this.teamService.getTeamById(notification.teamId!); 
+    const user = this.authService.getCurrentUser(); 
+    if (!team || !user) return; 
+    this.teamService.acceptInvitation(team, user); 
+    this.notificationService.removeNotification(notification.idNotification); 
   }
 
-  reject(req: any) {
-    this.requestService.updateStatus(req.idRequest, 'Rechazada');
-
-    this.notificationService.createNotification(
-      req.idPlayer,
-      'Solicitud rechazada'
-    );
-
-    this.loadRequests();
+  declineInvitation(notification: Notification) { 
+    const team = this.teamService.getTeamById(notification.teamId!); 
+    const user = this.authService.getCurrentUser(); 
+    if (!team || !user) return; 
+    this.teamService.rejectInvitation(team, user); 
+    this.notificationService.removeNotification(notification.idNotification); 
   }
-
 }

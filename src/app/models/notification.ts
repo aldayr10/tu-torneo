@@ -1,7 +1,11 @@
-export interface Notification {
-  idNotification: number;
-  idUser: number;
-  message: string;
-  read: boolean;
-  date: Date;
+export interface Notification { 
+  idNotification: number; 
+  userId: number; 
+  type: string; 
+  title: string; 
+  message: string; 
+  teamId?: number; 
+  playerId?: number; 
+  read: boolean; 
+  createdAt: Date; 
 }

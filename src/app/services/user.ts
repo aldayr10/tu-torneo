@@ -16,13 +16,7 @@ export class UserService {
     return user.idUser;
   }
 
-  searchUsers(email: string) {
-    const filtered = this.users.filter(u =>
-      u.email.toLowerCase().includes(email.toLowerCase())
-    );
-
-    return of(filtered);
-  }
+  
   getUsers() {
     return this.users;
   }
