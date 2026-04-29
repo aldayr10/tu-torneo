@@ -12,5 +12,5 @@ export interface Team {
   image: {};
   invitationCode:String;
   players: Player[];
-
+  pendingInvitations :Player[];
 }

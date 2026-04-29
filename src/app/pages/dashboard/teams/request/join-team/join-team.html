@@ -1,0 +1,34 @@
+<div class="card">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Buscar jugador</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Escribe nombre o email" />
+  </mat-form-field>
+
+  @if (filteredPlayers.length > 0) {
+  <div class="players-list">
+
+    @for (player of filteredPlayers; track player.idPlayer) {
+    <div class="player-item" (click)="selectPlayer(player)">
+      <span>{{ player.email }}</span>
+    </div>
+    }
+
+  </div>
+  }
+
+  
+  <div class="dialog-actions">
+
+    <button [disabled]="!selectedPlayer" mat-raised-button color="primary" (click)="sendInvite()">
+      Enviar Invitación
+    </button>
+
+    <button mat-stroked-button color="warn" (click)="cancelSelection()">
+      Cancelar
+    </button>
+
+  </div>
+  
+
+</div>

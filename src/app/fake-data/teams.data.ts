@@ -11,7 +11,8 @@ export const TEAMS: Team[] = [
     alternativeColor: "#000000",
     image: {},
     invitationCode:'',
-    players: []
+    players: [],
+    pendingInvitations :[]
   },
 
   {
@@ -23,7 +24,8 @@ export const TEAMS: Team[] = [
     alternativeColor: "#000000",
     image: {},
     invitationCode:'',
-    players: []
+    players: [],
+    pendingInvitations :[]
   },
 
   {
@@ -43,7 +45,8 @@ export const TEAMS: Team[] = [
         dateBirth: new Date('2000-01-01')
       },
 
-    ]
+    ],
+    pendingInvitations :[]
   },
 
   {
@@ -62,7 +65,8 @@ export const TEAMS: Team[] = [
         name: 'Admin',
         dateBirth: new Date('2000-01-01')
       },
-    ]
+    ],
+    pendingInvitations :[]
   },
 
 ];

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Notification } from '../models/notification';
 
 @Injectable({
@@ -7,43 +7,67 @@ import { Notification } from '../models/notification';
 })
 export class NotificationService {
 
-  private notifications: Notification[] = JSON.parse(localStorage.getItem('notifications') || '[]');
-  private notifications$ = new BehaviorSubject<Notification[]>(this.notifications);
+  private notifications: Notification[] =
+    JSON.parse(localStorage.getItem('notifications') || '[]');
 
-  getNotifications(idUser: number) {
+  private notifications$ = new BehaviorSubject<Notification[]>(
+    this.notifications
+  );
+
+  getNotifications() {
     return this.notifications$.asObservable();
   }
 
   getUserNotifications(idUser: number) {
-    return this.notifications$.asObservable();
+    return this.notifications$.asObservable().pipe(
+      map(notifications =>
+        notifications.filter(n => n.userId === idUser)
+      )
+    );
   }
 
   getUnreadCount(idUser: number): number {
-    return this.notifications.filter(n => !n.read && n.idUser === idUser).length;
+    return this.notifications.filter(
+      n => !n.read && n.userId === idUser
+    ).length;
   }
 
-  createNotification(idUser: number, message: string) {
-
+  createNotification(notification: Notification) {
     this.notifications.push({
+      ...notification,
       idNotification: Date.now(),
-      idUser,
-      message,
       read: false,
-      date: new Date()
+      createdAt: new Date()
     });
 
     this.update();
   }
 
   markAsRead(id: number) {
-    const n = this.notifications.find(x => x.idNotification === id);
-    if (n) n.read = true;
+    const notification = this.notifications.find(
+      n => n.idNotification === id
+    );
+
+    if (notification) {
+      notification.read = true;
+      this.update();
+    }
+  }
+
+  removeNotification(id: number) {
+    this.notifications = this.notifications.filter(
+      n => n.idNotification !== id
+    );
+
     this.update();
   }
 
   private update() {
-    localStorage.setItem('notifications', JSON.stringify(this.notifications));
+    localStorage.setItem(
+      'notifications',
+      JSON.stringify(this.notifications)
+    );
+
     this.notifications$.next([...this.notifications]);
   }
-
 }
