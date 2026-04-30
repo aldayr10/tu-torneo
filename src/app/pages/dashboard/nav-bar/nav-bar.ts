@@ -104,12 +104,12 @@ export class NavBar implements OnInit {
   }
 
   toggleNotifications() {
-    localStorage.removeItem('notifications') 
+
     this.notificationsOpen = !this.notificationsOpen;
   }
 
   closeNotifications() {
-    localStorage.removeItem('notifications') 
+
     this.notificationsOpen = false;
   }
 
