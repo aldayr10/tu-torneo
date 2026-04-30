@@ -1,38 +1,60 @@
-
 <div class="go-dashboad" (click)="goToDAshboard()">
-    <span class="material-symbols-outlined">
-        arrow_back
-    </span>
-    <a class="go-dashboad-link">
-        Volver al Dashboard
-    </a>
+  <span class="material-symbols-outlined">
+    arrow_back
+  </span>
+  <a class="go-dashboad-link">
+    Volver al Dashboard
+  </a>
 </div>
 <div class="dashboard-container">
-    <div class="card">
-        <div class="join-team-container">
-            <h2>Unirse a un equipo</h2>
-            <form class="full-width">
-                <label>Código del equipo</label>
-                <input matInput [formControl]="codeControl" placeholder="Ingresa el código" />
-            </form>
-            <button mat-raised-button color="primary" (click)="searchTeam()"> Buscar Equipo </button>
-            @if (errorMessage) {
-            <p class="error">{{ errorMessage }}</p>
-            }
-            @if (successMessage) {
-            <p class="success">{{ successMessage }}</p>
-            }
-            @if (foundTeam) {
-            <div class="team-card">
-                <h3>{{ foundTeam.name }}</h3>
-                <p>Categoría: {{ foundTeam.categoryId }}</p>
-                <p>Jugadores: {{ foundTeam.players.length }}</p>
-                <div class="actions">
-                    <button mat-raised-button color="primary" (click)="sendJoinRequest()"> Solicitar ingreso </button>
-                    <button mat-stroked-button color="warn" (click)="cancel()"> Cancelar </button>
-                </div>
-            </div>
-            }
+  <div class="join-team-wrapper">
+
+    <div class="join-card">
+
+      <div class="icon-top">
+        <span class="material-symbols-outlined">trophy</span>
+      </div>
+
+      <h2>Unirse a un equipo</h2>
+      <p class="subtitle">Ingresa el código de invitación</p>
+
+      <form class="full-width">
+
+        <label>Código del equipo</label>
+        <input [formControl]="codeControl" placeholder="Ingresa el código" />
+
+      </form>
+
+      <button class="btn-primary" (click)="searchTeam()">
+        Buscar Equipo
+      </button>
+
+      @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+      }
+
+      @if (successMessage) {
+      <p class="success">{{ successMessage }}</p>
+      }
+
+      @if (foundTeam) {
+      <div class="team-card">
+        <h3>{{ foundTeam.name }}</h3>
+        <p>Categoría: {{ foundTeam.categoryId }}</p>
+        <p>Jugadores: {{ foundTeam.players.length }}</p>
+
+        <div class="actions">
+          <button class="btn-primary" (click)="sendJoinRequest()">
+            Solicitar ingreso
+          </button>
+
+          <button class="btn-secondary" (click)="cancel()">
+            Cancelar
+          </button>
         </div>
+      </div>
+      }
+
     </div>
+  </div>
 </div>
