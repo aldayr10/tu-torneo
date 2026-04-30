@@ -38,11 +38,32 @@
       <label>Contraseña:</label>
       <div class="input-icon">
         <span class="material-icons">lock</span>
-        <input type="password" formControlName="password" placeholder="Min 6 caracteres">
+        <input type="password" formControlName="password" placeholder="Contraseña" minlength="8" maxlength="25" />
       </div>
 
-      @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-      <div>Mínimo 6 caracteres</div>
+      @if (
+      registerForm.get('password')?.touched &&
+      registerForm.get('password')?.invalid
+      ) {
+
+      @if (registerForm.get('password')?.errors?.['required']) {
+      <small class="error">
+        La contraseña es obligatoria.
+      </small>
+      }
+
+      @if (registerForm.get('password')?.errors?.['minlength']) {
+      <small class="error">
+        Debe tener al menos 8 caracteres.
+      </small>
+      }
+
+      @if (registerForm.get('password')?.errors?.['maxlength']) {
+      <small class="error">
+        Máximo 25 caracteres permitidos.
+      </small>
+      }
+
       }
     </div>
 

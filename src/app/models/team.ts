@@ -1,4 +1,5 @@
-import { User } from "./user";
+import { Player } from "./player";
+
 
 export interface Team {
 
@@ -9,6 +10,7 @@ export interface Team {
   primaryColor: string;
   alternativeColor: string;
   image: {};
-  players: User[];
-
+  invitationCode:String;
+  players: Player[];
+  pendingInvitations :Player[];
 }

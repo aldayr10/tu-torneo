@@ -1,63 +1,70 @@
 <div class="container">
 
-  <h2>Torneos creados</h2>
+  <div class="title-section">
+    <span class="material-symbols-outlined title-icon">assignment</span>
+    <h2>Torneos creados</h2>
+  </div>
 
   @if (tournaments$ | async; as tournaments) {
 
-  @if (tournaments.length > 0) {
+    @if (tournaments.length > 0) {
 
+      @for (tournament of getPaginatedTeams(tournaments); track tournament.idTournament) {
 
-  @for (tournament of getPaginatedTeams(tournaments); track tournament.idTournament) {
-  <div class="team-card">
-    <div>
-      <h3>{{ tournament.name }}</h3>
-    </div>
+        <div class="team-card">
 
-    <div class="buttos-card-team">
-      @if(!gestion){
-      <button class="inscription" (click)="addTeamTournament(tournament)">
-        <span class="material-symbols-outlined">
-          recent_patient
-        </span>
-      </button>
+          <div class="tournament-info">
+            <div class="trophy-box">
+              <span class="material-symbols-outlined">trophy</span>
+            </div>
+            <h3>{{ tournament.name }}</h3>
+          </div>
+
+          <div class="buttos-card-team">
+
+            @if(!gestion){
+            <button class="inscription" (click)="addTeamTournament(tournament)">
+              <span class="material-symbols-outlined">recent_patient</span>
+            </button>
+            }
+
+            @if(gestion){
+            <button class="settings" (click)="editTournament(tournament)">
+              <span class="material-symbols-outlined">stadia_controller</span>
+            </button>
+
+            <button class="delete">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+            }
+
+          </div>
+
+        </div>
       }
-      @if(gestion){
-      <button class="settings">
-        <span class="material-symbols-outlined">stadia_controller</span>
-      </button>
 
-      <button class="delete">
-        <span class="material-symbols-outlined">delete</span>
-      </button>
+      @if (tournaments.length > itemsPerPage) {
+      <div class="paginator">
+
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+          <span class="material-symbols-outlined">arrow_circle_left</span>
+        </button>
+
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(tournaments)">
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+        </button>
+
+      </div>
       }
 
-    </div>
-  </div>
-  }
+    } @else {
 
+      <div class="group-exist">
+        <span class="material-symbols-outlined">group</span>
+        <div>No hay torneos aún. ¡Crea tu primer torneo!</div>
+      </div>
 
-  @if (tournaments.length > itemsPerPage) {
-  <div class="paginator">
-
-    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
-      <span class="material-symbols-outlined">arrow_circle_left</span>
-    </button>
-
-
-
-    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(tournaments)">
-      <span class="material-symbols-outlined">arrow_circle_right</span>
-    </button>
-
-  </div>
-  }
-
-  } @else {
-  <div class="group-exist">
-    <span class="material-symbols-outlined">group</span>
-    <div>No hay torneos aún. ¡Crea tu primer torneo!</div>
-  </div>
-  }
+    }
 
   }
 

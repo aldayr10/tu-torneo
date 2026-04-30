@@ -1,50 +1,69 @@
-<h2>Gestión del equipo</h2>
-
-<div *ngIf="team">
-
-  <h3>{{team.name}}</h3>
-  <p>Categoría: {{team.categoryId}}</p>
-
-  <h4>Jugadores actuales</h4>
-
-  <ul>
-    <li *ngFor="let player of team.players">
-      Jugador: {{player.name}}
-    </li>
-  </ul>
-
-  <br>
-
-  <button (click)="openInviteForm()">Invitar jugador</button>
-  <button (click)="generateInviteLink()">Generar enlace</button>
-
-  <br><br>
-
-  <div *ngIf="inviteLink">
-    <input type="text" [value]="inviteLink" readonly>
-    <button (click)="copyLink()">Copiar enlace</button>
-  </div>
-
+<div class="go-dashboad" (click)="goToDAshboard()">
+  <span class="material-symbols-outlined">
+    arrow_back
+  </span>
+  <a class="go-dashboad-link">
+    Volver a los equipos
+  </a>
 </div>
+<div class="dashboard-container">
+  <div class="card">
+    <div class="container">
+
+      @if (team) {
+      <div class="header">
+
+        <div class="team-main">
+          <div class="icon"></div>
+
+          <div>
+            <h2>{{ team.name }}</h2>
+
+            <div class="badges">
+              <span class="type">{{ team.type }}</span>
+              <span class="players">{{ team.players?.length || 0 }} jugadores</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="owner">Creador</span>
+
+      </div>
+
+      <div class="tabs">
+
+        <div class="tab" [class.active]="activeTab === 'info'" (click)="changeTab('info')">
+          Info del Equipo
+        </div>
+
+        <div class="tab" [class.active]="activeTab === 'players'" (click)="changeTab('players')">
+          Jugadores
+        </div>
+
+        <div class="tab" [class.active]="activeTab === 'invite'" (click)="changeTab('invite')">
+          Invitar
+        </div>
+
+      </div>
 
 
-<div *ngIf="showInviteForm">
+      <div class="content">
 
-  <h3>Invitar jugador</h3>
+        @if (activeTab === 'info') {
+        <app-team-info [team]="team"></app-team-info>
+        }
 
-  <form [formGroup]="inviteForm" (ngSubmit)="invitePlayer()">
+        @if (activeTab === 'players') {
+        <app-team-players [team]="team"></app-team-players>
+        }
 
-    <label>Email de usuario</label>
-    <input type="email" formControlName="useremail">
+        @if (activeTab === 'invite') {
+        <app-team-invite [team]="team"></app-team-invite>
+        }
+      </div>
 
-    <div *ngIf="inviteForm.get('useremail')?.invalid && inviteForm.get('useremail')?.touched">
-      El email es obligatorio
+      }
+
     </div>
-
-    <br><br>
-
-    <button type="submit">Enviar invitación</button>
-
-  </form>
-
+  </div>
 </div>

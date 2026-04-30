@@ -1,89 +1,46 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserService } from '../../../../services/user';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../../../../services/team';
-import { Team } from '../../../../models/team';
+import { TeamInfo } from './components/team-info/team-info';
+import { TeamPlayers } from './components/team-players/team-players';
+import { TeamInvite } from './components/team-invite/team-invite';
+
 
 @Component({
   selector: 'app-manage-team',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, TeamInfo, TeamPlayers,TeamInvite],
   templateUrl: './manage-team.html',
-  styleUrl: './manage-team.css'
+  styleUrls: ['./manage-team.css']
 })
 export class ManageTeam implements OnInit {
 
-  team!: Team;
-  inviteForm!: FormGroup;
-  inviteLink: string = '';
-  showInviteForm: boolean = false;
-  userExists: boolean = true;
+  @Input() team: any;
+  activeTab: 'info' | 'players' | 'invite' = 'info';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private route: ActivatedRoute,
     private teamService: TeamService,
-    private userService: UserService,
-    private fb: FormBuilder
-  ) { }
+    private router:Router
+  ) {
+    console.log('asd');
+    
+  }
+
+  goToDAshboard(){
+    this.router.navigate(['/teams']);
+  }
 
   ngOnInit() {
+    console.log('asd');
+    
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    const teamId = this.data.teamId;
-
-    const teamData = this.teamService.getTeamByIdTeam(teamId);
-
-    if (teamData) {
-      this.team = teamData;
-    }
-
-    this.inviteForm = this.fb.group({
-      useremail: ['', [Validators.required, Validators.email]]
-    });
-
+    this.team = this.teamService.getTeamByIdTeam(id);
   }
 
-  openInviteForm() {
-    this.showInviteForm = true;
+  changeTab(tab: 'info' | 'players' | 'invite') {
+    this.activeTab = tab;
   }
-
-  invitePlayer() {
-
-    if (this.inviteForm.valid) {
-      let user = this.userService.getUserByEmail(this.inviteForm.value.useremail)
-      console.log(user);
-
-      setTimeout(() => {
-
-
-
-        if (user == undefined) {
-
-          alert('Usuario No Existe');
-        } else {
-          this.teamService.invitePlayer(this.team.idTeam, user);
-
-          alert('Invitación enviada');
-
-          this.inviteForm.reset();
-          this.showInviteForm = false;
-        }
-
-      }, 2000);
-
-
-    }
-
-  }
-
-  generateInviteLink() {
-    this.inviteLink = this.teamService.generateInviteLink(this.team.idTeam);
-  }
-
-  copyLink() {
-    navigator.clipboard.writeText(this.inviteLink);
-    alert('Link copiado');
-  }
-
 }

@@ -1,0 +1,86 @@
+<div class="go-dashboad" (click)="goToDAshboard()">
+  <span class="material-symbols-outlined">
+    arrow_back
+  </span>
+  <a class="go-dashboad-link">
+    Volver a los torneos
+  </a>
+</div>
+<div class="dashboard-container">
+  <div class="card">
+    <div class="container">
+      @if (tournament) {
+      <div class="card">
+        <div class="card-header">
+          <div class="title">
+            <div class="icon">
+              <span class="material-symbols-outlined">emoji_events</span>
+            </div>
+            <div class="info">
+              <h3>{{ tournament.name }}</h3>
+              <span class="status">
+                {{ tournament.estado }}
+              </span>
+            </div>
+          </div>
+
+          <button class="start-btn" [disabled]="!canStart()" (click)="startTournament()">
+            Iniciar Torneo
+          </button>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat-card stat-blue">
+            <h3>{{ tournament.teams.length }}</h3>
+            <p>Equipos</p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="teams-section">
+
+        <h3>Equipos Inscritos</h3>
+
+        @if (tournament.teams.length > 0) {
+
+        <div class="team-list">
+
+          @for (team of tournament.teams; track team.idTeam) {
+
+          <div class="team-card">
+
+            <div class="team-icon">
+              <span class="material-symbols-outlined">groups</span>
+            </div>
+
+            <div class="team-info">
+              <p>{{ team.name }}</p>
+            </div>
+
+
+
+          </div>
+
+          }
+
+        </div>
+
+        } @else {
+
+        <p>No hay equipos inscritos</p>
+
+        }
+
+      </div>
+
+      }
+
+    </div>
+  </div>
+</div>

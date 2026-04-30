@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router'
 import { DescriptionTournament } from '../../tournament/description-tournament/description-tournament';
 import { SelectTeam } from '../../teams/select-team/select-team';
+import { Team } from '../../../../models/team';
 
 
 @Component({
@@ -96,17 +97,21 @@ export class AllTournament implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result);
-        
+        let team:Team =result
+        this.addTeamTournament(tournament,team)
         dialogRef.close()
+
       alert('equipo inscrito con exito')
       }
       
     });
   }
 
-  addTeamTournament(tournament: Tournament){
+  addTeamTournament(tournament: Tournament, team: Team) {
 
-  }
+  this.tournamentService.addTeamToTournament(tournament, team);
+
+}
 
   goToDAshboard(){
     this.router.navigate(['/dashboard']);

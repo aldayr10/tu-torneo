@@ -1,36 +1,34 @@
-<div class="popup">
-  <h2>Invitación para Unirse al Equipo</h2>
+<div class="card">
 
-  <p>Ingresa el nombre de usuario del jugador para enviarle una invitación.</p>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Buscar jugador</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Escribe nombre o email" />
+  </mat-form-field>
 
-  <form [formGroup]="inviteForm" (ngSubmit)="sendInvitation()">
+  @if (filteredPlayers.length > 0) {
+  <div class="players-list">
 
-    <label>Nombre de usuario:</label>
-    <input type="text" formControlName="username" placeholder="Ej: messi10">
-
-    <div *ngIf="inviteForm.get('username')?.invalid && inviteForm.get('username')?.touched">
-      El nombre de usuario es obligatorio
+    @for (player of filteredPlayers; track player.idPlayer) {
+    <div class="player-item" (click)="selectPlayer(player)">
+      <span>{{ player.email }}</span>
     </div>
+    }
 
-    <br><br>
+  </div>
+  }
 
-    <button type="submit" [disabled]="inviteForm.invalid">
+  
+  <div class="dialog-actions">
+
+    <button [disabled]="!selectedPlayer" mat-raised-button color="primary" (click)="sendInvite()">
       Enviar Invitación
     </button>
 
-  </form>
+    <button mat-stroked-button color="warn" (click)="cancelSelection()">
+      Cancelar
+    </button>
 
-  <hr>
+  </div>
+  
 
-  <h3>Link único del equipo</h3>
-
-  <p>Envía este enlace a los jugadores para invitarlos a formar parte del equipo.</p>
-
-  <input type="text" [value]="inviteLink" readonly>
-
-  <br><br>
-
-  <button (click)="copyLink()">Copiar Link</button>
-
-  <br><br>
 </div>

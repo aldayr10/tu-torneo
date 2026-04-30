@@ -6,7 +6,6 @@
 
     @if (teams.length > 0) {
 
-
       @for (team of getPaginatedTeams(teams); track team.idTeam) {
       <div class="team-card" (click)="selectTeam(team)">
         <div>
@@ -14,7 +13,6 @@
         </div>
       </div>
       }
-
 
       @if (teams.length > itemsPerPage) {
       <div class="paginator">

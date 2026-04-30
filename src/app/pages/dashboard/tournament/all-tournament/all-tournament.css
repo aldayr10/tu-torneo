@@ -88,9 +88,11 @@ h2 {
 }
 
 .apuntar .material-symbols-outlined {
-  width: 30%;
-  font-size: 35px;
+  font-size: 20px;
+  width: auto;
+  display: inline-block;
 }
+
 
 button {
   padding: 10px;
@@ -102,9 +104,11 @@ button {
   width: 100%;
 }
 
-.apuntar {
+.apuntar button{
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
 button[type="button"]:hover {
