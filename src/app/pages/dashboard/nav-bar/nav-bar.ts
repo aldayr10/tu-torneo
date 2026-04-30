@@ -27,16 +27,14 @@ export class NavBar implements OnInit {
   private profileSource = new BehaviorSubject<Player | null>(null);
   profile$ = this.profileSource.asObservable();
 
-  // 🔥 NUEVO
   totalNotifications = 0;
   player: Player | null = null;
 
   constructor(
     private router: Router,
-    private playerService: PlayerService,
+
     private profileService: ProfileService,
 
-    // 🔥 NUEVOS
     private notificationService: NotificationService,
     private requestService: RequestService
   ) {}
@@ -66,7 +64,7 @@ export class NavBar implements OnInit {
 
   }
 
-  // 🔥 MÉTODO CLAVE
+
   calculateTotalNotifications() {
 
     if (!this.player) return;
@@ -96,15 +94,22 @@ export class NavBar implements OnInit {
     this.router.navigate(['/update-profile']);
   }
 
+  openAddTeam(){
+    this.router.navigate(['/player-join-team']);
+
+  }
+
   openNotifications() {
     this.toggleNotifications();
   }
 
   toggleNotifications() {
+    localStorage.removeItem('notifications') 
     this.notificationsOpen = !this.notificationsOpen;
   }
 
   closeNotifications() {
+    localStorage.removeItem('notifications') 
     this.notificationsOpen = false;
   }
 

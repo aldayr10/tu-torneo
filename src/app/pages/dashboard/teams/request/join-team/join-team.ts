@@ -43,6 +43,8 @@ export class JoinTeam {
 
 
   ngOnInit() {
+    console.log(this.data.team);
+    
     this.searchControl.valueChanges.subscribe(value => {
       const search = value?.toLowerCase().trim() || '';
 

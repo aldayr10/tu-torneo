@@ -38,9 +38,10 @@ export class TeamService {
     this.teamsSource.next([...this.teams]);
     let team  = this.teams.find(t=>t.idTeam)
     return team
-    
-        
-    
+  }
+
+  getTeamsList(): Team[] { 
+    return this.teams; 
   }
 
   deteleTeam(id: number) {
@@ -116,9 +117,19 @@ export class TeamService {
 
   if (!player) return;
 
-  if (!team.players.some(
+  if (!team.players) {
+    team.players = [];
+  }
+
+  if (!team.pendingInvitations) {
+    team.pendingInvitations = [];
+  }
+
+  const alreadyMember = team.players.some(
     p => p.idPlayer === player.idPlayer
-  )) {
+  );
+
+  if (!alreadyMember) {
     team.players.push(player);
   }
 

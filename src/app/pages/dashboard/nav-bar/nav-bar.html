@@ -14,7 +14,7 @@
     </span>
     }
 
-    <button class="icon-btn notification" (click)="openNotifications()">
+    <button class="icon-btn notification" (click)="openAddTeam()">
       <span class="material-symbols-outlined">person_add</span>
     </button>
 
@@ -34,14 +34,15 @@
       <div class="dropdownnoti">
 
         <app-notifications></app-notifications>
-
       </div>
 
-      <div class="overlay" (click)="closeNotifications()"></div>
+      <div class="overlay" (click)="closeNotifications()">
+      </div>
 
       }
 
     </div>
+
     <div class="user-menu">
       <button class="profile-btn" (click)="toggleMenu()">
         Mi Perfil ▼

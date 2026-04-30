@@ -25,33 +25,22 @@ export class Notifications implements OnInit {
 
   ngOnInit(): void {
     const currentUser = this.authService.getCurrentUser();
-
     if (!currentUser) return;
-
-    this.notificationService
-      .getUserNotifications(currentUser.idUser)
-      .subscribe(notifications => {
-        this.notifications = notifications;
-
-        this.teamInvitations = notifications.filter(
-          notification => notification.type === 'team_invitation'
-        );
-      });
+    this.notificationService.markAllAsRead(currentUser.idUser);
+    this.notificationService.getUserNotifications(currentUser.idUser).subscribe(notifications => {
+      this.notifications = notifications;
+      this.teamInvitations = notifications.filter(notification =>
+        notification.type === 'team_invitation');
+    });
   }
 
-  acceptInvitation(notification: Notification) { 
-    const team = this.teamService.getTeamById(notification.teamId!); 
-    const user = this.authService.getCurrentUser(); 
-    if (!team || !user) return; 
-    this.teamService.acceptInvitation(team, user); 
-    this.notificationService.removeNotification(notification.idNotification); 
-  }
+  acceptInvitation(notification: Notification) { const team = this.teamService.getTeamByIdTeam(notification.teamId!); const user = this.authService.getCurrentUser(); if (!team || !user) return; this.teamService.acceptInvitation(team, user); this.notificationService.removeNotification( notification.idNotification ); }
 
-  declineInvitation(notification: Notification) { 
-    const team = this.teamService.getTeamById(notification.teamId!); 
-    const user = this.authService.getCurrentUser(); 
-    if (!team || !user) return; 
-    this.teamService.rejectInvitation(team, user); 
-    this.notificationService.removeNotification(notification.idNotification); 
+  declineInvitation(notification: Notification) {
+    const team = this.teamService.getTeamById(notification.teamId!);
+    const user = this.authService.getCurrentUser();
+    if (!team || !user) return;
+    this.teamService.rejectInvitation(team, user);
+    this.notificationService.removeNotification(notification.idNotification);
   }
 }
