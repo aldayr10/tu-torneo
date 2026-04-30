@@ -1,30 +1,33 @@
-<div class="container">
+<div class="page">
 
-  <span></span>
+  <div class="container">
 
-  <h2>Crear Nuevo Torneo</h2>
-  <p class="subtitle">Configura tu competencia de fútbol</p>
+    <div class="icon">🏆</div>
 
-  <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()">
+    <h2>Crear Nuevo Torneo</h2>
+    <p class="subtitle">Configura tu competencia de fútbol</p>
 
-    <label>Nombre del Torneo</label>
-    <input type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
+    <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()">
 
-    <label>Descripción del Torneo</label>
-    <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
-    <div>
+      <label>Nombre del Torneo</label>
+      <input type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
+
+      <label>Descripción del Torneo</label>
+      <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
+
       <label>Categoría</label>
       <select formControlName="categoryId">
         @for (tipo of catalogoTeam; track tipo.id) {
-        <option [value]="tipo.id" [defaultSelected]="1">
+        <option [value]="tipo.id">
           {{ tipo.name }}
         </option>
         }
       </select>
-    </div>
 
-    <button type="submit">Crear Torneo</button>
+      <button type="submit">Crear Torneo</button>
 
-  </form>
+    </form>
+
+  </div>
 
 </div>
