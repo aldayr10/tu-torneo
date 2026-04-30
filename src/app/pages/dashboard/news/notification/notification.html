@@ -1,30 +1,46 @@
-@if (teamInvitations.length > 0) {
-  @for (notification of teamInvitations; track notification.idNotification) {
+<div class="notifications-panel">
 
-    <div class="notification-card">
+  <div class="header">
+    <span class="material-symbols-outlined">notifications</span>
+    <h3>Notificaciones</h3>
+  </div>
 
-      <h4>{{ notification.title }}</h4>
-      <p>{{ notification.message }}</p>
+  <div class="content">
 
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="acceptInvitation(notification)"
-      >
-        Aceptar
-      </button>
+    @if (teamInvitations.length > 0) {
 
-      <button
-        mat-stroked-button
-        color="warn"
-        (click)="declineInvitation(notification)"
-      >
-        Declinar
-      </button>
+      @for (notification of teamInvitations; track notification.idNotification) {
 
-    </div>
+        <div class="notification-card">
+          <h4>{{ notification.title }}</h4>
+          <p>{{ notification.message }}</p>
 
-  }
-} @else {
-  <p>No tienes invitaciones pendientes.</p>
-}
+          <div class="actions">
+            <button class="btn-primary" (click)="acceptInvitation(notification)">
+              Aceptar
+            </button>
+
+            <button class="btn-secondary" (click)="declineInvitation(notification)">
+              Declinar
+            </button>
+          </div>
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="empty-state">
+        <div class="empty-icon">
+          <span class="material-symbols-outlined">notifications</span>
+        </div>
+
+        <h4>Sin notificaciones</h4>
+        <p>Te avisaremos cuando haya novedades</p>
+      </div>
+
+    }
+
+  </div>
+
+</div>
