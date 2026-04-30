@@ -21,7 +21,7 @@
       <label>Categoría</label>
       <select formControlName="categoryId">
         @for (tipo of catalogoTeam; track tipo.id) {
-        <option [value]="tipo.id" [defaultSelected]="1">
+        <option [ngValue]="tipo.id" >
           {{ tipo.name }}
         </option>
         }

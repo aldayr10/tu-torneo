@@ -61,14 +61,24 @@ export class TeamService {
     );
   }
 
-  getTeamsByOwnerByCategory(ownerId: number, categoryId: number) {
+  getTeamsByOwnerByCategory(ownerId: number, category: number) {
+    console.log(this.teams);
+    
     this.teamsSource.next([...this.teams]);
+    console.log(this.teams$.pipe(
+      map(teams =>
+        teams.filter(team =>
+          team.ownerId == ownerId &&
+          team.categoryId === category
+        )
+      )
+    ));
+    
     return this.teams$.pipe(
       map(teams =>
         teams.filter(team =>
-          team.ownerId === ownerId &&
-          team.categoryId === categoryId
-
+          team.ownerId == ownerId &&
+          team.categoryId === category
         )
       )
     );

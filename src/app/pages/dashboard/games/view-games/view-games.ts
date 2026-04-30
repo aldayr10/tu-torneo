@@ -44,6 +44,10 @@ export class ViewGames implements OnInit {
     });
   }
 
+  goToDAshboard(){
+    this.router.navigate(['/dashboard']);
+  }
+
   cargarDatos() {
 
     this.tournamentService.getTournaments().subscribe(tournaments => {

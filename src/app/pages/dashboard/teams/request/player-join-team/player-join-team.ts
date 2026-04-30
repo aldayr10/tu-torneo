@@ -6,6 +6,8 @@ import { RequestService } from '../../../../../services/request';
 import { AuthService } from '../../../../../services/auth';
 import { PlayerService } from '../../../../../services/player';
 import { Team } from '../../../../../models/team';
+import { Router } from '@angular/router'
+
 @Component({
   selector: 'app-join-team',
   standalone: true,
@@ -22,7 +24,13 @@ export class PlayerJoinTeam {
     private teamService: TeamService,
     private requestService: RequestService,
     private authService: AuthService,
-    private playerService: PlayerService) { }
+    private playerService: PlayerService,
+    private router:Router
+  ) { }
+
+    goToDAshboard(){
+    this.router.navigate(['/dashboard']);
+  }
   searchTeam() {
     const code = this.codeControl.value?.trim();
     if (!code) {

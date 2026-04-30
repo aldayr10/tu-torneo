@@ -34,18 +34,22 @@ export class SelectTeam implements OnInit {
 
  ngOnInit(): void {
   this.tournament = this.data.tournament;
-
+  console.log(this.tournament);
+  
   this.profileService.getProfile().subscribe(owner => {
     if (owner) {
       this.owner = owner;
+      console.log(this.tournament.categoryId);
+      
       this.teams$  = this.teamService.getTeamsByOwnerByCategory(
         this.owner.idPlayer,
-        this.tournament.category
+        this.tournament.categoryId
       );
       console.log(this.teams$);
       
 
     }
+    
   });
 }
 

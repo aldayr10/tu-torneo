@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-tournament',
@@ -14,9 +14,13 @@ export class InfoTournament implements OnInit {
 
   constructor(
     private tournamentService: TournamentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
+  goToDAshboard(){
+    this.router.navigate(['/tournament']);
+  }
   ngOnInit() {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
