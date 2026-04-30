@@ -10,7 +10,7 @@ import { RequestStatus } from './pages/dashboard/teams/request/request-status/re
 
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Teams } from "./pages/dashboard/teams/teams";
-import { addPlayerTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
+import { PlayerJoinTeam } from './pages/dashboard/teams/request/player-join-team/player-join-team';
 
 import { LeaveTeam } from './pages/dashboard/teams/request/leave-team/leave-team';
 import { DeletePlayerTeam } from './pages/dashboard/teams/request/delete-player-team/delete-player-team';
@@ -65,7 +65,7 @@ export const routes: Routes = [
             { path: 'create-team', component: CreateTeam },
             { path: 'delete-team', component: DeleteTeam },
             //gestion equipos
-            { path: 'player-join-team', component: addPlayerTeam },
+            { path: 'player-join-team', component: PlayerJoinTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
             { path: 'select-team', component: SelectTeam },
             
@@ -77,7 +77,7 @@ export const routes: Routes = [
     { path: 'update-profile', component: UpdateProfile },
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
-
+    { path: 'player-join-team', component: PlayerJoinTeam },
 
     { path: 'nav-bar', component: NavBar },
    

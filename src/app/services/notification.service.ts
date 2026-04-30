@@ -14,6 +14,15 @@ export class NotificationService {
     this.notifications
   );
 
+  markAllAsRead(idUser: number) { 
+    this.notifications.forEach(notification => { 
+      if (notification.userId === idUser) { 
+        notification.read = true; 
+      } 
+    }); 
+    this.update(); 
+  }
+
   getNotifications() {
     return this.notifications$.asObservable();
   }
