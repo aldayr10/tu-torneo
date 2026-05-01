@@ -27,5 +27,7 @@ export class CatTypeTeam {
   getCatTypeTournamentTeam():[]{
     return this.catalogo;
   }
+
+  
   
 }

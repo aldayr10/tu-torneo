@@ -13,7 +13,7 @@ import { CatTypeTeam } from '../../../../services/cat-type-team';
 })
 export class DescriptionTournament implements OnInit{
   tournamentData:any={}
-  catalogoTeam: any;
+  catalogoTeam:any[]=[];
   owner:any=[]
   constructor(
     public dialogRef: MatDialogRef<DescriptionTournament>,
@@ -38,7 +38,7 @@ export class DescriptionTournament implements OnInit{
       'name':this.data.tournament.name,
       'description':this.data.tournament.description,
       'owner':this.owner.name,
-      'category':'categoriaName'
+      'category': this.catalogoTeam.find((type:any)=>type.id==this.data.tournament.category).name
     }
     console.log(this.data);
     
