@@ -106,14 +106,12 @@
   gap: 8px;
 }
 
-/* Título Información Personal */
 .section-title {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Botón Guardar Cambios */
 .btn-primary {
   display: flex;
   align-items: center;

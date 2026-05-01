@@ -4,18 +4,19 @@ h2 {
     font-weight: 600;
 }
 
-
 .team-card {
-    display: grid;
-    grid-template-columns: 80%;
-    padding: 10px;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
     background: white;
     border-radius: 20px;
     box-shadow: 0px 0px 20px 3px rgb(0 0 0 / 71%);
     transition: 0.2s;
     margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap; 
 }
-
 
 .team-card:hover {
     box-shadow: 0px 0px 20px 20px rgba(0,0,0, 0.71);
@@ -23,38 +24,31 @@ h2 {
 }
 
 .buttos-card-team {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3px;
-    justify-content: center;
+    display: flex; 
+    gap: 8px;
     align-items: center;
-    grid-column: none;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 button {
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
-}
-
-button[type="submit"]:enabled {
-    color: white;
-    background: #1565c0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .material-symbols-outlined {
-    width: 30%;
-    font-size: 19px;
-    display: contents;
-    line-height: 0;
+    font-size: 20px;
+    line-height: 1;
 }
 
 .settings {
-    padding-top: 10px;
     color: black;
-
 }
 
 .settings:hover {
@@ -64,7 +58,6 @@ button[type="submit"]:enabled {
 }
 
 .delete {
-    padding-top: 10px;
     color: red;
 }
 
@@ -73,8 +66,6 @@ button[type="submit"]:enabled {
     box-shadow: 0px 0px 20px 20px red;
     transition: 0.2s;
 }
-
-
 
 .group-exist {
     display: flex;
@@ -107,4 +98,16 @@ button[type="submit"]:enabled {
 .paginator button.active {
     background-color: #1565c0;
     color: white;
+}
+
+@media (max-width: 600px) {
+    .team-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .buttos-card-team {
+        width: 100%;
+        justify-content: flex-start;
+    }
 }

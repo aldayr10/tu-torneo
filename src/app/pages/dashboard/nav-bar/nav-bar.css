@@ -141,46 +141,44 @@ body {
 }
 
 .navbar {
-  padding: 12px 16px;    /* mobile */
+  padding: 12px 16px;   
   flex-wrap: wrap;
 }
 
 @media (min-width: 768px) {
   .navbar {
-    padding: 15px 24px;  /* tablet */
+    padding: 15px 24px;  
     flex-wrap: nowrap;
   }
 }
 
 @media (min-width: 1200px) {
   .navbar {
-    padding: 15px 30px;  /* desktop */
+    padding: 15px 30px;  
   }
 }
 
-/* Navbar Right */
 .nav-right {
-  gap: 8px;              /* mobile */
+  gap: 8px;             
 }
 
 @media (min-width: 768px) {
   .nav-right {
-    gap: 12px;           /* tablet */
+    gap: 12px;          
   }
 }
 
 @media (min-width: 1200px) {
   .nav-right {
-    gap: 15px;           /* desktop */
+    gap: 15px;         
   }
 }
 
-/* Notification Dropdown */
 .dropdownnoti {
   width: 90vw;
   max-width: 380px;
   right: 50%;
-  transform: translateX(50%);  /* centered mobile */
+  transform: translateX(50%); 
   max-height: 500px;
   overflow-y: auto;
 }
@@ -189,13 +187,13 @@ body {
   .dropdownnoti {
     width: 320px;
     right: 0;
-    transform: none;     /* not centered tablet+ */
+    transform: none;     
   }
 }
 
-/* Touch Targets */
+
 .icon-btn, .notification {
-  width: 44px;           /* mobile: WCAG */
+  width: 44px;           
   height: 44px;
   min-width: 44px;
   min-height: 44px;
@@ -203,12 +201,11 @@ body {
 
 @media (min-width: 1200px) {
   .icon-btn, .notification {
-    width: 40px;         /* desktop: optional reduce */
+    width: 40px;       
     height: 40px;
   }
 }
 
-/* User Dropdown */
 .dropdown {
   min-width: 140px;
   max-width: 90vw;
@@ -221,19 +218,18 @@ body {
   }
 }
 
-/* Logo Icon */
 .icon-green .material-symbols-outlined {
-  font-size: 24px;       /* mobile */
+  font-size: 24px;      
 }
 
 @media (min-width: 768px) {
   .icon-green .material-symbols-outlined {
-    font-size: 28px;     /* tablet */
+    font-size: 28px;    
   }
 }
 
 @media (min-width: 1200px) {
   .icon-green .material-symbols-outlined {
-    font-size: 35px;     /* desktop original */
+    font-size: 35px;    
   }
 }

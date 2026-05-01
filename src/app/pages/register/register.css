@@ -95,14 +95,14 @@ h4{
 form {
   width: 100%;
   max-width: 380px;
-  padding: 20px;         /* mobile */
+  padding: 20px;        
   margin: 0 auto;
   box-sizing: border-box;
 }
 
 @media (min-width: 480px) {
   form {
-    padding: 24px;       /* small phone landscape */
+    padding: 24px;      
   }
 }
 
@@ -110,13 +110,12 @@ form {
   form {
     width: 320px;
     max-width: none;
-    padding: 30px;       /* tablet+ original */
+    padding: 30px;      
   }
 }
 
-/* Overlay padding */
 .overlay {
-  padding: 16px;         /* mobile */
+  padding: 16px;        
   box-sizing: border-box;
 }
 
@@ -126,31 +125,28 @@ form {
   }
 }
 
-/* Heading */
 h2 {
-  font-size: 18px;       /* mobile */
+  font-size: 18px;     
   margin-bottom: 16px;
 }
 
 @media (min-width: 768px) {
   h2 {
-    font-size: 22px;     /* tablet+ */
+    font-size: 22px;    
     margin-bottom: 20px;
   }
 }
 
-/* Labels */
 label {
-  font-size: 13px;       /* mobile */
+  font-size: 13px;     
 }
 
 @media (min-width: 768px) {
   label {
-    font-size: 14px;     /* desktop */
+    font-size: 14px;  
   }
 }
 
-/* Buttons */
 button {
   padding: 12px;
   min-height: 44px;

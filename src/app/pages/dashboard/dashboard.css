@@ -166,14 +166,14 @@ h1{
 
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr;           /* 1 col mobile */
+  grid-template-columns: 1fr;         
   gap: 16px;
   padding: 16px;
 }
 
 @media (min-width: 768px) {
   .dashboard-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 cols tablet */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 24px;
     padding: 24px;
   }
@@ -181,28 +181,27 @@ h1{
 
 @media (min-width: 1200px) {
   .dashboard-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 cols desktop */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
     padding: 40px;
   }
 }
 
-/* Cards */
 .card, .card-tournamens, .card-all-tournament {
-  padding: 16px;          /* mobile */
+  padding: 16px;        
   margin: 12px 0;
 }
 
 @media (min-width: 768px) {
   .card, .card-tournamens, .card-all-tournament {
-    padding: 24px;        /* tablet */
+    padding: 24px;       
     margin: 20px 0;
   }
 }
 
 @media (min-width: 1200px) {
   .card, .card-tournamens, .card-all-tournament {
-    padding: 30px;        /* desktop */
+    padding: 30px;      
     margin: 30px;
   }
 }
