@@ -12,7 +12,7 @@ import { ProfileService } from '../services/profile';
 export class AuthService {
 
   private timeout: any;
-  private tiempoSesion = 10 * 1000; 
+  private tiempoSesion = 50 * 60 * 1000; 
 
   constructor(
     private profileService: ProfileService,
