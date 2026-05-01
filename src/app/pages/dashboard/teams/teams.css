@@ -1,8 +1,12 @@
+.fondo {
+  background: rgb(184, 216, 184); 
+}
+
 .dashboard-container{
   display:grid;
   grid-template-columns: repeat(2,1fr);
   gap:30px;
-  padding:0px 40px 40px 40px; 
+  padding:0px 40px 40px 40px;
 }
 .card{
   

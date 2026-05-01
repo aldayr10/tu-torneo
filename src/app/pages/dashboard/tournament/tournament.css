@@ -1,26 +1,32 @@
-.dashboard-container{
-  display:grid;
-  grid-template-columns: repeat(2,1fr);
-  gap:30px;
-  padding:0px 40px 40px 40px; 
-  
+.fondo {
+  background: rgb(149, 188, 235);
 }
-.card{
-  
-  background:white;
-  border-radius:20px;
-  text-align:left;
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 0px 40px 40px 40px;
+}
+
+.card {
+
+  background: white;
+  border-radius: 20px;
+  text-align: left;
   padding: 20px;
-  box-shadow:0px 0px 16px 3px rgb(2 0 0 / 71%);
-  transition:0.2s;
+  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
+  transition: 0.2s;
 }
+
 .card:hover {
-  background:white;
-  border-radius:20px;
-  text-align:left;
-  box-shadow:0px 0px 16px 20px rgb(2 0 0 / 71%);
+  background: white;
+  border-radius: 20px;
+  text-align: left;
+  box-shadow: 0px 0px 16px 20px rgb(2 0 0 / 71%);
 }
-.Apuntar{
+
+.Apuntar {
   display: flex;
   justify-content: center;
 }
