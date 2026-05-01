@@ -36,3 +36,32 @@ body {
   margin: 0;
   height: 100%;
 }
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  
+  /* Nuevo: Responsive defaults */
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  height: 100%;
+  
+  /* Prevent iOS zoom on inputs */
+  input,
+  button,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Inputs smaller on tablet+ */
+@media (min-width: 768px) {
+  input,
+  button,
+  select {
+    font-size: 14px;
+  }
+}

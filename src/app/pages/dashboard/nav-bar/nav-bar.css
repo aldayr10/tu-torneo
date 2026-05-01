@@ -139,3 +139,101 @@ body {
 .dropdown button:hover {
   background: #f3f4f6;
 }
+
+.navbar {
+  padding: 12px 16px;    /* mobile */
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    padding: 15px 24px;  /* tablet */
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 15px 30px;  /* desktop */
+  }
+}
+
+/* Navbar Right */
+.nav-right {
+  gap: 8px;              /* mobile */
+}
+
+@media (min-width: 768px) {
+  .nav-right {
+    gap: 12px;           /* tablet */
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav-right {
+    gap: 15px;           /* desktop */
+  }
+}
+
+/* Notification Dropdown */
+.dropdownnoti {
+  width: 90vw;
+  max-width: 380px;
+  right: 50%;
+  transform: translateX(50%);  /* centered mobile */
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .dropdownnoti {
+    width: 320px;
+    right: 0;
+    transform: none;     /* not centered tablet+ */
+  }
+}
+
+/* Touch Targets */
+.icon-btn, .notification {
+  width: 44px;           /* mobile: WCAG */
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (min-width: 1200px) {
+  .icon-btn, .notification {
+    width: 40px;         /* desktop: optional reduce */
+    height: 40px;
+  }
+}
+
+/* User Dropdown */
+.dropdown {
+  min-width: 140px;
+  max-width: 90vw;
+}
+
+@media (min-width: 768px) {
+  .dropdown {
+    min-width: 150px;
+    max-width: none;
+  }
+}
+
+/* Logo Icon */
+.icon-green .material-symbols-outlined {
+  font-size: 24px;       /* mobile */
+}
+
+@media (min-width: 768px) {
+  .icon-green .material-symbols-outlined {
+    font-size: 28px;     /* tablet */
+  }
+}
+
+@media (min-width: 1200px) {
+  .icon-green .material-symbols-outlined {
+    font-size: 35px;     /* desktop original */
+  }
+}
