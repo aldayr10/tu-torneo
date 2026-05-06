@@ -3,15 +3,13 @@
   min-height: 100vh;
 }
 
-/* 🔥 GRID PRINCIPAL */
 .dashboard-container{
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* desktop */
+  grid-template-columns: repeat(2, 1fr); 
   gap: 30px;
   padding: 0px 40px 40px 40px;
 }
 
-/* TARJETAS */
 .card{
   background: white;
   border-radius: 20px;
@@ -28,27 +26,20 @@
   box-shadow: 0px 0px 16px 20px rgb(2 0 0 / 71%);
 }
 
-/* ========================= */
-/* 🔥 RESPONSIVE */
-/* ========================= */
-
-/* 💻 LAPTOP MEDIANO */
 @media (max-width: 1200px) {
   .dashboard-container {
-    grid-template-columns: repeat(2, 1fr); /* sigue en 2 pero más compacto */
+    grid-template-columns: repeat(2, 1fr);
     padding: 20px;
     gap: 20px;
   }
 }
 
-/* 📱 TABLET */
 @media (max-width: 900px) {
   .dashboard-container {
-    grid-template-columns: 1fr; /* 🔥 pasa a una columna */
+    grid-template-columns: 1fr;
   }
 }
 
-/* 📱 CELULAR */
 @media (max-width: 600px) {
   .dashboard-container {
     padding: 15px;
@@ -60,7 +51,6 @@
   }
 }
 
-/* 📱 CELULAR PEQUEÑO */
 @media (max-width: 400px) {
   .card {
     padding: 12px;
