@@ -9,6 +9,18 @@
 
     <label>Nombre del Torneo</label>
     <input type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
+     @if (
+      tournamentForm.get('name')?.touched &&
+      tournamentForm.get('name')?.invalid
+    ) {
+
+      @if (tournamentForm.get('name')?.errors?.['required']) {
+        <small class="error">
+          El nombre del torneo es obligatorio.
+        </small>
+      }
+
+    }
 
     <label>Descripción del Torneo</label>
     <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
