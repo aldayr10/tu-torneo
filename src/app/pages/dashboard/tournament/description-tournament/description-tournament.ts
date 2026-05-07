@@ -38,7 +38,7 @@ export class DescriptionTournament implements OnInit{
       'name':this.data.tournament.name,
       'description':this.data.tournament.description,
       'owner':this.owner.name,
-      'category': this.catalogoTeam.find((type:any)=>type.id==this.data.tournament.category).name
+      'category': this.catalogoTeam.find((type:any)=>type.id==this.data.tournament.categoryId).name
     }
     console.log(this.data);
     
