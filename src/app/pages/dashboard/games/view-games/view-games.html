@@ -1,32 +1,43 @@
-<div class="container">
+<div class="go-dashboad" (click)="goToDAshboard()">
+  <span class="material-symbols-outlined">
+    arrow_back
+  </span>
+  <a class="go-dashboad-link">
+    Volver al Dashboard
+  </a>
+</div>
+<div class="dashboard-container">
+  <div class="card">
 
-  <div class="header">
-    <div class="back" (click)="volver()">← Volver</div>
-    <h2>Partidos por Torneo</h2>
-  </div>
+    <div class="container">
 
-  <div class="tournaments-grid">
+      <div class="header">
+        
+        <h2>Partidos por Torneo</h2>
+      </div>
 
-    @for (torneo of torneos; track torneo.idTournament) {
+      <div class="tournaments-grid">
 
-      <div class="tournament-card">
+        @for (torneo of torneos; track torneo.idTournament) {
 
-        <h3>{{ torneo.name }}</h3>
+        <div class="tournament-card">
 
-        <!-- 🔥 STATS POR TORNEO -->
-        <div class="stats">
-          <div class="stat-card">
-            <p>Equipos</p>
-            <h3>{{ torneo.totalEquipos }}</h3>
+          <h3>{{ torneo.name }}</h3>
+
+          <!-- 🔥 STATS POR TORNEO -->
+          <div class="stats">
+            <div class="stat-card">
+              <p>Equipos</p>
+              <h3>{{ torneo.totalEquipos }}</h3>
+            </div>
+
+            <div class="stat-card">
+              <p>Partidos</p>
+              <h3>{{ torneo.totalPartidos }}</h3>
+            </div>
           </div>
 
-          <div class="stat-card">
-            <p>Partidos</p>
-            <h3>{{ torneo.totalPartidos }}</h3>
-          </div>
-        </div>
-
-        @for (ronda of torneo.rondas; track ronda.numero) {
+          @for (ronda of torneo.rondas; track ronda.numero) {
 
           <div class="jornada">
             <span>🟣</span>
@@ -35,28 +46,30 @@
 
           @for (partido of ronda.partidos; track partido.idMatch) {
 
-            <div class="match">
+          <div class="match">
 
-              <div class="team">
-                <p>{{ partido.teamA.name }}</p>
-              </div>
-
-              <div class="vs">VS</div>
-
-              <div class="team">
-                <p>{{ partido.teamB.name }}</p>
-              </div>
-
+            <div class="team">
+              <p>{{ partido.teamA.name }}</p>
             </div>
 
+            <div class="vs">VS</div>
+
+            <div class="team">
+              <p>{{ partido.teamB.name }}</p>
+            </div>
+
+          </div>
+
           }
+
+          }
+
+        </div>
 
         }
 
       </div>
 
-    }
-
+    </div>
   </div>
-
 </div>

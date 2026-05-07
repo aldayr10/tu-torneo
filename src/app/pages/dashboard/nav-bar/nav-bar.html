@@ -1,6 +1,9 @@
 <div class="navbar">
 
   <div class="nav-left">
+    <div class="icon-green">
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
     <span class="logo">Torneos de Fútbol</span>
   </div>
 
@@ -16,7 +19,6 @@
     </button>
 
     <div class="nav">
-
       <div class="notification" (click)="toggleNotifications()">
 
         <span class="material-symbols-outlined">notifications</span>
@@ -32,19 +34,18 @@
       <div class="dropdownnoti">
 
         <app-notifications></app-notifications>
-
       </div>
 
-      <div class="overlay" (click)="closeNotifications()"></div>
+      <div class="overlay" (click)="closeNotifications()">
+      </div>
 
       }
 
     </div>
 
     <div class="user-menu">
-
       <button class="profile-btn" (click)="toggleMenu()">
-        Perfil ▼
+        Mi Perfil ▼
       </button>
 
       @if(menuOpen){
@@ -57,12 +58,9 @@
         <button (click)="logout()"><span class="material-symbols-outlined">output</span>
           Cerrar sesión
         </button>
-
       </div>
       }
 
     </div>
-
   </div>
-
 </div>

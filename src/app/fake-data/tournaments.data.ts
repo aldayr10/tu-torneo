@@ -6,7 +6,7 @@ export const TOURNAMENTS: Tournament[] = [
     idTournament: 0,
     idOwner: 1,
     name: "Copa Barrio",
-    category: 1,
+    categoryId: 1,
     description: 'hola',
     estado: 'ABIERTO',
     teams: []
@@ -16,7 +16,7 @@ export const TOURNAMENTS: Tournament[] = [
     idTournament: 1,
     idOwner: 0,
     name: "Copa Barrio 2",
-    category: 0,
+    categoryId: 0,
     description: 'hola',
     estado: 'ABIERTO',
     teams: [
@@ -52,7 +52,7 @@ export const TOURNAMENTS: Tournament[] = [
     idTournament: 2,
     idOwner: 0,
     name: "Copa Barrio 3",
-    category: 2,
+    categoryId: 2,
     description: 'hola',
     estado: 'ABIERTO',
     teams: [

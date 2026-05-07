@@ -41,7 +41,7 @@ export class NavBar implements OnInit {
 
   ngOnInit(): void {
 
-    // 🔥 obtener perfil
+  
     this.profileService.getProfile().subscribe(profile => {
       this.player = profile;
       this.profileSource.next(profile);
@@ -51,7 +51,7 @@ export class NavBar implements OnInit {
 
   }
 
-  // 🔥 inicializa listeners
+
   initNotifications() {
 
     if (!this.player) return;
@@ -104,12 +104,12 @@ export class NavBar implements OnInit {
   }
 
   toggleNotifications() {
-    localStorage.removeItem('notifications') 
+
     this.notificationsOpen = !this.notificationsOpen;
   }
 
   closeNotifications() {
-    localStorage.removeItem('notifications') 
+
     this.notificationsOpen = false;
   }
 

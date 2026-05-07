@@ -84,5 +84,6 @@ export class JoinTeam {
     this.selectedPlayer = null;
     this.searchControl.reset();
     this.filteredPlayers = [];
+    this.dialogRef.close()
   }
 }

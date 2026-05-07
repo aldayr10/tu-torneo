@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../../../../services/team';
 import { TeamInfo } from './components/team-info/team-info';
 import { TeamPlayers } from './components/team-players/team-players';
@@ -21,10 +21,15 @@ export class ManageTeam implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private router:Router
   ) {
     console.log('asd');
     
+  }
+
+  goToDAshboard(){
+    this.router.navigate(['/teams']);
   }
 
   ngOnInit() {

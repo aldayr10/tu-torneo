@@ -10,10 +10,17 @@ export class UserService {
 
   users: User[] = USERS;
 
-  register(user: User) {
-    user.idUser = this.users.length + 1
-    this.users.push(user);
-    return user.idUser;
+  register(user: User): any { 
+    const exists = this.users.some( u => u.email.toLowerCase() === user.email.toLowerCase() ); 
+    if (exists) { 
+      alert('el email ya se encuentra registrado')
+      return false; 
+    } 
+    user.idUser = this.users.length + 1; 
+    
+    this.users.push(user); 
+    localStorage.setItem( 'users', JSON.stringify(this.users) ); 
+    return user.idUser; 
   }
 
   
@@ -38,6 +45,10 @@ export class UserService {
 
   getUserByEmail(email: String) {
     return this.users.find(u => u.email === email);
+  }
+  
+  emailExists(email: string): boolean { 
+    return this.users.some( user => user.email.toLowerCase() === email.toLowerCase() ); 
   }
 
 }

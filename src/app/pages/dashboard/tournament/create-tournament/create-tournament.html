@@ -1,6 +1,10 @@
-<div class="container">
+<div class="form-wrapper">
 
   <span></span>
+
+  <div class="icon-blue">
+    <span class="material-symbols-outlined">trophy</span>
+  </div>
 
   <h2>Crear Nuevo Torneo</h2>
   <p class="subtitle">Configura tu competencia de fútbol</p>
@@ -24,11 +28,12 @@
 
     <label>Descripción del Torneo</label>
     <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
-    <div>
+
+    <div class="field">
       <label>Categoría</label>
       <select formControlName="categoryId">
         @for (tipo of catalogoTeam; track tipo.id) {
-        <option [value]="tipo.id" [defaultSelected]="1">
+        <option [ngValue]="tipo.id" >
           {{ tipo.name }}
         </option>
         }
