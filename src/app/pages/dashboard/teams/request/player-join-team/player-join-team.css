@@ -1,9 +1,12 @@
+.fondo {
+  background: linear-gradient(135deg, #54c0f2, #2563eb);
+}
+
 .join-team-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
 }
 
 .join-card {
@@ -11,7 +14,7 @@
   padding: 40px;
   border-radius: 25px;
   width: 420px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .back {

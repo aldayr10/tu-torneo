@@ -15,14 +15,12 @@
   margin-bottom: 10px;
 }
 
-/* GRID */
 .tournaments-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 25px;
 }
 
-/* CARD */
 .tournament-card {
   background: #ffffff;
   border-radius: 20px;
@@ -30,7 +28,6 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* STATS */
 .stats {
   display: flex;
   gap: 15px;
@@ -45,7 +42,6 @@
   text-align: center;
 }
 
-/* JORNADA */
 .jornada {
   margin-top: 20px;
   font-weight: 600;
@@ -54,7 +50,6 @@
   gap: 8px;
 }
 
-/* MATCH */
 .match {
   display: flex;
   justify-content: space-between;
@@ -65,7 +60,6 @@
   margin-top: 10px;
 }
 
-/* TEAM */
 .team {
   display: flex;
   align-items: center;

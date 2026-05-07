@@ -1,5 +1,7 @@
 .notifications-panel {
-  width: 350px;
+  width: 300px;          
+  max-width: 50vw;       
+  min-width: 200px;
   border-radius: 20px;
   overflow: hidden;
   background: white;
@@ -15,7 +17,6 @@
   color: white;
   font-weight: 600;
   font-size: 18px;
-
   background: linear-gradient(90deg, #3b82f6, #9333ea);
 }
 
@@ -25,6 +26,7 @@
 
 .content {
   padding: 20px;
+  overflow-x: hidden; 
 }
 
 .empty-state {
@@ -78,31 +80,32 @@
   color: #6b7280;
 }
 
-/* BOTONES */
 .actions {
   margin-top: 10px;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .btn-primary {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
   border: none;
   background: #2563eb;
   color: white;
-  cursor: pointer;
 }
 
 .btn-secondary {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
   border: 1px solid #ef4444;
   color: #ef4444;
   background: white;
-  cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -111,4 +114,36 @@
 
 .btn-secondary:hover {
   background: #fee2e2;
+}
+
+@media (max-width: 768px) {
+  .notifications-panel {
+    width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notifications-panel {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .header {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
 }
