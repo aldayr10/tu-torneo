@@ -46,6 +46,7 @@ export class InfoTournament implements OnInit {
     
     this.tournamentService.startTournament
     this.tournament!.estado = 'EN_CURSO';
+    this.router.navigate(['/view-games']);
   }
 
 }

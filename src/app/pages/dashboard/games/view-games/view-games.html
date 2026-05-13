@@ -1,3 +1,4 @@
+<!-- view-games.html -->
 <div class="go-dashboad" (click)="goToDAshboard()">
   <span class="material-symbols-outlined">
     arrow_back
@@ -6,13 +7,12 @@
     Volver al Dashboard
   </a>
 </div>
+
 <div class="dashboard-container">
   <div class="card">
-
     <div class="container">
 
       <div class="header">
-        
         <h2>Partidos por Torneo</h2>
       </div>
 
@@ -24,7 +24,6 @@
 
           <h3>{{ torneo.name }}</h3>
 
-          <!-- 🔥 STATS POR TORNEO -->
           <div class="stats">
             <div class="stat-card">
               <p>Equipos</p>
@@ -46,17 +45,85 @@
 
           @for (partido of ronda.partidos; track partido.idMatch) {
 
-          <div class="match">
+          <div class="match-card">
 
-            <div class="team">
-              <p>{{ partido.teamA.name }}</p>
+            <div class="match">
+
+              <div class="team">
+                <p>{{ partido.teamA.name }}</p>
+              </div>
+
+              <div class="vs">VS</div>
+
+              <div class="team">
+                <p>{{ partido.teamB.name }}</p>
+              </div>
+
             </div>
 
-            <div class="vs">VS</div>
+            <!-- Fecha programada -->
+            <div class="schedule-info">
 
-            <div class="team">
-              <p>{{ partido.teamB.name }}</p>
+              @if (partido.scheduledDate && partido.scheduledTime) {
+              <p class="scheduled">
+                📅 {{ formatScheduled(partido.scheduledDate, partido.scheduledTime) }}
+              </p>
+              } @else {
+              <p class="not-scheduled">
+                Sin programar
+              </p>
+              }
+
+              <button
+                class="schedule-btn"
+                (click)="toggleScheduleEditor(partido)"
+              >
+                {{ partido.scheduledDate ? 'Editar' : 'Programar' }}
+              </button>
             </div>
+
+            <!-- Editor -->
+            @if (editingMatchId === partido.idMatch) {
+
+            <div class="schedule-editor">
+
+              <div class="input-group">
+                <label>Fecha:</label>
+                <input
+                  type="date"
+                  [(ngModel)]="scheduleDate"
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Hora:</label>
+                <input
+                  type="time"
+                  [(ngModel)]="scheduleTime"
+                />
+              </div>
+
+              <div class="editor-actions">
+
+                <button
+                  class="save-btn"
+                  (click)="saveSchedule(partido)"
+                >
+                  Guardar
+                </button>
+
+                <button
+                  class="cancel-btn"
+                  (click)="cancelSchedule()"
+                >
+                  Cancelar
+                </button>
+
+              </div>
+
+            </div>
+
+            }
 
           </div>
 

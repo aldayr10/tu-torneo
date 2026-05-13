@@ -18,7 +18,7 @@ export const TEAMS: Team[] = [
   {
     idTeam: 1,
     name: "as",
-    categoryId: 1,
+    categoryId: 0,
     ownerId: 0,
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
@@ -31,7 +31,7 @@ export const TEAMS: Team[] = [
   {
     idTeam: 2,
     name: "asd",
-    categoryId: 2,
+    categoryId: 0,
     ownerId: 0,
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",
@@ -52,7 +52,7 @@ export const TEAMS: Team[] = [
   {
     idTeam: 3,
     name: "asdf",
-    categoryId: 3,
+    categoryId: 0,
     ownerId: 0,
     primaryColor: "#f2f2f2",
     alternativeColor: "#000000",

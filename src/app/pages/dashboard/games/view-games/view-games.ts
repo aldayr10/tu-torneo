@@ -1,12 +1,13 @@
+// view-games.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TournamentService } from '../../../../services/tournament.service';
-
 import { Tournament } from '../../../../models/tournament';
 import { ProfileService } from '../../../../services/profile';
 import { TeamService } from '../../../../services/team';
 import { TournamentMatchService } from '../../../../services/tournament-match-service';
+import { FormsModule } from '@angular/forms';
 
 type TournamentView = Tournament & {
   rondas?: {
@@ -20,7 +21,7 @@ type TournamentView = Tournament & {
 @Component({
   selector: 'app-view-games',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './view-games.html',
   styleUrls: ['./view-games.css']
 })
@@ -28,6 +29,10 @@ export class ViewGames implements OnInit {
 
   torneos: TournamentView[] = [];
   player: any;
+
+  editingMatchId: string | null = null;
+  scheduleDate = '';
+  scheduleTime = '';
 
   constructor(
     private router: Router,
@@ -44,12 +49,11 @@ export class ViewGames implements OnInit {
     });
   }
 
-  goToDAshboard(){
+  goToDAshboard() {
     this.router.navigate(['/dashboard']);
   }
 
   cargarDatos() {
-
     this.tournamentService.getTournaments().subscribe(tournaments => {
 
       const enCurso = tournaments.filter(t => t.estado === 'EN_CURSO');
@@ -61,7 +65,9 @@ export class ViewGames implements OnInit {
 
           if (!fullTeam?.players) return false;
 
-          return fullTeam.players.some(p => p.idPlayer === this.player.idPlayer);
+          return fullTeam.players.some(
+            p => p.idPlayer === this.player.idPlayer
+          );
 
         })
       );
@@ -75,9 +81,9 @@ export class ViewGames implements OnInit {
 
             const grouped: any = {};
 
-            matches.forEach(m => {
-              if (!grouped[m.round]) grouped[m.round] = [];
-              grouped[m.round].push(m);
+            matches.forEach(match => {
+              if (!grouped[match.round]) grouped[match.round] = [];
+              grouped[match.round].push(match);
             });
 
             torneo.rondas = Object.keys(grouped)
@@ -93,19 +99,57 @@ export class ViewGames implements OnInit {
             );
 
             torneo.totalEquipos = torneo.teams?.length || 0;
-
           });
 
       });
 
       this.torneos = misTorneos;
-
     });
+  }
 
+  toggleScheduleEditor(match: any) {
+    if (this.editingMatchId === match.idMatch) {
+      this.editingMatchId = null;
+      return;
+    }
+
+    this.editingMatchId = match.idMatch;
+    this.scheduleDate = match.scheduledDate || '';
+    this.scheduleTime = match.scheduledTime || '';
+  }
+
+  saveSchedule(match: any) {
+    if (!this.scheduleDate || !this.scheduleTime) return;
+
+    match.scheduledDate = this.scheduleDate;
+    match.scheduledTime = this.scheduleTime;
+
+    // Persistencia opcional:
+    // this.matchService.updateMatch(match).subscribe();
+
+    this.editingMatchId = null;
+  }
+
+  cancelSchedule() {
+    this.editingMatchId = null;
+  }
+
+  formatScheduled(date: string, time: string): string {
+    const fecha = new Date(`${date}T${time}`);
+
+    return fecha.toLocaleDateString('es-ES', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }) + ' · ' +
+      fecha.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
   }
 
   volver() {
     this.router.navigate(['/dashboard']);
   }
-
 }

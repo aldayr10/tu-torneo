@@ -42,7 +42,6 @@ export const routes: Routes = [
     { path: 'check-email', component: CheckEmail },
     { path: 'register', component: Register },
     { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
-
     //listas reusables
     { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
     { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
@@ -54,8 +53,6 @@ export const routes: Routes = [
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
         children: [
             { path: 'create-tournament', component: CreateTournament },
-            
-            
         ]
     },
     //modulo equipos
@@ -68,7 +65,6 @@ export const routes: Routes = [
             { path: 'player-join-team', component: PlayerJoinTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
             { path: 'select-team', component: SelectTeam },
-            
         ]
         
     },
@@ -78,7 +74,6 @@ export const routes: Routes = [
     { path: 'leave-team', component: LeaveTeam },
     { path: 'request-status', component: RequestStatus },
     { path: 'player-join-team', component: PlayerJoinTeam },
-
     { path: 'nav-bar', component: NavBar },
    
 ];

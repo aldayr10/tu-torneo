@@ -25,26 +25,53 @@ export class TournamentMatchService {
 
     if (teams.length < 2) return;
 
-    const exists = this.matches.some(m => m.idTournament === tournament.idTournament);
+    // Evitar duplicados
+    const exists = this.matches.some(
+      m => m.idTournament === tournament.idTournament
+    );
+
     if (exists) return;
 
-    let round = 1;
+    // Si es impar agrega DESCANSA
+    if (teams.length % 2 !== 0) {
+      teams.push({ name: 'DESCANSA' });
+    }
 
-    for (let i = 0; i < teams.length; i++) {
-      for (let j = i + 1; j < teams.length; j++) {
+    const totalRounds = teams.length - 1;
+    const matchesPerRound = teams.length / 2;
 
-        this.matches.push({
-          idMatch: Date.now() + Math.random(),
-          idTournament: tournament.idTournament,
-          teamA: teams[i],
-          teamB: teams[j],
-          round: round,
-          finished: false,
-          date: new Date()
-        });
+    let rotatedTeams = [...teams];
 
-        round++;
+    for (let round = 0; round < totalRounds; round++) {
+
+      for (let match = 0; match < matchesPerRound; match++) {
+
+        const teamA = rotatedTeams[match];
+        const teamB = rotatedTeams[rotatedTeams.length - 1 - match];
+
+        // Evitar partidos con DESCANSA
+        if (teamA.name !== 'DESCANSA' && teamB.name !== 'DESCANSA') {
+
+          this.matches.push({
+            idMatch: Date.now() + Math.random(),
+            idTournament: tournament.idTournament,
+            teamA,
+            teamB,
+            round: round + 1,
+            finished: false,
+            date: new Date()
+          });
+
+        }
       }
+
+      // Rotación de equipos
+      const fixed = rotatedTeams[0];
+      const rest = rotatedTeams.slice(1);
+
+      rest.unshift(rest.pop());
+
+      rotatedTeams = [fixed, ...rest];
     }
 
     this.matches$.next([...this.matches]);
