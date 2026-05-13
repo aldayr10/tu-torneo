@@ -1,0 +1,66 @@
+<div class="navbar">
+
+  <div class="nav-left">
+    <div class="icon-green">
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
+    <span class="logo">Torneos de Fútbol</span>
+  </div>
+
+  <div class="nav-right">
+    @if (profile$ | async; as profile) {
+    <span class="welcome">
+      Bienvenido, <b>{{profile.name}}</b>
+    </span>
+    }
+
+    <button class="icon-btn notification" (click)="openAddTeam()">
+      <span class="material-symbols-outlined">person_add</span>
+    </button>
+
+    <div class="nav">
+      <div class="notification" (click)="toggleNotifications()">
+
+        <span class="material-symbols-outlined">notifications</span>
+
+        @if (totalNotifications > 0) {
+        <span class="badgeNoti">{{ totalNotifications }}</span>
+        }
+
+      </div>
+
+      @if (notificationsOpen) {
+
+      <div class="dropdownnoti">
+
+        <app-notifications></app-notifications>
+      </div>
+
+      <div class="overlay" (click)="closeNotifications()">
+      </div>
+
+      }
+
+    </div>
+
+    <div class="user-menu">
+      <button class="profile-btn" (click)="toggleMenu()">
+        Mi Perfil ▼
+      </button>
+
+      @if(menuOpen){
+      <div class="dropdown">
+
+        <button (click)="editProfile()"><span class="material-symbols-outlined">settings</span>
+          Editar perfil
+        </button>
+
+        <button (click)="logout()"><span class="material-symbols-outlined">output</span>
+          Cerrar sesión
+        </button>
+      </div>
+      }
+
+    </div>
+  </div>
+</div>

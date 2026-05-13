@@ -1,0 +1,143 @@
+.fondo {
+  background: white;
+}
+
+.container {
+  border-radius: 20px;
+  text-align: left;
+  padding: 20px;
+  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
+  transition: 0.2s;
+  margin: 0px 30px 30px 30px;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px;
+
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.card-tournamens {
+  margin: 30px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: left;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: left;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 0px 16px 20px rgba(47, 185, 9, 0.71);
+}
+
+.icon-circle {
+
+  width: 60px;
+  height: 60px;
+  border-radius: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 26px;
+}
+
+.blue {
+  background: linear-gradient(90deg, #2567e8, #7a21e3);
+}
+
+
+.material-symbols-outlined {
+  width: 30%;
+  font-size: 35px;
+  display: flex;
+  line-height: 0;
+  justify-content: center;
+}
+
+.group-exist {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  border: 2px dashed #000000;
+  border-radius: 12px;
+  color: #000000;
+}
+
+.apuntar .material-symbols-outlined {
+  font-size: 20px;
+  width: auto;
+  display: inline-block;
+}
+
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #1e781a;
+  color: white;
+  width: 100%;
+}
+
+.apuntar button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button[type="button"]:hover {
+  background-color: #0d5296;
+}
+
+.paginator {
+  margin-top: 50px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.paginator button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.paginator button.active {
+  background-color: #1565c0;
+  color: white;
+}
+
+.tittle-card {
+  display: flex;
+  align-items: center;
+}
+
+h3 {
+  margin: 20px;
+  text-align: center;
+}

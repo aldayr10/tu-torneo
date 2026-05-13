@@ -1,0 +1,43 @@
+<div class="container">
+
+  <h2>Selecciona Tu Equipo</h2>
+
+  @if (teams$ | async; as teams) {
+
+    @if (teams.length > 0) {
+
+      @for (team of getPaginatedTeams(teams); track team.idTeam) {
+      <div class="team-card" (click)="selectTeam(team)">
+        <div>
+          <h3>{{ team.name }}</h3>
+        </div>
+      </div>
+      }
+
+      @if (teams.length > itemsPerPage) {
+      <div class="paginator">
+
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+          <span class="material-symbols-outlined">arrow_circle_left</span>
+        </button>
+
+
+
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(teams)">
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+        </button>
+
+      </div>
+      }
+
+    } @else {
+      <div class="group-exist">
+        <span class="material-symbols-outlined">group</span>
+        <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
+        <button (click)="goToTeams()">Crear Equipo</button>
+      </div>
+    }
+
+  }
+
+</div>

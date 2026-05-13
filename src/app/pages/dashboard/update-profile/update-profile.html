@@ -1,0 +1,60 @@
+<div class="go-dashboad" (click)="goToDAshboard()">
+    <span class="material-symbols-outlined">
+        arrow_back
+    </span>
+    <a class="go-dashboad-link">
+        Volver al Dashboard
+    </a>
+</div>
+
+<div class="profile-container">
+
+
+
+  <div class="profile-header">
+    <div class="avatar">
+      <span class="material-symbols-outlined">person</span>
+    </div>
+    <h2>Mi Perfil</h2>
+    <p>Administra tu información personal</p>
+  </div>
+
+  <div class="profile-card">
+    <h3 class="section-title">
+      <span class="material-symbols-outlined">person</span>
+      Información Personal
+    </h3>
+
+    <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Usuario</label>
+        <div class="input-icon">
+          <span class="material-symbols-outlined">person</span>
+          <input type="text" formControlName="nombre" placeholder="Tu usuario">
+        </div>
+
+        @if (updateProfileForm.get('nombre')?.invalid && updateProfileForm.get('nombre')?.touched) {
+          <small>El nombre es obligatorio</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <div class="input-icon">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <input type="date" formControlName="fechaNacimiento">
+        </div>
+
+        @if (updateProfileForm.get('fechaNacimiento')?.invalid && updateProfileForm.get('fechaNacimiento')?.touched) {
+          <small>La fecha es obligatoria</small>
+        }
+      </div>
+
+      <button class="btn-primary" type="submit">
+        <span class="material-symbols-outlined">save</span>
+        Guardar Cambios
+      </button>
+    </form>
+  </div>
+</div>

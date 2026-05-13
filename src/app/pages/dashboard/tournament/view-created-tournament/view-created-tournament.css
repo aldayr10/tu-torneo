@@ -1,0 +1,148 @@
+body {
+  background: linear-gradient(to right, #cfd9e6, #e2e8f0);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.title-section .title-icon {
+  color: #2563eb;
+  font-size: 28px; 
+}
+
+h2 {
+  text-align: center;
+  font-weight: 600;
+}
+
+.team-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
+  transition: 0.2s;
+}
+
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.tournament-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trophy-box {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,#2567e8, #7a21e3);
+}
+
+.trophy-box .material-symbols-outlined {
+  color: white;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 0;
+}
+
+.buttos-card-team {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.material-symbols-outlined {
+  font-size: 19px;
+}
+
+.inscription {
+  color: #2563eb;
+}
+
+.settings {
+  color: #6b21a8;
+}
+
+.settings:hover {
+    background: white;
+    box-shadow: 0px 0px 20px 20px #6b21a8;
+    transition: 0.2s;
+}
+
+.delete {
+  color: red;
+}
+
+.delete:hover {
+    background: white;
+    box-shadow: 0px 0px 20px 20px red;
+    transition: 0.2s;
+}
+
+button:hover {
+  background: #e5e7eb;
+}
+
+.group-exist {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  border: 2px dashed #000000;
+  border-radius: 12px;
+  color: #000000;
+}
+
+.group-exist .material-symbols-outlined {
+  font-size: 50px;
+}
+
+.paginator {
+  margin-top: 50px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.paginator button {
+  padding: 5px 10px;
+}
+
+.paginator button.active {
+  background-color: #1565c0;
+  color: white;
+}

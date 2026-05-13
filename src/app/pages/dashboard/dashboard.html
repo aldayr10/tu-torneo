@@ -1,0 +1,49 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="dashboard-container">
+
+  <div class="card-trophy" (click)="goToTournament()">
+    <div class="icon-circle blue">
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
+    <h3>Crear Torneo</h3>
+    <p>Inicia un nuevo torneo de fútbol</p>
+  </div>
+
+  <div class="card-group" (click)="goToTeam()">
+    <div class="icon-circle green">
+      <span class="material-symbols-outlined">group</span>
+    </div>
+    <h3>Gestionar Equipos</h3>
+    <p>Crea un torneo primero</p>
+  </div>
+
+  <div class="card-calendar" (click)="goToGame()">
+    <div class="icon-circle purple">
+      <span class="material-symbols-outlined">calendar_today</span>
+    </div>
+    <h3>Ver Partidos</h3>
+    <p>Genera partidos primero</p>
+  </div>
+
+</div>
+
+<h1>
+  ¡Comienza creando tu primer torneo!🏆
+</h1>
+
+@if (tournaments$ | async; as tournaments) {
+<div class="mockup-tournament-card" (click)="goToAllTournament()">
+  <div class="mockup-card-content">
+    <div class="icon-circle blue-tournament">
+      <span class="material-symbols-outlined">trophy</span>
+    </div>
+    <div class="alinear">
+      <h3 class="mockup-title">Ver Todos los Torneos Creados</h3>
+      <p class="mockup-count">
+        Tienes {{ tournaments.length }} {{ tournaments.length === 1 ? 'torneo creado' : 'torneos creados' }}
+      </p>
+    </div>
+  </div>
+</div>
+}

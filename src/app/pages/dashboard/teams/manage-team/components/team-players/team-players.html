@@ -1,0 +1,22 @@
+<div class="players-container">
+
+  @if (team.players?.length > 0) {
+
+    <div class="list">
+      @for (p of team.players; track p.idPlayer) {
+        <div class="player">
+          {{ p.name }}
+        </div>
+      }
+    </div>
+
+  } @else {
+
+    <div class="empty">
+      <p>Aún no hay jugadores en este equipo.</p>
+      <button (click)="openInvite()" >Invitar Jugadores</button>
+    </div>
+
+  }
+
+</div>

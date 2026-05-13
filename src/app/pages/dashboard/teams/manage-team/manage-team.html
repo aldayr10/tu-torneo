@@ -1,0 +1,69 @@
+<div class="go-dashboad" (click)="goToDAshboard()">
+  <span class="material-symbols-outlined">
+    arrow_back
+  </span>
+  <a class="go-dashboad-link">
+    Volver a los equipos
+  </a>
+</div>
+<div class="dashboard-container">
+  <div class="card">
+    <div class="container">
+
+      @if (team) {
+      <div class="header">
+
+        <div class="team-main">
+          <div class="icon"></div>
+
+          <div>
+            <h2>{{ team.name }}</h2>
+
+            <div class="badges">
+              <span class="type">{{ team.type }}</span>
+              <span class="players">{{ team.players?.length || 0 }} jugadores</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="owner">Creador</span>
+
+      </div>
+
+      <div class="tabs">
+
+        <div class="tab" [class.active]="activeTab === 'info'" (click)="changeTab('info')">
+          Info del Equipo
+        </div>
+
+        <div class="tab" [class.active]="activeTab === 'players'" (click)="changeTab('players')">
+          Jugadores
+        </div>
+
+        <div class="tab" [class.active]="activeTab === 'invite'" (click)="changeTab('invite')">
+          Invitar
+        </div>
+
+      </div>
+
+
+      <div class="content">
+
+        @if (activeTab === 'info') {
+        <app-team-info [team]="team"></app-team-info>
+        }
+
+        @if (activeTab === 'players') {
+        <app-team-players [team]="team"></app-team-players>
+        }
+
+        @if (activeTab === 'invite') {
+        <app-team-invite [team]="team"></app-team-invite>
+        }
+      </div>
+
+      }
+
+    </div>
+  </div>
+</div>

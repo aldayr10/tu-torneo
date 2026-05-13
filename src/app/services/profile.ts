@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Player } from '../models/player';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProfileService {
+  
+  private profileSource = new BehaviorSubject<Player | null>(null);
+
+  profile$ = this.profileSource.asObservable();
+
+  setProfile(player:any) {
+    this.profileSource.next(player);
+  }
+
+  getProfile() {
+    console.log(this.profile$);
+    
+    return this.profile$;
+  }
+}

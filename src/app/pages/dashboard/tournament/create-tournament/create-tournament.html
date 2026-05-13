@@ -1,0 +1,47 @@
+<div class="form-wrapper">
+
+  <span></span>
+
+  <div class="icon-blue">
+    <span class="material-symbols-outlined">trophy</span>
+  </div>
+
+  <h2>Crear Nuevo Torneo</h2>
+  <p class="subtitle">Configura tu competencia de fútbol</p>
+
+  <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()">
+
+    <label>Nombre del Torneo</label>
+    <input type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
+     @if (
+      tournamentForm.get('name')?.touched &&
+      tournamentForm.get('name')?.invalid
+    ) {
+
+      @if (tournamentForm.get('name')?.errors?.['required']) {
+        <small class="error">
+          El nombre del torneo es obligatorio.
+        </small>
+      }
+
+    }
+
+    <label>Descripción del Torneo</label>
+    <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
+
+    <div class="field">
+      <label>Categoría</label>
+      <select formControlName="categoryId">
+        @for (tipo of catalogoTeam; track tipo.id) {
+        <option [ngValue]="tipo.id" >
+          {{ tipo.name }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <button type="submit">Crear Torneo</button>
+
+  </form>
+
+</div>
