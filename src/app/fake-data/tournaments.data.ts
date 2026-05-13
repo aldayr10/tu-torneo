@@ -62,7 +62,6 @@ export const TOURNAMENTS: Tournament[] = [
         name: 'Admin',
         dateBirth: new Date('2000-01-01')
       },
-
     ],
     pendingInvitations :[]
   },
