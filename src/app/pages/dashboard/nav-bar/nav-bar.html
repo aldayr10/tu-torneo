@@ -13,10 +13,12 @@
       Bienvenido, <b>{{profile.name}}</b>
     </span>
     }
-
+    <!--Dani-->
+    @if (!isAdmin) {
     <button class="icon-btn notification" (click)="openAddTeam()">
       <span class="material-symbols-outlined">person_add</span>
     </button>
+    }
 
     <div class="nav">
       <div class="notification" (click)="toggleNotifications()">

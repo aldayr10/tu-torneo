@@ -6,11 +6,8 @@ import { ProfileService } from "../../../services/profile";
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../news/notification/notification';
-
-
 import { NotificationService } from '../../../services/notification.service';
 import { RequestService } from '../../../services/request';
-
 
 @Component({
   selector: 'app-nav-bar',
@@ -29,6 +26,7 @@ export class NavBar implements OnInit {
 
   totalNotifications = 0;
   player: Player | null = null;
+  isAdmin: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,16 +39,16 @@ export class NavBar implements OnInit {
 
   ngOnInit(): void {
 
-  
     this.profileService.getProfile().subscribe(profile => {
       this.player = profile;
       this.profileSource.next(profile);
+
+      this.isAdmin = this.player?.idPlayer=== 0;
 
       this.initNotifications();
     });
 
   }
-
 
   initNotifications() {
 
@@ -63,7 +61,6 @@ export class NavBar implements OnInit {
       .subscribe(() => this.calculateTotalNotifications());
 
   }
-
 
   calculateTotalNotifications() {
 
@@ -96,7 +93,6 @@ export class NavBar implements OnInit {
 
   openAddTeam(){
     this.router.navigate(['/player-join-team']);
-
   }
 
   openNotifications() {
@@ -104,12 +100,10 @@ export class NavBar implements OnInit {
   }
 
   toggleNotifications() {
-
     this.notificationsOpen = !this.notificationsOpen;
   }
 
   closeNotifications() {
-
     this.notificationsOpen = false;
   }
 
