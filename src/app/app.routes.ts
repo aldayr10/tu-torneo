@@ -31,7 +31,7 @@ import { ViewGames} from './pages/dashboard/games/view-games/view-games';
 import { InfoTournament } from './pages/dashboard/tournament/info-tournament/info-tournament';
 import { ManageTeam } from './pages/dashboard/teams/manage-team/manage-team';
 
-
+import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const routes: Routes = [
     // principal
