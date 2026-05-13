@@ -107,7 +107,17 @@ export class ViewGames implements OnInit {
     });
   }
 
-  toggleScheduleEditor(match: any) {
+  /**
+   * VALIDACIÓN OWNER
+   */
+  isOwner(torneo: TournamentView): boolean {
+    return torneo.idOwner === this.player?.idPlayer;
+  }
+
+  toggleScheduleEditor(torneo: TournamentView, match: any) {
+
+    if (!this.isOwner(torneo)) return;
+
     if (this.editingMatchId === match.idMatch) {
       this.editingMatchId = null;
       return;
@@ -118,7 +128,10 @@ export class ViewGames implements OnInit {
     this.scheduleTime = match.scheduledTime || '';
   }
 
-  saveSchedule(match: any) {
+  saveSchedule(torneo: TournamentView, match: any) {
+
+    if (!this.isOwner(torneo)) return;
+
     if (!this.scheduleDate || !this.scheduleTime) return;
 
     match.scheduledDate = this.scheduleDate;

@@ -1,4 +1,5 @@
 <!-- view-games.html -->
+
 <div class="go-dashboad" (click)="goToDAshboard()">
   <span class="material-symbols-outlined">
     arrow_back
@@ -61,7 +62,7 @@
 
             </div>
 
-            <!-- Fecha programada -->
+            <!-- Fecha -->
             <div class="schedule-info">
 
               @if (partido.scheduledDate && partido.scheduledTime) {
@@ -74,16 +75,20 @@
               </p>
               }
 
+              <!-- SOLO OWNER -->
+              @if (isOwner(torneo)) {
               <button
                 class="schedule-btn"
-                (click)="toggleScheduleEditor(partido)"
+                (click)="toggleScheduleEditor(torneo, partido)"
               >
                 {{ partido.scheduledDate ? 'Editar' : 'Programar' }}
               </button>
+              }
+
             </div>
 
-            <!-- Editor -->
-            @if (editingMatchId === partido.idMatch) {
+            <!-- Editor SOLO OWNER -->
+            @if (editingMatchId === partido.idMatch && isOwner(torneo)) {
 
             <div class="schedule-editor">
 
@@ -107,7 +112,7 @@
 
                 <button
                   class="save-btn"
-                  (click)="saveSchedule(partido)"
+                  (click)="saveSchedule(torneo, partido)"
                 >
                   Guardar
                 </button>
