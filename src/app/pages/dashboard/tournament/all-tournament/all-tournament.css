@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-/* Botón volver */
 .go-dashboad {
   display: inline-flex;
   align-items: center;
@@ -29,7 +28,6 @@
   font-size: 15px;
 }
 
-/* Encabezado principal */
 .container {
   max-width: 1090px;
   margin: 0 auto 32px;
@@ -45,7 +43,6 @@
   justify-content: space-between;
 }
 
-/* Ícono decorativo del encabezado */
 .container h2::before {
   content: "language";
   font-family: "Material Symbols Outlined";
