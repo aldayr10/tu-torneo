@@ -16,9 +16,6 @@
   box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
 }
 
-
-
-
 .card-trophy {
   background: rgb(255, 255, 255);
   border-radius: 20px;
@@ -44,7 +41,7 @@
 
 .card-group:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 0px 16px 20px #16a34a;
+  box-shadow: 0px 0px 16px 20px #3f967f;
 }
 
 .card-calendar {
@@ -98,7 +95,7 @@
 }
 
 .green {
-  background: #16a34a;
+  background: #3f967f;
 }
 
 .purple {

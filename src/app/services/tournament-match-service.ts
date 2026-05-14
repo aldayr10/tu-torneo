@@ -25,14 +25,12 @@ export class TournamentMatchService {
 
     if (teams.length < 2) return;
 
-    // Evitar duplicados
     const exists = this.matches.some(
       m => m.idTournament === tournament.idTournament
     );
 
     if (exists) return;
 
-    // Si es impar agrega DESCANSA
     if (teams.length % 2 !== 0) {
       teams.push({ name: 'DESCANSA' });
     }
@@ -49,7 +47,6 @@ export class TournamentMatchService {
         const teamA = rotatedTeams[match];
         const teamB = rotatedTeams[rotatedTeams.length - 1 - match];
 
-        // Evitar partidos con DESCANSA
         if (teamA.name !== 'DESCANSA' && teamB.name !== 'DESCANSA') {
 
           this.matches.push({
@@ -65,7 +62,6 @@ export class TournamentMatchService {
         }
       }
 
-      // Rotación de equipos
       const fixed = rotatedTeams[0];
       const rest = rotatedTeams.slice(1);
 
