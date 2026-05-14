@@ -179,3 +179,21 @@ button[type="button"]:hover {
     font-size: 28px;
   }
 }
+
+.card-recover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.card-recover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: linear-gradient(90deg, #00d463 0%, #00c853 50%, #009b48 100%);
+}

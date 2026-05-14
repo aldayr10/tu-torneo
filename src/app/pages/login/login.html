@@ -1,6 +1,6 @@
 <div class="overlay">
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form class="card-recover" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
     <div class="title-icon">
       <span class="material-symbols-outlined">trophy</span>
@@ -26,13 +26,13 @@
       <input type="password" formControlName="password" placeholder="Ingresa tu contraseña">
 
       @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
-        @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
-        <div>La contraseña es obligatoria</div>
-        }
+      @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+      <div>La contraseña es obligatoria</div>
+      }
 
-        @if(loginForm.get('password')?.errors?.['minlength']){
-        <div>La contraseña debe tener mínimo 6 caracteres</div>
-        }
+      @if(loginForm.get('password')?.errors?.['minlength']){
+      <div>La contraseña debe tener mínimo 6 caracteres</div>
+      }
       }
     </div>
     <div class="recover-pass">
@@ -40,14 +40,14 @@
         ¿Olvidaste tu contraseña?
       </a>
     </div>
-    
-    <button type="submit" >Iniciar Sesión</button>
+
+    <button type="submit">Iniciar Sesión</button>
     <div class="register">
       <label for="registrarse">¿No tienes cuenta?
         <a (click)="registrarse()">Regístrate aquí</a>
       </label>
     </div>
-    
+
   </form>
 
 </div>

@@ -1,19 +1,23 @@
 <div class="overlay">
 
-    <div class="card-recover">
+  <div class="card-recover">
 
+    <button type="button" class="back-login" (click)="goToLogin()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Volver al Login
+    </button>
 
-        <p class="title">¡Email Enviado!</p>
-
-        <h5 class="subtitle">
-            Revisa tu bandeja de entrada y sigue las instrucciones
-            para recuperar tu contraseña.
-        </h5>
-
-        <button class="btn-primary" (click)="goToLogin()">
-            Volver a Inicio
-        </button>
-
+    <div class="check-icon">
+      <span class="material-symbols-outlined">check_circle</span>
     </div>
+
+    <p class="title">¡Email Enviado!</p>
+
+    <h5 class="subtitle">
+      Revisa tu bandeja de entrada y sigue las instrucciones
+      para recuperar tu contraseña.
+    </h5>
+
+  </div>
 
 </div>
