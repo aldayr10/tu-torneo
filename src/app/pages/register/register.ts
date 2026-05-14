@@ -20,7 +20,7 @@ export class Register {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private playerService:PlayerService
+    private playerService: PlayerService
   ) {
 
     this.registerForm = this.fb.group({
@@ -59,20 +59,25 @@ export class Register {
         password: formValue.password
       };
 
-      const newPlayer:Player = {
-        idPlayer:0,
+      const newPlayer: Player = {
+        idPlayer: 0,
         idUser: this.userService.register(newUser),
-
         name: formValue.nombre,
         dateBirth: formValue.fechaNacimiento
       };
-      this.playerService.createPlayer(newPlayer)
+
+      this.playerService.createPlayer(newPlayer);
+
       alert("Registro exitoso");
 
       this.router.navigate(['/login']);
 
     }
 
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 
 }
