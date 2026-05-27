@@ -13,10 +13,22 @@ export class Teams {
 
   constructor(
     private router:Router
+
   ){ }
 
+  
   goToDAshboard(){
     this.router.navigate(['/dashboard']);
   }
 
+}
+
+export interface Team {
+  idTeam: number;
+  name: string;
+  categoryId: number;
+  primaryColor?: string;
+  alternativeColor?: string;
+  logo?: string;
+  image?: string;
 }

@@ -6,7 +6,6 @@ import { CatTypeTeam } from '../../../../services/cat-type-team';
 import { ProfileService } from "../../../../services/profile";
 import { Request } from '../../../../models/request';
 
-
 @Component({
   selector: 'app-create-team',
   standalone: true,
@@ -24,46 +23,45 @@ export class CreateTeam implements OnInit {
   isDragging = false;
   imageFile!: File | null;
   imagePreview: string | ArrayBuffer | null = null;
-  owner:any
-
+  owner: any;
 
   constructor(
     private fb: FormBuilder,
     private teamService: TeamService,
     private catalogoTipoEquipo: CatTypeTeam,
-    private profileService:ProfileService
+    private profileService: ProfileService
   ) {
 
     this.teamForm = this.fb.group({
       name: ['', Validators.required],
-      ownerId: ['',],
+      ownerId: [''],
       categoryId: [0, [Validators.required]],
-      primaryColor: ['#000000'],
-      alternativeColor: ['#000000',],
+      primaryColor: ['#22c55e'],
+      alternativeColor: ['#3b82f6'],
       image: [null]
     });
-    
+
     this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
-    
-    this.owner=this.profileService.getProfile();
-    this.owner=this.owner.source.value
-    
+
+    this.owner = this.profileService.getProfile();
+    this.owner = this.owner.source.value;
+
     this.teamForm.patchValue({
       ownerId: this.owner.idPlayer
     });
   }
 
   ngOnInit(): void {
-    
 
   }
 
   resetForm() {
     this.teamForm.reset({
       name: '',
-      category: 0,
-      primaryColor: '#000000',
-      alternativeColor: '#000000',
+      ownerId: this.owner.idPlayer,
+      categoryId: 0,
+      primaryColor: '#22c55e',
+      alternativeColor: '#3b82f6',
       image: null
     });
 
@@ -74,28 +72,32 @@ export class CreateTeam implements OnInit {
   createTeam() {
 
     if (this.teamForm.invalid) return;
-    console.log(this.teamForm);
-    let category = Number.parseInt(this.teamForm.value.categoryId)
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    
-    
+    const formValue = this.teamForm.value;
+
     const newTeam = {
       idTeam: 0,
-      name: this.teamForm.value.name,
-      categoryId: category,
+      name: formValue.name,
+      categoryId: Number.parseInt(formValue.categoryId),
       ownerId: this.owner.idPlayer,
-      primaryColor: this.teamForm.value.primaryColor,
-      alternativeColor: this.teamForm.value.alternativeColor,
-      image: this.teamForm.value.image,
-      invitationCode:'',
-      players: [],
-      pendingInvitations :[]
 
+      primaryColor: formValue.primaryColor,
+      alternativeColor: formValue.alternativeColor,
+
+      logo: this.imagePreview || '',
+      image: formValue.image,
+
+      invitationCode: '',
+      players: [],
+      pendingInvitations: []
     };
+
     console.log(newTeam);
-    const createdTeam:any = this.teamService.createTeam(newTeam);
+
+    const createdTeam: any = this.teamService.createTeam(newTeam);
+
     this.teamIdCreated = createdTeam;
+
     this.resetForm();
   }
 
@@ -114,6 +116,7 @@ export class CreateTeam implements OnInit {
     this.isDragging = false;
 
     const file = event.dataTransfer?.files[0];
+
     if (file && file.type.startsWith('image/')) {
       this.handleFile(file);
     }
@@ -121,6 +124,7 @@ export class CreateTeam implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+
     if (file) {
       this.handleFile(file);
     }
@@ -130,9 +134,11 @@ export class CreateTeam implements OnInit {
     this.imageFile = file;
 
     const reader = new FileReader();
+
     reader.onload = () => {
       this.imagePreview = reader.result;
     };
+
     reader.readAsDataURL(file);
 
     this.teamForm.patchValue({

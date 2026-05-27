@@ -1,59 +1,105 @@
 .fondo {
-  background: rgb(184, 216, 184); 
+  background: linear-gradient(135deg, #ecfff4 0%, #dcfce7 100%);
   min-height: 100vh;
+  padding: 36px 40px 40px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.dashboard-container{
+.go-dashboad {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  color: #009b48;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.go-dashboad .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.go-dashboad-link {
+  color: #009b48;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.teams-header {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+  box-sizing: border-box;
+}
+
+.teams-header h1 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.teams-header p {
+  margin: 0;
+  color: #334155;
+  font-size: 14px;
+}
+
+.dashboard-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  padding: 0px 40px 40px 40px;
 }
 
-.card{
-  background: white;
-  border-radius: 20px;
+.card {
+  background: #ffffff;
+  border-radius: 22px;
   text-align: left;
-  padding: 20px;
-  box-shadow: 0px 0px 16px 3px rgb(2 0 0 / 71%);
-  transition: 0.2s;
+  padding: 24px;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
 
 .card:hover {
-  background: white;
-  border-radius: 20px;
-  text-align: left;
-  box-shadow: 0px 0px 16px 20px rgb(2 0 0 / 71%);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
 }
 
 @media (max-width: 1200px) {
   .dashboard-container {
-    grid-template-columns: repeat(2, 1fr); 
-    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 }
 
 @media (max-width: 900px) {
   .dashboard-container {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
+  .fondo {
+    padding: 24px 18px;
+  }
+
   .dashboard-container {
-    padding: 15px;
     gap: 15px;
   }
 
   .card {
-    padding: 15px;
+    padding: 18px;
   }
-}
 
-@media (max-width: 400px) {
-  .card {
-    padding: 12px;
-    border-radius: 15px;
+  .teams-header {
+    padding: 24px;
+  }
+
+  .teams-header h1 {
+    font-size: 25px;
   }
 }

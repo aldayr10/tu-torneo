@@ -1,58 +1,90 @@
 <div class="container">
 
-  <h2>Equipos creados</h2>
-
   @if (teams$ | async; as teams) {
+
+    <p class="teams-count">
+      {{ teams.length }} equipo{{ teams.length === 1 ? '' : 's' }} registrado{{ teams.length === 1 ? '' : 's' }}
+    </p>
 
     @if (teams.length > 0) {
 
-
       @for (team of getPaginatedTeams(teams); track team.idTeam) {
-      <div class="team-card">
-        <div>
-          <h3>{{ team.name }}</h3>
+
+        <div class="team-card">
+
+          <div
+            class="team-color-bar"
+            [style.background]="getTeamBarStyle(team)">
+          </div>
+
+          <div class="team-info">
+
+            <div
+              class="team-icon"
+              [style.background]="getTeamIconBackground(team)"
+            >
+
+
+            </div>
+
+            <div>
+              <h3>{{ team.name }}</h3>
+
+              <div class="team-meta">
+                <span class="category-pill">Fútbol 11</span>
+                <span>0 jugadores</span>
+
+                <span
+                  class="dot"
+                  [style.background]="team.primaryColor || '#22c55e'">
+                </span>
+
+                <span
+                  class="dot"
+                  [style.background]="team.alternativeColor || '#3b82f6'">
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="buttos-card-team">
+
+            <button class="settings" (click)="openManageTeam(team.idTeam)">
+              <span class="material-symbols-outlined">settings</span>
+            </button>
+
+            <button class="delete" (click)="deleteTeam(team.idTeam)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+
+          </div>
+
         </div>
 
-
-
-        <div class="buttos-card-team">
-         
-          
-          <button class="settings" (click)="openManageTeam(team.idTeam)">
-            <span class="material-symbols-outlined">stadia_controller</span>
-          </button>
-
-          <button class="delete" (click)="deleteTeam(team.idTeam)">
-            <span class="material-symbols-outlined">delete</span>
-          </button>
-          
-
-        </div>
-      </div>
       }
 
-
       @if (teams.length > itemsPerPage) {
-      <div class="paginator">
+        <div class="paginator">
 
-        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
-          <span class="material-symbols-outlined">arrow_circle_left</span>
-        </button>
+          <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+            <span class="material-symbols-outlined">arrow_circle_left</span>
+          </button>
 
+          <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(teams)">
+            <span class="material-symbols-outlined">arrow_circle_right</span>
+          </button>
 
-
-        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages(teams)">
-          <span class="material-symbols-outlined">arrow_circle_right</span>
-        </button>
-
-      </div>
+        </div>
       }
 
     } @else {
+
       <div class="group-exist">
         <span class="material-symbols-outlined">group</span>
         <div>No hay equipos aún. ¡Crea tu primer equipo!</div>
       </div>
+
     }
 
   }

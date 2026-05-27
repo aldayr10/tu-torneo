@@ -1,20 +1,30 @@
-<div class = "fondo">
+<div class="fondo">
+
     <div class="go-dashboad" (click)="goToDAshboard()">
         <span class="material-symbols-outlined">
             arrow_back
         </span>
+
         <a class="go-dashboad-link">
             Volver al Dashboard
         </a>
     </div>
-    <div class="dashboard-container">
-        <div class="card">
-            <app-create-team>
-            </app-create-team>
-        </div>
-        <div class="card">
-            <app-view-created-teams>
-            </app-view-created-teams>
-        </div>
+
+    <div class="teams-header">
+        <h1>Gestionar Equipos</h1>
+        <p>Administra todos tus equipos</p>
     </div>
+
+    <div class="dashboard-container">
+
+        <div class="card">
+            <app-create-team></app-create-team>
+        </div>
+
+        <div class="card">
+            <app-view-created-teams></app-view-created-teams>
+        </div>
+
+    </div>
+
 </div>

@@ -69,4 +69,18 @@ export class ViewCreatedTeams implements OnInit {
     });
   }
 
+  getTeamBarStyle(team: any): string {
+    const primaryColor = team.primaryColor || '#22c55e';
+    const alternativeColor = team.alternativeColor || '#3b82f6';
+
+    return `linear-gradient(90deg, ${primaryColor} 0%, ${primaryColor} 50%, ${alternativeColor} 50%, ${alternativeColor} 100%)`;
+  }
+
+  getTeamIconBackground(team: any): string {
+    const primaryColor = team.primaryColor || '#22c55e';
+    const alternativeColor = team.alternativeColor || '#3b82f6';
+
+    return `linear-gradient(135deg, ${primaryColor} 0%, ${alternativeColor} 100%)`;
+  }
+
 }
