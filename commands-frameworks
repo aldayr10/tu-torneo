@@ -1,1 +1,3 @@
-ng add @angular/material libreria de material design
+ng add @angular/material                            libreria de material design
+npm install material-icons iconoir                  iconos
+npm install @material-symbols/font-400              simbolos
