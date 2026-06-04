@@ -1,11 +1,11 @@
-import { Component,  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreateTournament } from '../create-tournament/create-tournament';
-import { BehaviorSubject } from 'rxjs';
+import { DeleteTournament } from '../delete-tournament/delete-tournament';
+import { Observable } from 'rxjs';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 import { Router } from '@angular/router';
 
@@ -21,8 +21,8 @@ import { Router } from '@angular/router';
 export class ViewCreatedTournament {
 
 
-
-  tournaments$ = new BehaviorSubject<Tournament[]>([]);
+ 
+  tournaments$! :Observable<Tournament[]>;
   gestion: any =true
   owner: any
   currentPage = 1;
@@ -31,23 +31,24 @@ export class ViewCreatedTournament {
   constructor(
     private dialog: MatDialog,
     private tournamentService: TournamentService,
-    private profile: ProfileService,
+    private profileService: ProfileService,
     private router:Router
   ) {
-    this.profile.getProfile().subscribe(data=>{
-      this.owner=data
-      this.loadMyTournaments()
-    })
-    
-  }
-
   
-
-  loadMyTournaments(): void {
-    this.tournamentService.myTournamens(this.owner.idPlayer).subscribe(data=>{
-      this.tournaments$.next(data);
-    });
   }
+
+  ngOnInit(): void {
+
+
+    this.profileService.getProfile().subscribe(owner => {
+      if (!owner) return;
+      this.owner = owner;
+      this.tournaments$ = this.tournamentService.myTournamens(owner.idPlayer);
+
+
+    })
+  }
+
 
 
   editTournament(tournament:Tournament) {
@@ -80,5 +81,18 @@ export class ViewCreatedTournament {
     });
 
   }
+
+  deleteTournamnet(id: number) {
+      const dialogRef = this.dialog.open(DeleteTournament, {
+        width: '400px'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.tournamentService.deteleTournament(id)
+          alert('torneo eliminado correctamente');
+        }
+      });
+    }
 
 }

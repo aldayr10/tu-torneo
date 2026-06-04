@@ -44,9 +44,14 @@ export class TournamentService {
   }
 
   myTournamens(idOwner: number) {
-    const filter = this.tournaments.filter(t => t.idOwner === idOwner);
-    this.tournamentsSource.next([...filter]);
-    return this.tournament$
+    this.tournamentsSource.next([...this.tournaments]);
+    return this.tournament$.pipe(
+      map(tournaments =>
+        tournaments.filter(tournament =>
+          tournament.idOwner === idOwner
+        )
+      )
+    );
   }
 
   addTeamToTournament(tournament: Tournament, team: Team) {
@@ -59,6 +64,12 @@ export class TournamentService {
     return this.tournament$.pipe(
       map(tournaments => tournaments.find(t => t.idTournament === id))
     );
+  }
+
+  deteleTournament(id: number) {
+    this.tournaments.find(tournament => tournament.idTournament !== id)
+    this.tournaments = this.tournaments.filter(tournament => tournament.idTournament !== id);
+    this.tournamentsSource.next([...this.tournaments]);
   }
 
 }
