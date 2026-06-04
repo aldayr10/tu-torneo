@@ -3,4 +3,4 @@ npm install material-icons iconoir                  iconos
 npm install @material-symbols/font-400              simbolos
 winget install Ollama.Ollama                        install ollama
 ollama pull llama3.2:3b                             paquete ollama
-ollama serve                                        correr ollama
+ollama run llama3.2:3b                                     correr ollama
