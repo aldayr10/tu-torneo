@@ -42,9 +42,9 @@ export class InfoTournament implements OnInit {
     );
   }
 
-  startTournament() {
+  startTournament( id: number) {
     
-    this.tournamentService.startTournament
+    this.tournamentService.startTournament(id);
     this.tournament!.estado = 'EN_CURSO';
     this.router.navigate(['/view-games']);
   }

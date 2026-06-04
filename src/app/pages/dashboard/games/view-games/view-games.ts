@@ -55,7 +55,8 @@ export class ViewGames implements OnInit {
 
   cargarDatos() {
     this.tournamentService.getTournaments().subscribe(tournaments => {
-
+      console.log(tournaments);
+      
       const enCurso = tournaments.filter(t => t.estado === 'EN_CURSO');
 
       const misTorneos: TournamentView[] = enCurso.filter(t =>
@@ -64,10 +65,10 @@ export class ViewGames implements OnInit {
           const fullTeam = this.teamService.getTeamByIdTeam(team.idTeam);
 
           if (!fullTeam?.players) return false;
-
-          return fullTeam.players.some(
+          return true
+          /*return fullTeam.players.some(
             p => p.idPlayer === this.player.idPlayer
-          );
+          );*/
 
         })
       );
@@ -107,9 +108,7 @@ export class ViewGames implements OnInit {
     });
   }
 
-  /**
-   * VALIDACIÓN OWNER
-   */
+
   isOwner(torneo: TournamentView): boolean {
     return torneo.idOwner === this.player?.idPlayer;
   }

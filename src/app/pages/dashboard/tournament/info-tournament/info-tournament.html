@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <button class="start-btn" [disabled]="!canStart()" (click)="startTournament()">
+          <button class="start-btn" [disabled]="!canStart()" (click)="startTournament(tournament.idTournament)">
             Iniciar Torneo
           </button>
 

@@ -36,7 +36,10 @@ export class CreateTournament implements OnInit {
       categoryId: [0, Validators.required],
       description: [''],
       teams:[[]],
-      estado:"ABIERTO"
+      estado:"ABIERTO",
+      rondas:[[]],
+      totalEquipos:[''],
+      totalPartidos:['']
     });
 
   }
