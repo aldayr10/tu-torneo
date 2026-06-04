@@ -18,5 +18,5 @@ describe('AllTournament', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

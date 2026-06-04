@@ -19,5 +19,5 @@ describe('RecoverPassword', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

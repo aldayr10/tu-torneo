@@ -1,16 +1,24 @@
 <div class="invite-container">
 
   <div class="empty-state">
-    <span class="material-symbols-outlined">schedule</span>
-    <p>No hay solicitudes pendientes en este momento.</p>
+    <span class="material-symbols-outlined">
+      schedule
+    </span>
+
+    <p>
+      No hay solicitudes pendientes en este momento.
+    </p>
   </div>
 
   <div class="invite-grid">
 
+    <!-- CÓDIGO -->
+
     <div class="card code-card">
 
       <h3>
-        <span>#</span> Código de Invitación
+        <span>#</span>
+        Código de Invitación
       </h3>
 
       <div class="box">
@@ -23,8 +31,15 @@
             {{ team.code }}
           </div>
 
-          <button (click)="copyCode()">
-            <span class="material-symbols-outlined">content_copy</span>
+          <button
+            type="button"
+            class="copy-btn"
+            (click)="copyCode()">
+
+            <span class="material-symbols-outlined">
+              content_copy
+            </span>
+
           </button>
 
         </div>
@@ -37,10 +52,15 @@
 
     </div>
 
+    <!-- LINK -->
+
     <div class="card link-card">
 
       <h3>
-        <span class="material-symbols-outlined">link</span>
+        <span class="material-symbols-outlined">
+          link
+        </span>
+
         Link Directo
       </h3>
 
@@ -54,8 +74,15 @@
             {{ inviteLink }}
           </div>
 
-          <button (click)="copyLink()">
-            <span class="material-symbols-outlined">content_copy</span>
+          <button
+            type="button"
+            class="copy-btn"
+            (click)="copyLink()">
+
+            <span class="material-symbols-outlined">
+              content_copy
+            </span>
+
           </button>
 
         </div>

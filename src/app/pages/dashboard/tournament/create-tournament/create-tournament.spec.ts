@@ -19,4 +19,4 @@ describe('CreateTournament', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

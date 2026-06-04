@@ -44,7 +44,6 @@
   background: linear-gradient(90deg, #ff9a00 0%, #ff5a00 50%, #ff0000 100%);
 }
 
-/* Botón volver */
 .back-login {
   width: fit-content;
   padding: 0;
@@ -77,7 +76,6 @@
   font-size: 20px;
 }
 
-/* Ícono check */
 .check-icon {
   display: flex;
   justify-content: center;
@@ -94,7 +92,6 @@
   height: auto;
 }
 
-/* Título */
 .title {
   font-size: 31px;
   font-weight: 700;
@@ -104,7 +101,6 @@
   line-height: 1.15;
 }
 
-/* Subtítulo */
 .subtitle {
   color: #334155;
   font-size: 16px;
@@ -114,7 +110,6 @@
   margin: 0;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .overlay {
     padding: 18px;

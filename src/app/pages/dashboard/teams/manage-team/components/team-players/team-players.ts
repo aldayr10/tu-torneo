@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JoinTeam } from '../../../request/join-team/join-team';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,11 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TeamPlayers {
   @Input() team: any;
-  constructor(private dialog: MatDialog){}
+  @Output() inviteRequested = new EventEmitter<void>();
+  constructor(private dialog: MatDialog) { }
   openInvite() {
-  this.dialog.open(JoinTeam, {
-    width: '800px',
-    data: { team: this.team }
-  });
-}
+    this.inviteRequested.emit();
+    this.dialog.open(JoinTeam, {
+      width: '800px',
+      data: { team: this.team }
+    });
+  }
 }

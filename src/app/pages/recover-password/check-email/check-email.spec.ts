@@ -19,4 +19,4 @@ describe('CheckEmail', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

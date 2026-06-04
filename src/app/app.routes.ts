@@ -66,7 +66,6 @@ export const routes: Routes = [
             { path: 'delete-player-team', component: DeletePlayerTeam },
             { path: 'select-team', component: SelectTeam },
         ]
-        
     },
     
     //player

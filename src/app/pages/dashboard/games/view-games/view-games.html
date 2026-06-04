@@ -2,6 +2,7 @@
   <span class="material-symbols-outlined">
     arrow_back
   </span>
+
   <a class="go-dashboad-link">
     Volver al Dashboard
   </a>
@@ -12,7 +13,19 @@
     <div class="container">
 
       <div class="header">
+
+        <div class="header-icon">
+          <span class="material-symbols-outlined">
+            calendar_month
+          </span>
+        </div>
+
         <h2>Partidos por Torneo</h2>
+
+        <p>
+          Consulta todos los partidos organizados por torneo
+        </p>
+
       </div>
 
       <div class="tournaments-grid">
@@ -21,9 +34,22 @@
 
         <div class="tournament-card">
 
-          <h3>{{ torneo.name }}</h3>
+          <div class="tournament-header">
+
+            <div>
+              <h3>{{ torneo.name }}</h3>
+            </div>
+
+            @if (isOwner(torneo)) {
+            <span class="owner-badge">
+              Puedes programar partidos
+            </span>
+            }
+
+          </div>
 
           <div class="stats">
+
             <div class="stat-card">
               <p>Equipos</p>
               <h3>{{ torneo.totalEquipos }}</h3>
@@ -33,13 +59,19 @@
               <p>Partidos</p>
               <h3>{{ torneo.totalPartidos }}</h3>
             </div>
+
           </div>
 
           @for (ronda of torneo.rondas; track ronda.numero) {
 
           <div class="jornada">
-            <span>🟣</span>
+
+            <span class="material-symbols-outlined jornada-icon">
+              schedule
+            </span>
+
             <h4>Jornada {{ ronda.numero }}</h4>
+
           </div>
 
           @for (partido of ronda.partidos; track partido.idMatch) {
@@ -49,75 +81,96 @@
             <div class="match">
 
               <div class="team">
+
+                <div class="team-icon">
+                  <span class="material-symbols-outlined">
+                    groups
+                  </span>
+                </div>
+
                 <p>{{ partido.teamA.name }}</p>
+
               </div>
 
               <div class="vs">VS</div>
 
               <div class="team">
+
+                <div class="team-icon">
+                  <span class="material-symbols-outlined">
+                    groups
+                  </span>
+                </div>
+
                 <p>{{ partido.teamB.name }}</p>
+
               </div>
 
             </div>
 
-     
             <div class="schedule-info">
 
               @if (isOwner(torneo)) {
-              <button
-                class="schedule-btn"
-                (click)="toggleScheduleEditor(torneo, partido)"
-              >
+              <button class="schedule-btn" (click)="toggleScheduleEditor(torneo, partido)">
                 {{ partido.scheduledDate ? 'Editar' : 'Programar' }}
               </button>
               }
 
               @if (partido.scheduledDate && partido.scheduledTime) {
+
               <p class="scheduled">
-                📅 {{ formatScheduled(partido.scheduledDate, partido.scheduledTime) }}
+
+                <span class="material-symbols-outlined">
+                  calendar_month
+                </span>
+
+                {{ formatScheduled(partido.scheduledDate, partido.scheduledTime) }}
+
               </p>
+
               } @else {
+
               <p class="not-scheduled">
+
+                <span class="material-symbols-outlined">
+                  event_busy
+                </span>
+
                 Sin programar
+
               </p>
+
               }
 
             </div>
 
-            <!-- Editor SOLO OWNER -->
             @if (editingMatchId === partido.idMatch && isOwner(torneo)) {
 
             <div class="schedule-editor">
 
               <div class="input-group">
+
                 <label>Fecha:</label>
-                <input
-                  type="date"
-                  [(ngModel)]="scheduleDate"
-                />
+
+                <input type="date" [(ngModel)]="scheduleDate">
+
               </div>
 
               <div class="input-group">
+
                 <label>Hora:</label>
-                <input
-                  type="time"
-                  [(ngModel)]="scheduleTime"
-                />
+
+                <input type="time" [(ngModel)]="scheduleTime">
+
               </div>
 
               <div class="editor-actions">
 
-                <button
-                  class="save-btn"
-                  (click)="saveSchedule(torneo, partido)"
-                >
+                <button class="save-btn" (click)="saveSchedule(torneo, partido)">
                   Guardar
                 </button>
 
-                <button
-                  class="cancel-btn"
-                  (click)="cancelSchedule()"
-                >
+                <button class="cancel-btn" (click)="cancelSchedule()">
                   Cancelar
                 </button>
 

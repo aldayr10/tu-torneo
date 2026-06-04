@@ -19,4 +19,4 @@ describe('Notification', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

@@ -25,7 +25,6 @@
   overflow: hidden;
 }
 
-/* Esta es la barrita superior de colores */
 .team-color-bar {
   position: absolute;
   top: 0;
@@ -63,13 +62,11 @@
   flex-shrink: 0;
 }
 
-/* Ícono cuando no hay imagen */
 .team-icon .material-symbols-outlined {
   font-size: 26px;
   color: #ffffff;
 }
 
-/* Imagen cuando el usuario sube logo */
 .team-icon img {
   width: 100%;
   height: 100%;

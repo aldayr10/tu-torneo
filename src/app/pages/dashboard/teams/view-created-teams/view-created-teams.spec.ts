@@ -19,4 +19,4 @@ describe('ViewCreatedTeams', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

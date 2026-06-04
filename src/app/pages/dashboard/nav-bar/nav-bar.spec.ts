@@ -18,5 +18,5 @@ describe('NavBar', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

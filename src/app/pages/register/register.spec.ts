@@ -20,4 +20,4 @@ describe('Register', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

@@ -19,4 +19,4 @@ describe('LeaveTeam', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

@@ -4,7 +4,6 @@ h2 {
     font-weight: 600;
 }
 
-
 .team-card {
     display: grid;
     grid-template-columns: 80%;
@@ -15,7 +14,6 @@ h2 {
     transition: 0.2s;
     margin-bottom: 20px;
 }
-
 
 .team-card:hover {
     box-shadow: 0px 0px 20px 20px rgba(0,0,0, 0.71);
@@ -73,8 +71,6 @@ button[type="submit"]:enabled {
     box-shadow: 0px 0px 20px 20px red;
     transition: 0.2s;
 }
-
-
 
 .group-exist {
     display: flex;

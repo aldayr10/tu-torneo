@@ -19,4 +19,4 @@ describe('TeamInvite', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

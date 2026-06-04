@@ -18,5 +18,5 @@ describe('InfoTournament', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

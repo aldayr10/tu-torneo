@@ -1,0 +1,186 @@
+.invite-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.empty-state {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 20px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state .material-symbols-outlined {
+  font-size: 56px;
+  color: #c7ccd6;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #64748b;
+  font-size: 20px;
+}
+
+.invite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0 0 20px 0;
+
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #172554;
+}
+
+.code-card h3 span {
+  color: #10b981;
+}
+
+.link-card h3 .material-symbols-outlined {
+  color: #10b981;
+}
+
+
+.box {
+  background: #eefaf6;
+  border: 2px solid #7ee7c9;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.box p {
+  margin-top: 0;
+  color: #64748b;
+}
+
+
+.code-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+
+.code {
+  flex: 1;
+
+  background: white;
+  border: 3px solid #42e2c5;
+
+  border-radius: 16px;
+
+  text-align: center;
+
+  padding: 16px;
+
+  font-size: 2rem;
+  font-weight: 600;
+
+  letter-spacing: 6px;
+
+  color: #047857;
+}
+
+.link {
+  flex: 1;
+
+  background: white;
+  border: 3px solid #42e2c5;
+
+  border-radius: 16px;
+
+  padding: 16px;
+
+  color: #0284c7;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy-btn {
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #10b981;
+
+  color: white;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  z-index: 100;
+
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.3);
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
+.copy-btn .material-symbols-outlined {
+  font-size: 24px;
+}
+
+small {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #94a3b8;
+}
+
+
+@media (max-width: 900px) {
+
+  .invite-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .code-row {
+    flex-direction: column;
+  }
+
+  .code,
+  .link {
+    width: 100%;
+  }
+
+  .copy-btn {
+    width: 100%;
+  }
+
+}
