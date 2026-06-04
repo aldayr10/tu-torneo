@@ -1,106 +1,157 @@
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
+.container {
+  padding: 10px;
 }
 
+/* TITULO */
+
+h2 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 700;
+  color: #172554;
+}
+
+.subtitle {
+  margin-top: 8px;
+  margin-bottom: 25px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* CARD */
+
 .team-card {
-    display: grid;
-    grid-template-columns: 80%;
-    padding: 10px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0px 0px 20px 3px rgb(0 0 0 / 71%);
-    transition: 0.2s;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #f8faf9;
+
+  border: 1px solid #b7e8c8;
+
+  border-radius: 18px;
+
+  padding: 14px;
+
+  margin-bottom: 14px;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
 }
 
 .team-card:hover {
-    box-shadow: 0px 0px 20px 20px rgba(0,0,0, 0.71);
-    transform:translateY(-10px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.08);
 }
 
-.buttos-card-team {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3px;
-    justify-content: center;
-    align-items: center;
-    grid-column: none;
+/* IZQUIERDA */
+
+.team-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-button {
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
+/* ICONO */
+
+.team-icon {
+  width: 54px;
+  height: 54px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #22c55e,
+    #3b82f6
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
 }
 
-button[type="submit"]:enabled {
-    color: white;
-    background: #1565c0;
+.team-icon .material-symbols-outlined {
+  font-size: 28px;
 }
 
-.material-symbols-outlined {
-    width: 30%;
-    font-size: 19px;
-    display: contents;
-    line-height: 0;
+/* INFO */
+
+.team-data h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #374151;
 }
 
-.settings {
-    padding-top: 10px;
-    color: black;
-
+.team-data p {
+  margin: 3px 0 0;
+  color: #6b7280;
+  font-size: 15px;
 }
 
-.settings:hover {
-    background: white;
-    box-shadow: 0px 0px 20px 20px rgb(2 0 0 / 71%);
-    transition: 0.2s;
+/* CHECK */
+
+.team-selected {
+  color: #22c55e;
 }
 
-.delete {
-    padding-top: 10px;
-    color: red;
+.team-selected .material-symbols-outlined {
+  font-size: 34px;
 }
 
-.delete:hover {
-    background: white;
-    box-shadow: 0px 0px 20px 20px red;
-    transition: 0.2s;
-}
+/* SIN EQUIPOS */
 
 .group-exist {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 30px;
-    border: 2px dashed #000000;
-    border-radius: 12px;
-    color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  padding: 40px;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 18px;
+
+  text-align: center;
 }
 
 .group-exist .material-symbols-outlined {
-    width: 100%;
-    height: 100%;
-    font-size: 50px;
+  font-size: 60px;
+  color: #94a3b8;
 }
 
+.group-exist button {
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 20px;
+
+  background: #22c55e;
+  color: white;
+
+  cursor: pointer;
+}
+
+/* PAGINADOR */
+
 .paginator {
-    margin-top: 50px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
 }
 
 .paginator button {
-    padding: 5px 10px;
-    cursor: pointer;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
-.paginator button.active {
-    background-color: #1565c0;
-    color: white;
+.paginator .material-symbols-outlined {
+  font-size: 40px;
+  color: #3b82f6;
 }
