@@ -36,6 +36,7 @@ export class CreateTournament implements OnInit {
       categoryId: [0, Validators.required],
       description: [''],
       teams:[[]],
+      estado:"ABIERTO"
     });
 
   }
@@ -66,7 +67,8 @@ export class CreateTournament implements OnInit {
 
       this.tournamentForm.patchValue({
         idOwner:this.owner.idPlayer,
-        categoryId: 0
+        categoryId: 0,
+        estado:"ABIERTO"
       })
 
     }
