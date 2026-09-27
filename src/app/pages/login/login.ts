@@ -1,11 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
 import { PlayerService } from '../../services/player';
 import { ProfileService } from '../../services/profile';
-import { User } from '../../models/user';
 
 
 @Component({
@@ -17,6 +17,8 @@ import { User } from '../../models/user';
 export class Login implements OnInit {
 
   loginForm: FormGroup;
+  isSubmitting = false;
+  errorMessage = '';
   
   constructor(
     private fb: FormBuilder,
@@ -28,39 +30,49 @@ export class Login implements OnInit {
 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,Validators.minLength(6)] ]
+      password: ['', [Validators.required, Validators.minLength(8)] ]
     });
 
   }
 
   ngOnInit(): void {
-    const token= localStorage.getItem('user');
-
-    if (token) {
-      const idUser = token ? JSON.parse(token).idUser : null;
-      const player = this.playerService.getPlayerByIdUser(idUser)
-      this.profile.setProfile(player)
-      this.router.navigate(['/dashboard']);
-    } 
+    void this.restoreSession();
   }
 
-  onSubmit() {
-
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      const success = this.authService.login(email, password);
-      if (success) {
-        this.router.navigate(['/dashboard']);
-      } else {
-        alert('Email o contraseña incorrectos');
-      }
-
-    } else {
-
+  async onSubmit(): Promise<void> {
+    if (this.isSubmitting) return;
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-
+      return;
     }
 
+    this.isSubmitting = true;
+    this.errorMessage = '';
+    const { email, password } = this.loginForm.getRawValue();
+
+    try {
+      if (await this.authService.login(email, password)) {
+        await this.router.navigate(['/dashboard']);
+      } else {
+        this.errorMessage = 'No se pudo verificar la sesión. Inténtalo de nuevo.';
+      }
+    } catch (error) {
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        this.errorMessage = 'Correo o contraseña incorrectos.';
+      } else if (error instanceof HttpErrorResponse && error.status === 0) {
+        this.errorMessage = 'No se pudo conectar con el servidor.';
+      } else {
+        this.errorMessage = 'No fue posible iniciar sesión. Inténtalo de nuevo.';
+      }
+    } finally {
+      this.isSubmitting = false;
+    }
+  }
+
+  private async restoreSession(): Promise<void> {
+    if (await this.authService.hydrate()) {
+      await this.router.navigate(['/dashboard']);
+    }
   }
 
   registrarse() {

@@ -10,6 +10,7 @@ import { Notifications } from '../news/notification/notification';
 
 import { NotificationService } from '../../../services/notification.service';
 import { RequestService } from '../../../services/request';
+import { AuthService } from '../../../services/auth';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class NavBar implements OnInit {
     private router: Router,
 
     private profileService: ProfileService,
+    private authService: AuthService,
 
     private notificationService: NotificationService,
     private requestService: RequestService
@@ -114,7 +116,6 @@ export class NavBar implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }
