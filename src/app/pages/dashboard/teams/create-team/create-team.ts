@@ -49,7 +49,7 @@ export class CreateTeam implements OnInit {
     this.owner=this.owner.source.value
     
     this.teamForm.patchValue({
-      ownerId: this.owner.idPlayer
+      ownerId: this.owner.idUser
     });
   }
 
@@ -84,7 +84,7 @@ export class CreateTeam implements OnInit {
       idTeam: 0,
       name: this.teamForm.value.name,
       categoryId: category,
-      ownerId: this.owner.idPlayer,
+      ownerId: this.owner.idUser,
       primaryColor: this.teamForm.value.primaryColor,
       alternativeColor: this.teamForm.value.alternativeColor,
       image: this.teamForm.value.image,
@@ -94,9 +94,13 @@ export class CreateTeam implements OnInit {
 
     };
     console.log(newTeam);
-    const createdTeam:any = this.teamService.createTeam(newTeam);
-    this.teamIdCreated = createdTeam;
-    this.resetForm();
+    this.teamService.createTeam(newTeam).subscribe({
+      next: createdTeam => {
+        this.teamIdCreated = createdTeam.idTeam;
+        this.resetForm();
+      },
+      error: () => alert('No se pudo crear el equipo. Revisa los datos e inténtalo de nuevo.'),
+    });
   }
 
   onDragOver(event: DragEvent) {

@@ -112,7 +112,9 @@ export class RequestService {
     );
 
     if (player) {
-      this.teamService.addPlayerToTeam(team.idTeam, player);
+      this.teamService.addPlayerToTeam(team.idTeam, player).subscribe({
+        error: () => alert('No se pudo añadir el jugador al equipo.'),
+      });
     }
 
     this.notificationService.createNotification({

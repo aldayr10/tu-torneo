@@ -35,21 +35,13 @@ export class RecoverPassword {
 
       const email = this.recoverForm.value.email;
 
-      const users = this.userService.getUsers();
-
-      const userExists = users.find(u => u.email === email);
-
-      if (userExists) {
-
-        console.log("Email encontrado:", email);
-
-        this.mostrarPopup = true;
-
-      } else {
-
-        alert("El email no está registrado");
-
-      }
+      this.userService.getUserByEmail(email).subscribe({
+        next: user => {
+          if (user) this.mostrarPopup = true;
+          else alert('El email no está registrado');
+        },
+        error: () => alert('No se pudo verificar el email con el servidor.'),
+      });
 
     }
 

@@ -35,18 +35,20 @@ export class Notifications implements OnInit {
   }
 
   acceptInvitation(notification: Notification) { 
-    const team = this.teamService.getTeamByIdTeam(notification.teamId!); 
     const user = this.authService.getCurrentUser(); 
-    if (!team || !user) return; 
-    this.teamService.acceptInvitation(team, user); 
-    this.notificationService.removeNotification( notification.idNotification ); 
+    if (!user || !notification.teamId) return;
+    this.teamService.fetchTeamById(notification.teamId).subscribe(team => {
+      this.teamService.acceptInvitation(team, user);
+      this.notificationService.removeNotification(notification.idNotification);
+    });
   }
 
   declineInvitation(notification: Notification) {
-    const team = this.teamService.getTeamById(notification.teamId!);
     const user = this.authService.getCurrentUser();
-    if (!team || !user) return;
-    this.teamService.rejectInvitation(team, user);
-    this.notificationService.removeNotification(notification.idNotification);
+    if (!user || !notification.teamId) return;
+    this.teamService.fetchTeamById(notification.teamId).subscribe(team => {
+      this.teamService.rejectInvitation(team, user);
+      this.notificationService.removeNotification(notification.idNotification);
+    });
   }
 }

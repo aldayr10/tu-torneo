@@ -69,11 +69,14 @@ export class UpdateProfile implements OnInit {
         dateBirth: new Date(this.updateProfileForm.value.fechaNacimiento)
       };
 
-      this.playerService.updateProfile(updatedPlayer);
-
-      alert("Información actualizada correctamente");
-      console.log(this.profileService.getProfile());
-      this.router.navigate(['/dashboard']);
+      this.playerService.updateProfile(updatedPlayer).subscribe({
+        next: player => {
+          this.profileService.setProfile(player);
+          alert('Información actualizada correctamente');
+          void this.router.navigate(['/dashboard']);
+        },
+        error: () => alert('No se pudo actualizar la información del jugador.'),
+      });
       }
     }
   }

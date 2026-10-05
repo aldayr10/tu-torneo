@@ -1,44 +1,32 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Player } from '../models/player';
-import { PLAYERS_ } from '../fake-data/player.data';
+import { API_BASE_URL } from '../core/api-config';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
-  private players: Player[] = PLAYERS_;
-  private playerSource = new BehaviorSubject<Player[]>([]);
-
-
-
-  createPlayer(player: Player) {
-    player.idPlayer = this.players.length + 1;
-    
-    
-    this.players.push(player);
-    this.playerSource.next(this.players);
-    console.log(this.players);
-    return player;
-    
+  createPlayer(player: Pick<Player, 'idUser' | 'name' | 'dateBirth'>): Observable<Player> {
+    return this.http.post<Player>(`${this.baseUrl}/player`, player);
   }
 
-  getPlayerByIdUser(playerId: number) :Player|any{
-
-    return this.players.find(player => player.idUser === playerId);
+  getPlayerByIdUser(userId: number): Observable<Player> {
+    return this.http.get<Player>(`${this.baseUrl}/player/user/${userId}`);
   }
 
-
-  updateProfile(updatedPlayer: Player) {
-    console.log(updatedPlayer);
-    
-    let findPlayer = this.players.find(player => player.idPlayer === updatedPlayer.idPlayer);
-    if (findPlayer) {
-      findPlayer['name'] = updatedPlayer.name;
-      findPlayer['dateBirth'] = updatedPlayer.dateBirth;
-    }
+  updateProfile(updatedPlayer: Player): Observable<Player> {
+    return this.http.patch<Player>(`${this.baseUrl}/player/${updatedPlayer.idPlayer}`, {
+      name: updatedPlayer.name,
+      idUser: updatedPlayer.idUser,
+      dateBirth: updatedPlayer.dateBirth,
+    });
   }
 }
 

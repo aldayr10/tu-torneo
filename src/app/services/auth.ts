@@ -49,10 +49,14 @@ export class AuthService {
     this.pendingHydration = firstValueFrom(this.http
       .get<User>(`${this.apiBaseUrl}/auth/me`)
       .pipe(timeout(10_000)))
-      .then(user => {
+      .then(async user => {
         this.writeUser(user);
-        const player = this.playerService.getPlayerByIdUser(user.idUser);
-        this.profileService.setProfile(player ?? null);
+        try {
+          const player = await firstValueFrom(this.playerService.getPlayerByIdUser(user.idUser));
+          this.profileService.setProfile(player);
+        } catch {
+          this.profileService.setProfile(null);
+        }
         this.iniciarContador();
         return true;
       })
@@ -69,8 +73,7 @@ export class AuthService {
 
   logout(){
     this.clearSession();
-    alert("Sesión expirada");
-    this.router.navigate(['/login']);
+    void this.router.navigate(['/login']);
   }
 
   getCurrentUser():User | null{
@@ -84,13 +87,14 @@ export class AuthService {
 
   iniciarContador(){
     this.limpiarContador();
+    if (!this.readToken()) return;
     this.timeout = setTimeout(() => {
-      this.logout();
+      this.expireSession();
     }, this.tiempoSesion);
   }
 
   resetearContador(){
-    this.iniciarContador();
+    if (this.readToken()) this.iniciarContador();
   }
 
   limpiarContador(){
@@ -110,6 +114,13 @@ export class AuthService {
     } catch {
       // Browser storage may be unavailable.
     }
+  }
+
+  private expireSession(): void {
+    if (!this.readToken()) return;
+    this.clearSession();
+    alert('Sesión expirada');
+    void this.router.navigate(['/login']);
   }
 
   private readToken(): string | null {

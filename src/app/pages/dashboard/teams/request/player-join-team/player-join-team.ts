@@ -37,28 +37,31 @@ export class PlayerJoinTeam {
       this.errorMessage = 'Ingresa un código válido.';
       this.foundTeam = null; return;
     }
-    const team = this.teamService.getTeamsList().find(t => t.invitationCode === code);
-    if (!team) {
-      this.errorMessage = 'Equipo no encontrado.';
-      this.foundTeam = null;
-      return;
-    }
-    this.foundTeam = team;
-    this.errorMessage = '';
+    this.teamService.getTeamByInvitationCode(code).subscribe({
+      next: team => {
+        this.foundTeam = team ?? null;
+        this.errorMessage = team ? '' : 'Equipo no encontrado.';
+      },
+      error: () => {
+        this.foundTeam = null;
+        this.errorMessage = 'No se pudo buscar el equipo.';
+      },
+    });
   }
   sendJoinRequest() {
     if (!this.foundTeam) return;
     const user = this.authService.getCurrentUser();
     if (!user) return;
-    const player = this.playerService.getPlayerByIdUser(user.idUser);
-    if (!player) return;
-    this.requestService.createRequest({
-      idTeam: this.foundTeam.idTeam,
-      idPlayer: player.idPlayer,
-      type: 'Unirse'
+    this.playerService.getPlayerByIdUser(user.idUser).subscribe(player => {
+      this.requestService.createRequest({
+        idTeam: this.foundTeam!.idTeam,
+        idPlayer: player.idPlayer,
+        type: 'Unirse'
+      });
+      this.successMessage = 'Solicitud enviada correctamente.';
+      this.foundTeam = null;
+      this.codeControl.reset();
     });
-    this.successMessage = 'Solicitud enviada correctamente.';
-    this.foundTeam = null; this.codeControl.reset();
   }
   cancel() {
     this.foundTeam = null;

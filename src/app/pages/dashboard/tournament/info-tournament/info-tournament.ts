@@ -25,8 +25,6 @@ export class InfoTournament implements OnInit {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.tournamentService.getTournaments();
-
     this.tournamentService.getTournamentById(id)
       .subscribe(t => {
         this.tournament = t;
@@ -43,10 +41,14 @@ export class InfoTournament implements OnInit {
   }
 
   startTournament() {
-    
-    this.tournamentService.startTournament
-    this.tournament!.estado = 'EN_CURSO';
-    this.router.navigate(['/view-games']);
+    if (!this.tournament || !this.canStart()) return;
+    this.tournamentService.startTournament(this.tournament.idTournament).subscribe({
+      next: tournament => {
+        this.tournament = tournament;
+        void this.router.navigate(['/view-games']);
+      },
+      error: () => alert('No se pudo iniciar el torneo.'),
+    });
   }
 
 }

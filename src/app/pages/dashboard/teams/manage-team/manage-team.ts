@@ -37,7 +37,7 @@ export class ManageTeam implements OnInit {
     
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.team = this.teamService.getTeamByIdTeam(id);
+    this.teamService.fetchTeamById(id).subscribe(team => this.team = team);
   }
 
   changeTab(tab: 'info' | 'players' | 'invite') {

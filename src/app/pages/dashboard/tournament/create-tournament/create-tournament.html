@@ -9,10 +9,10 @@
   <h2>Crear Nuevo Torneo</h2>
   <p class="subtitle">Configura tu competencia de fútbol</p>
 
-  <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()">
+  <form [formGroup]="tournamentForm" (ngSubmit)="crearTorneo()" [attr.aria-busy]="isSubmitting">
 
-    <label>Nombre del Torneo</label>
-    <input type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
+    <label for="tournament-name">Nombre del Torneo</label>
+    <input id="tournament-name" type="text" formControlName="name" placeholder="Ej: Copa de Campeones 2026">
      @if (
       tournamentForm.get('name')?.touched &&
       tournamentForm.get('name')?.invalid
@@ -22,16 +22,18 @@
         <small class="error">
           El nombre del torneo es obligatorio.
         </small>
+      } @else if (tournamentForm.get('name')?.errors?.['minlength']) {
+        <small class="error">El nombre debe tener al menos 2 caracteres.</small>
       }
 
     }
 
-    <label>Descripción del Torneo</label>
-    <textarea formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
+    <label for="tournament-description">Descripción del Torneo</label>
+    <textarea id="tournament-description" formControlName="description" placeholder="Ej: Torneo femenino mayores de 18 años..."></textarea>
 
     <div class="field">
-      <label>Categoría</label>
-      <select formControlName="categoryId">
+      <label for="tournament-category">Categoría</label>
+      <select id="tournament-category" formControlName="categoryId">
         @for (tipo of catalogoTeam; track tipo.id) {
         <option [ngValue]="tipo.id" >
           {{ tipo.name }}
@@ -40,7 +42,13 @@
       </select>
     </div>
 
-    <button type="submit">Crear Torneo</button>
+    @if (errorMessage) {
+      <small class="error" role="alert">{{ errorMessage }}</small>
+    }
+
+    <button type="submit" [disabled]="isSubmitting || tournamentForm.invalid">
+      {{ isSubmitting ? 'Creando...' : 'Crear Torneo' }}
+    </button>
 
   </form>
 

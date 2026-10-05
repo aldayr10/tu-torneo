@@ -37,7 +37,7 @@ export class ViewCreatedTeams implements OnInit {
     this.profileService.getProfile().subscribe(owner => {
       if (!owner) return;
       this.owner = owner;
-      this.teams$ = this.teamService.getTeamsByOwner(owner.idPlayer);
+      this.teams$ = this.teamService.getTeamsByOwner(owner.idUser);
 
 
     })
@@ -63,8 +63,10 @@ export class ViewCreatedTeams implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.teamService.deteleTeam(id);
-        alert('Equipo eliminado correctamente');
+        this.teamService.deteleTeam(id).subscribe({
+          next: () => alert('Equipo eliminado correctamente'),
+          error: () => alert('No se pudo eliminar el equipo.'),
+        });
       }
     });
   }

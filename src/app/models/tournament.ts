@@ -6,7 +6,7 @@ export interface Tournament{
   idOwner:number;
   name:string;
   categoryId:number;
-  description: string;
+  description: string | null;
   estado: 'ABIERTO' | 'EN_CURSO' | 'FINALIZADO';
   teams:Team[];
 

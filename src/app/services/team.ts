@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Team } from '../models/team';
-import { BehaviorSubject, map } from 'rxjs';
-import { TEAMS } from '../fake-data/teams.data';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { API_BASE_URL } from '../core/api-config';
 import { Player } from '../models/player';
 import { PlayerService } from './player';
 import { NotificationService } from './notification.service';
@@ -11,7 +12,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class TeamService {
-  private teams: Team[] = TEAMS;
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
   private teamsSource = new BehaviorSubject<Team[]>([]);
 
   teams$ = this.teamsSource.asObservable();
@@ -23,189 +25,184 @@ export class TeamService {
 
 
 
-  createTeam(team: Team) {
-    team.idTeam = this.teams.length + 1;
-    this.teams.push(team);
-    this.teamsSource.next([...this.teams]);
-  }
-
-  getTeams() {
-    this.teamsSource.next([...this.teams]);
-    return this.teams$;
-  }
-
-  getTeamById(idTeam:number){
-    this.teamsSource.next([...this.teams]);
-    let team  = this.teams.find(t=>t.idTeam)
-    return team
-  }
-
-  getTeamsList(): Team[] { 
-    return this.teams; 
-  }
-
-  deteleTeam(id: number) {
-    this.teams.find(team => team.idTeam !== id)
-    this.teams = this.teams.filter(team => team.idTeam !== id);
-    this.teamsSource.next([...this.teams]);
-  }
-
-  getTeamsByOwner(ownerId: number) {
-    this.teamsSource.next([...this.teams]);
-    return this.teams$.pipe(
-      map(teams =>
-        teams.filter(team =>
-          team.ownerId === ownerId
-        )
-      )
+  createTeam(team: Team): Observable<Team> {
+    const payload = {
+      name: team.name,
+      categoryId: Number(team.categoryId),
+      ownerId: Number(team.ownerId),
+      primaryColor: team.primaryColor,
+      alternativeColor: team.alternativeColor,
+      image: typeof team.image === 'string' ? team.image : undefined,
+      invitationCode: team.invitationCode || this.createInvitationCode(),
+    };
+    return this.http.post<Team>(`${this.baseUrl}/team`, payload).pipe(
+      map(created => this.normalizeTeam(created)),
+      tap(created => this.updateCache([...this.teamsSource.value, created])),
     );
   }
 
-  getTeamsByOwnerByCategory(ownerId: number, category: number) {
-    console.log(this.teams);
-    
-    this.teamsSource.next([...this.teams]);
-    console.log(this.teams$.pipe(
-      map(teams =>
-        teams.filter(team =>
-          team.ownerId == ownerId &&
-          team.categoryId === category
-        )
-      )
-    ));
-    
-    return this.teams$.pipe(
-      map(teams =>
-        teams.filter(team =>
-          team.ownerId == ownerId &&
-          team.categoryId === category
-        )
-      )
+  getTeams(): Observable<Team[]> {
+    return this.http.get<Team[]>(`${this.baseUrl}/team`).pipe(
+      map(teams => teams.map(team => this.normalizeTeam(team))),
+      tap(teams => this.updateCache(teams)),
+    );
+  }
+
+  fetchTeamById(id: number): Observable<Team> {
+    return this.http.get<Team>(`${this.baseUrl}/team/${id}`).pipe(
+      map(team => this.normalizeTeam(team)),
+      tap(team => this.upsertCache(team)),
+    );
+  }
+
+  getTeamById(id: number): Observable<Team> {
+    return this.fetchTeamById(id);
+  }
+
+  getTeamByInvitationCode(code: string): Observable<Team | undefined> {
+    return this.getTeams().pipe(map(teams => teams.find(team => team.invitationCode === code)));
+  }
+
+  getTeamsList(): Team[] { 
+    return this.teamsSource.value;
+  }
+
+  deteleTeam(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/team/${id}`).pipe(
+      tap(() => this.updateCache(this.teamsSource.value.filter(team => team.idTeam !== id))),
+    );
+  }
+
+  getTeamsByOwner(ownerId: number): Observable<Team[]> {
+    return this.http.get<Team[]>(`${this.baseUrl}/team/owner/${ownerId}`).pipe(
+      map(teams => teams.map(team => this.normalizeTeam(team))),
+      tap(teams => this.updateCache(teams)),
+      switchMap(() => this.teams$.pipe(
+        map(teams => teams.filter(team => team.ownerId === ownerId)),
+      )),
+    );
+  }
+
+  getTeamsByOwnerByCategory(ownerId: number, category: number): Observable<Team[]> {
+    return this.http.get<Team[]>(
+      `${this.baseUrl}/team/owner/${ownerId}/category/${category}`,
+    ).pipe(
+      map(teams => teams.map(team => this.normalizeTeam(team))),
+      tap(teams => this.updateCache(teams)),
+      switchMap(() => this.teams$.pipe(
+        map(teams => teams.filter(team =>
+          team.ownerId === ownerId && team.categoryId === category,
+        )),
+      )),
     );
   }
 
   sendTeamInvitation(team: Team, user: User) {
-  const player = this.playerService.getPlayerByIdUser(user.idUser);
-
-  if (!player) return;
-
-  if (!team.pendingInvitations) {
-    team.pendingInvitations = [];
-  }
-
-  const alreadyMember = team.players.some(
-    p => p.idPlayer === player.idPlayer
-  );
-
-  const alreadyInvited = team.pendingInvitations.some(
-    p => p.idPlayer === player.idPlayer
-  );
-
-  if (alreadyMember || alreadyInvited) return;
-
-  team.pendingInvitations.push(player);
-
-  this.notificationService.createNotification({
-    idNotification: 0,
-    userId: user.idUser,
-    type: 'team_invitation',
-    title: 'Invitación de equipo',
-    message: `${team.name} te ha invitado a unirte`,
-    teamId: team.idTeam,
-    playerId: player.idPlayer,
-    read: false,
-    createdAt: new Date()
+  this.playerService.getPlayerByIdUser(user.idUser).subscribe(player => {
+    team.pendingInvitations ??= [];
+    const alreadyMember = team.players.some(p => p.idPlayer === player.idPlayer);
+    const alreadyInvited = team.pendingInvitations.some(p => p.idPlayer === player.idPlayer);
+    if (alreadyMember || alreadyInvited) return;
+    team.pendingInvitations.push(player);
+    this.notificationService.createNotification({
+      idNotification: 0,
+      userId: user.idUser,
+      type: 'team_invitation',
+      title: 'Invitación de equipo',
+      message: `${team.name} te ha invitado a unirte`,
+      teamId: team.idTeam,
+      playerId: player.idPlayer,
+      read: false,
+      createdAt: new Date()
+    });
+    this.upsertCache(team);
   });
-  alert(`invitacion envia a ${user.email}`)
-  this.teamsSource.next([...this.teams]);
 }
 
   acceptInvitation(team: Team, user: User) {
   if (!team || !user) return;
 
-  const player = this.playerService.getPlayerByIdUser(user.idUser);
-
-  if (!player) return;
-
-  if (!team.players) {
-    team.players = [];
-  }
-
-  if (!team.pendingInvitations) {
-    team.pendingInvitations = [];
-  }
-
-  const alreadyMember = team.players.some(
-    p => p.idPlayer === player.idPlayer
-  );
-
-  if (!alreadyMember) {
-    team.players.push(player);
-  }
-
-  team.pendingInvitations = team.pendingInvitations.filter(
-    p => p.idPlayer !== player.idPlayer
-  );
-
-  this.notificationService.createNotification({
-    idNotification: 0,
-    userId: team.ownerId,
-    type: 'team_response',
-    title: 'Invitación aceptada',
-    message: `${player.name} aceptó la invitación a ${team.name}`,
-    read: false,
-    createdAt: new Date()
+  this.playerService.getPlayerByIdUser(user.idUser).subscribe(player => {
+    this.addPlayerToTeam(team.idTeam, player).subscribe(() => {
+      team.pendingInvitations = (team.pendingInvitations ?? [])
+        .filter(invited => invited.idPlayer !== player.idPlayer);
+      this.notificationService.createNotification({
+        idNotification: 0,
+        userId: team.ownerId,
+        type: 'team_response',
+        title: 'Invitación aceptada',
+        message: `${player.name} aceptó la invitación a ${team.name}`,
+        read: false,
+        createdAt: new Date()
+      });
+      this.upsertCache(team);
+    });
   });
-
-  this.teamsSource.next([...this.teams]);
 }
 
   rejectInvitation(team: Team, user: User) { 
-    const player = this.playerService.getPlayerByIdUser(user.idUser); 
-    if (!player) return; 
-    team.pendingInvitations = team.pendingInvitations.filter( p => p.idPlayer !== player.idPlayer ); 
-    this.teamsSource.next([...this.teams]); 
+    this.playerService.getPlayerByIdUser(user.idUser).subscribe(player => {
+      team.pendingInvitations = (team.pendingInvitations ?? [])
+        .filter(invited => invited.idPlayer !== player.idPlayer);
+      this.upsertCache(team);
+    });
   }
 
   getTeamByIdTeam(teamId: number): Team | undefined {
-    return this.teams.find(team => team.idTeam === teamId);
+    return this.teamsSource.value.find(team => team.idTeam === teamId);
   }
 
-  addTeam(team: Team) {
-    team.idTeam = this.teams.length + 1;
-    team.players = [];
-    team.invitationCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-    this.teams.push(team);
-    this.teamsSource.next([...this.teams]);
+  addTeam(team: Team): Observable<Team> {
+    return this.createTeam(team);
   }
 
-  addPlayerToTeam(idTeam: number, player: any) {
-    const team = this.getTeamByIdTeam(idTeam);
-    if (!team) return;
-
-    team.players = team.players || [];
-
-    const exists = team.players.some(p => p.idPlayer === player.idPlayer);
-    if (!exists) {
-      team.players.push(player);
-      this.teamsSource.next([...this.teams]);
-    }
+  addPlayerToTeam(idTeam: number, player: Player): Observable<Team> {
+    return this.http.post<Team>(`${this.baseUrl}/team/${idTeam}/players`, {
+      playerId: player.idPlayer,
+    }).pipe(
+      map(team => this.normalizeTeam(team)),
+      tap(team => this.upsertCache(team)),
+    );
   }
 
-  joinTeamFromRequest(idTeam: number, player: any) {
-    this.addPlayerToTeam(idTeam, player);
+  joinTeamFromRequest(idTeam: number, player: Player): Observable<Team> {
+    return this.addPlayerToTeam(idTeam, player);
   }
 
   invitePlayer(teamId: number, player: Player) {
     const team = this.getTeamByIdTeam(teamId);
 
     if (team) {
-      team.players.push(player);
+      this.addPlayerToTeam(teamId, player).subscribe();
     }
   }
 
   generateInviteLink(teamId: number): string {
-    return `https://localhost:4200.com/invite/team/${teamId}`;
+    return `${this.baseUrl.replace(/\/api\/v1$/, '')}/invite/team/${teamId}`;
+  }
+
+  private normalizeTeam(team: Team): Team {
+    return {
+      ...team,
+      image: team.image ?? '',
+      invitationCode: String(team.invitationCode ?? ''),
+      players: team.players ?? [],
+      pendingInvitations: team.pendingInvitations ?? [],
+    };
+  }
+
+  private updateCache(teams: Team[]): void {
+    this.teamsSource.next(teams);
+  }
+
+  private upsertCache(team: Team): void {
+    this.updateCache([
+      ...this.teamsSource.value.filter(item => item.idTeam !== team.idTeam),
+      team,
+    ]);
+  }
+
+  private createInvitationCode(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
   }
 }

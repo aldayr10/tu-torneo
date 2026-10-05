@@ -1,54 +1,49 @@
 import { Injectable } from '@angular/core';
-import { USERS } from '../fake-data/users.data';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
-import { of } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { API_BASE_URL } from '../core/api-config';
+import { inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
-  users: User[] = USERS;
-
-  register(user: User): any { 
-    const exists = this.users.some( u => u.email.toLowerCase() === user.email.toLowerCase() ); 
-    if (exists) { 
-      alert('el email ya se encuentra registrado')
-      return false; 
-    } 
-    user.idUser = this.users.length + 1; 
-    
-    this.users.push(user); 
-    localStorage.setItem( 'users', JSON.stringify(this.users) ); 
-    return user.idUser; 
+  register(user: Pick<User, 'name' | 'email' | 'password'>): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/users`, user);
   }
 
-  
-  getUsers() {
-    return this.users;
-  }
-  getUserByUsername(name: string) {
-    return this.users.find(u => u.name === name);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
 
-  getUserById(id: number) {
-    return this.users.find(u => u.idUser === id);
+  getUserByUsername(name: string): Observable<User | undefined> {
+    return this.getUsers().pipe(map(users => users.find(user => user.name === name)));
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/${id}`);
   }
 
   getCurrentUser() {
-    const user = localStorage.getItem('user');
-    if (!user) {
+    try {
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) as User : null;
+    } catch {
       return null;
     }
-    return JSON.parse(user);
   }
 
-  getUserByEmail(email: String) {
-    return this.users.find(u => u.email === email);
+  getUserByEmail(email: string): Observable<User | undefined> {
+    return this.getUsers().pipe(map(users => users.find(user => user.email === email)));
   }
   
-  emailExists(email: string): boolean { 
-    return this.users.some( user => user.email.toLowerCase() === email.toLowerCase() ); 
+  emailExists(email: string): Observable<boolean> {
+    return this.getUsers().pipe(map(users =>
+      users.some(user => user.email.toLowerCase() === email.toLowerCase()),
+    ));
   }
-
 }

@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
-import { debounceTime, Subject, switchMap } from 'rxjs';
+import { debounceTime, of, switchMap } from 'rxjs';
 import { UserService } from '../../../../../services/user';
 
 import { TeamService } from '../../../../../services/team';
@@ -29,8 +29,6 @@ export class JoinTeam {
   searchControl = new FormControl('');
   team: any
 
-  private searchSubject = new Subject<string>();
-
   constructor(
     private userService: UserService,
     private teamService: TeamService,
@@ -45,18 +43,13 @@ export class JoinTeam {
   ngOnInit() {
     console.log(this.data.team);
     
-    this.searchControl.valueChanges.subscribe(value => {
-      const search = value?.toLowerCase().trim() || '';
-
-      if (!search) {
-        this.filteredPlayers = [];
-        return;
-      }
-
-      this.filteredPlayers = this.userService.getUsers()
-        .filter(user =>
-          user.email.toLowerCase().includes(search)
-        )
+    this.searchControl.valueChanges.pipe(
+      debounceTime(200),
+      switchMap(value => value?.trim() ? this.userService.getUsers() : of([])),
+    ).subscribe(users => {
+      const search = this.searchControl.value?.toLowerCase().trim() ?? '';
+      this.filteredPlayers = users
+        .filter(user => user.email.toLowerCase().includes(search))
         .slice(0, 5);
     });
   }

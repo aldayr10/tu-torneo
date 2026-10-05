@@ -60,12 +60,7 @@ export class ViewGames implements OnInit {
 
       const misTorneos: TournamentView[] = enCurso.filter(t =>
         t.teams?.some(team => {
-
-          const fullTeam = this.teamService.getTeamByIdTeam(team.idTeam);
-
-          if (!fullTeam?.players) return false;
-
-          return fullTeam.players.some(
+          return team.players?.some(
             p => p.idPlayer === this.player.idPlayer
           );
 
@@ -111,7 +106,7 @@ export class ViewGames implements OnInit {
    * VALIDACIÓN OWNER
    */
   isOwner(torneo: TournamentView): boolean {
-    return torneo.idOwner === this.player?.idPlayer;
+    return torneo.idOwner === this.player?.idUser;
   }
 
   toggleScheduleEditor(torneo: TournamentView, match: any) {

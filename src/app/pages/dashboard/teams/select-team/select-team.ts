@@ -42,7 +42,7 @@ export class SelectTeam implements OnInit {
       console.log(this.tournament.categoryId);
       
       this.teams$  = this.teamService.getTeamsByOwnerByCategory(
-        this.owner.idPlayer,
+        this.owner.idUser,
         this.tournament.categoryId
       );
       console.log(this.teams$);

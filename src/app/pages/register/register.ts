@@ -25,7 +25,7 @@ export class Register {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
       nombre: ['', Validators.required],
       fechaNacimiento: ['', Validators.required]
@@ -53,23 +53,28 @@ export class Register {
       const formValue = this.registerForm.value;
 
       const newUser = {
-        idUser: 0,
         name: formValue.nombre,
         email: formValue.email,
         password: formValue.password
       };
-
-      const newPlayer:Player = {
-        idPlayer:0,
-        idUser: this.userService.register(newUser),
-
-        name: formValue.nombre,
-        dateBirth: formValue.fechaNacimiento
-      };
-      this.playerService.createPlayer(newPlayer)
-      alert("Registro exitoso");
-
-      this.router.navigate(['/login']);
+      this.userService.register(newUser).subscribe({
+        next: user => {
+          const newPlayer: Player = {
+            idPlayer: 0,
+            idUser: user.idUser,
+            name: formValue.nombre,
+            dateBirth: formValue.fechaNacimiento,
+          };
+          this.playerService.createPlayer(newPlayer).subscribe({
+            next: () => {
+              alert('Registro exitoso');
+              void this.router.navigate(['/login']);
+            },
+            error: () => alert('El usuario se creó, pero no se pudo crear el perfil de jugador.'),
+          });
+        },
+        error: () => alert('No se pudo registrar el usuario. Verifica los datos e inténtalo de nuevo.'),
+      });
 
     }
 

@@ -27,13 +27,14 @@ export class Dashboard implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.owner=this.profileService.getProfile();
-
-    this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer).subscribe(data=>{
-        this.tournaments=data
-        this.tournaments$.next(this.tournaments)
+    this.profileService.getProfile().subscribe(owner => {
+      if (!owner) return;
+      this.owner = owner;
+      this.tournamentService.getListRegistrationTournaments(owner.idUser).subscribe(data => {
+        this.tournaments = data;
+        this.tournaments$.next(data);
+      });
     });
-    console.log(this.tournaments);
   }
 
   goToTeam() {

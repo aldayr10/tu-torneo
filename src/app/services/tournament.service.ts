@@ -1,64 +1,102 @@
-import { Injectable } from '@angular/core';
-import { TOURNAMENTS } from '../fake-data/tournaments.data';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
 import { Tournament } from '../models/tournament';
 import { Team } from '../models/team';
-import { map } from 'rxjs';
+import { API_BASE_URL } from '../core/api-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TournamentService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
+  private readonly tournamentsSource = new BehaviorSubject<Tournament[]>([]);
+  readonly tournament$ = this.tournamentsSource.asObservable();
 
-  private tournaments: Tournament[] = TOURNAMENTS;
-  private tournamentsSource = new BehaviorSubject<Tournament[]>([]);
-  tournament$ = this.tournamentsSource.asObservable();
-
-  constructor() { }
-
-  getTournaments() {
-    this.tournamentsSource.next([...this.tournaments]);
-    return this.tournament$;
-  }
-
-  startTournament(id: number) {
-    const t = this.tournaments.find(t => t.idTournament === id);
-
-    if (t) {
-      t.estado = 'EN_CURSO';
-      this.tournamentsSource.next([...this.tournaments]);
-    }
-  }
-
-  addTournament(tournament: Tournament) {
-
-    tournament.idTournament = this.tournaments.length + 1;
-    this.tournaments.push(tournament);
-    return this.myTournamens(tournament.idOwner)
-  }
-
-  getListRegistrationTournaments(idOwner: number) {
-    const filter = this.tournaments.filter(t => t.idOwner !== idOwner);
-    this.tournamentsSource.next([...filter]);
-    return this.tournament$
-  }
-
-  myTournamens(idOwner: number) {
-    const filter = this.tournaments.filter(t => t.idOwner === idOwner);
-    this.tournamentsSource.next([...filter]);
-    return this.tournament$
-  }
-
-  addTeamToTournament(tournament: Tournament, team: Team) {
-    tournament.teams.push(team);
-    console.log(tournament);
-    this.tournamentsSource.next([...this.tournaments]);
-  }
-
-  getTournamentById(id: number) {
-    return this.tournament$.pipe(
-      map(tournaments => tournaments.find(t => t.idTournament === id))
+  getTournaments(): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${this.baseUrl}/tournament`).pipe(
+      map(tournaments => tournaments.map(tournament => this.normalize(tournament))),
+      tap(tournaments => this.tournamentsSource.next(tournaments)),
     );
+  }
+
+  startTournament(id: number): Observable<Tournament> {
+    return this.http.patch<Tournament>(`${this.baseUrl}/tournament/${id}`, {
+      estado: 'EN_CURSO',
+    }).pipe(
+      map(tournament => this.normalize(tournament)),
+      tap(tournament => this.upsert(tournament)),
+    );
+  }
+
+  addTournament(tournament: Tournament): Observable<Tournament> {
+    const payload = {
+      idOwner: Number(tournament.idOwner),
+      name: tournament.name,
+      categoryId: Number(tournament.categoryId),
+      description: tournament.description?.trim() || null,
+      estado: tournament.estado ?? 'ABIERTO',
+    };
+    return this.http.post<Tournament>(`${this.baseUrl}/tournament`, payload).pipe(
+      map(created => this.normalize(created)),
+      tap(created => this.upsert(created)),
+    );
+  }
+
+  getListRegistrationTournaments(ownerId: number): Observable<Tournament[]> {
+    return this.getTournaments().pipe(
+      switchMap(() => this.tournament$.pipe(
+        map(tournaments => tournaments.filter(tournament => tournament.idOwner !== ownerId)),
+      )),
+    );
+  }
+
+  myTournamens(ownerId: number): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${this.baseUrl}/tournament/owner/${ownerId}`).pipe(
+      map(tournaments => tournaments.map(tournament => this.normalize(tournament))),
+      tap(tournaments => this.tournamentsSource.next(tournaments)),
+      switchMap(() => this.tournament$.pipe(
+        map(tournaments => tournaments.filter(tournament => tournament.idOwner === ownerId)),
+      )),
+    );
+  }
+
+  addTeamToTournament(tournament: Tournament, team: Team): Observable<Tournament> {
+    return this.http.post<Tournament>(
+      `${this.baseUrl}/tournament/${tournament.idTournament}/teams`,
+      { teamId: team.idTeam },
+    ).pipe(
+      map(updated => this.normalize(updated)),
+      tap(updated => this.upsert(updated)),
+    );
+  }
+
+  removeTeamFromTournament(tournamentId: number, teamId: number): Observable<Tournament> {
+    return this.http.delete<Tournament>(
+      `${this.baseUrl}/tournament/${tournamentId}/teams/${teamId}`,
+    ).pipe(
+      map(updated => this.normalize(updated)),
+      tap(updated => this.upsert(updated)),
+    );
+  }
+
+  getTournamentById(id: number): Observable<Tournament> {
+    return this.http.get<Tournament>(`${this.baseUrl}/tournament/${id}`).pipe(
+      map(tournament => this.normalize(tournament)),
+      tap(tournament => this.upsert(tournament)),
+    );
+  }
+
+  private normalize(tournament: Tournament): Tournament {
+    return { ...tournament, teams: tournament.teams ?? [] };
+  }
+
+  private upsert(tournament: Tournament): void {
+    this.tournamentsSource.next([
+      ...this.tournamentsSource.value.filter(item => item.idTournament !== tournament.idTournament),
+      tournament,
+    ]);
   }
 
 }

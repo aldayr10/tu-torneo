@@ -36,7 +36,7 @@ export class ViewCreatedTournament {
   ) {
     this.profile.getProfile().subscribe(data=>{
       this.owner=data
-      this.loadMyTournaments()
+      if (data) this.loadMyTournaments()
     })
     
   }
@@ -44,7 +44,7 @@ export class ViewCreatedTournament {
   
 
   loadMyTournaments(): void {
-    this.tournamentService.myTournamens(this.owner.idPlayer).subscribe(data=>{
+    this.tournamentService.myTournamens(this.owner.idUser).subscribe(data=>{
       this.tournaments$.next(data);
     });
   }

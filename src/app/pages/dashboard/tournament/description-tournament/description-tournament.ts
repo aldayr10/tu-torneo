@@ -22,9 +22,6 @@ export class DescriptionTournament implements OnInit{
     private catalogoTipoEquipo: CatTypeTeam,
   ) {
 
-    this.owner=playerService.getPlayerByIdUser(data.tournament.idOwner)
-    console.log(this.owner);
-    
   }
   
   ngOnInit(): void {
@@ -34,14 +31,15 @@ export class DescriptionTournament implements OnInit{
     
     
     
-    this.tournamentData={
-      'name':this.data.tournament.name,
-      'description':this.data.tournament.description,
-      'owner':this.owner.name,
-      'category': this.catalogoTeam.find((type:any)=>type.id==this.data.tournament.categoryId).name
-    }
-    console.log(this.data);
-    
+    this.playerService.getPlayerByIdUser(this.data.tournament.idOwner).subscribe(owner => {
+      this.owner = owner;
+      this.tournamentData = {
+        name: this.data.tournament.name,
+        description: this.data.tournament.description,
+        owner: owner.name,
+        category: this.catalogoTeam.find((type: any) => type.id === this.data.tournament.categoryId)?.name,
+      };
+    });
   }
 
   inscribirse() {

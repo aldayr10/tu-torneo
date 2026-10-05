@@ -36,7 +36,11 @@ export class AllTournament implements OnInit {
     private profile: ProfileService,
     private router:Router
   ) {
-    this.owner = this.profile.getProfile()
+    this.profile.getProfile().subscribe(owner => {
+      if (!owner) return;
+      this.owner = owner;
+      this.loadTournaments();
+    });
   }
 
   ngOnInit(): void {
@@ -45,7 +49,8 @@ export class AllTournament implements OnInit {
   }
 
   loadTournaments(): void {
-    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idPlayer);
+    if (!this.owner) return;
+    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idUser);
   }
 
   groupedTournaments(tournaments: Tournament[]) {
@@ -109,7 +114,9 @@ export class AllTournament implements OnInit {
 
   addTeamTournament(tournament: Tournament, team: Team) {
 
-  this.tournamentService.addTeamToTournament(tournament, team);
+  this.tournamentService.addTeamToTournament(tournament, team).subscribe({
+    error: () => alert('No se pudo inscribir el equipo en el torneo.'),
+  });
 
 }
 
