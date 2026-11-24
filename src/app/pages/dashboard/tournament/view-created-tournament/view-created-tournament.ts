@@ -1,13 +1,13 @@
-import { Component,  } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../../../models/tournament';
 import { TournamentService } from '../../../../services/tournament.service';
 import { ProfileService } from '../../../../services/profile';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreateTournament } from '../create-tournament/create-tournament';
 import { BehaviorSubject } from 'rxjs';
 import { ViewCreatedTeams } from '../../teams/view-created-teams/view-created-teams';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth';
 
 
 
@@ -23,8 +23,9 @@ export class ViewCreatedTournament {
 
 
   tournaments$ = new BehaviorSubject<Tournament[]>([]);
-  gestion: any =true
+  gestion: any = true
   owner: any
+  currentUserId: number | null = null;
   currentPage = 1;
   itemsPerPage = 5;
 
@@ -32,20 +33,28 @@ export class ViewCreatedTournament {
     private dialog: MatDialog,
     private tournamentService: TournamentService,
     private profile: ProfileService,
-    private router:Router
+    private router:Router,
+    private authService: AuthService,
   ) {
-    this.profile.getProfile().subscribe(data=>{
-      this.owner=data
-      if (data) this.loadMyTournaments()
-    })
-    
+    this.currentUserId = this.authService.getCurrentUser()?.idUser ?? null;
+    this.profile.getProfile().subscribe({
+      next: data => {
+        this.owner = data;
+        this.currentUserId = data?.idUser ?? this.currentUserId;
+        this.loadMyTournaments();
+      },
+      error: () => this.loadMyTournaments(),
+    });
   }
 
   
 
   loadMyTournaments(): void {
-    this.tournamentService.myTournamens(this.owner.idUser).subscribe(data=>{
-      this.tournaments$.next(data);
+    const id = this.currentUserId ?? this.owner?.idUser;
+    if (!id) return;
+    this.tournamentService.myTournamens(id).subscribe({
+      next: data => this.tournaments$.next(data),
+      error: () => this.tournaments$.next([]),
     });
   }
 

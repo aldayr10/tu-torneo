@@ -10,7 +10,11 @@
   <div class="nav-right">
     @if (profile$ | async; as profile) {
     <span class="welcome">
-      Bienvenido, <b>{{profile.name}}</b>
+      Bienvenido, <b>{{profile.name}}</b>@if (currentUserId !== null) { <small>(ID: {{ currentUserId }})</small> }
+    </span>
+    } @else if (currentUserId !== null) {
+    <span class="welcome">
+      Bienvenido <small>(ID: {{ currentUserId }})</small>
     </span>
     }
 
@@ -50,6 +54,9 @@
 
       @if(menuOpen){
       <div class="dropdown">
+        @if (currentUserId !== null) {
+          <div class="dropdown-user-id">ID de usuario: <b>#{{ currentUserId }}</b></div>
+        }
 
         <button (click)="editProfile()"><span class="material-symbols-outlined">settings</span>
           Editar perfil

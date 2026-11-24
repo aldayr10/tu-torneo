@@ -22,11 +22,9 @@ export class TournamentService {
   }
 
   startTournament(id: number): Observable<Tournament> {
-    return this.http.patch<Tournament>(`${this.baseUrl}/tournament/${id}`, {
-      estado: 'EN_CURSO',
-    }).pipe(
-      map(tournament => this.normalize(tournament)),
-      tap(tournament => this.upsert(tournament)),
+    // Inicia y guarda el sorteo (idempotente en backend)
+    return this.http.post<any[]>(`${this.baseUrl}/tournament/${id}/draw`, {}).pipe(
+      switchMap(() => this.getTournamentById(id)),
     );
   }
 
@@ -55,10 +53,6 @@ export class TournamentService {
   myTournamens(ownerId: number): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(`${this.baseUrl}/tournament/owner/${ownerId}`).pipe(
       map(tournaments => tournaments.map(tournament => this.normalize(tournament))),
-      tap(tournaments => this.tournamentsSource.next(tournaments)),
-      switchMap(() => this.tournament$.pipe(
-        map(tournaments => tournaments.filter(tournament => tournament.idOwner === ownerId)),
-      )),
     );
   }
 

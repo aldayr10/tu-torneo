@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router'
 import { CreateTournament} from "./create-tournament/create-tournament";
 import { ViewCreatedTournament } from "./view-created-tournament/view-created-tournament";
@@ -11,6 +11,8 @@ import { ViewCreatedTournament } from "./view-created-tournament/view-created-to
   styleUrl: './tournament.css',
 })
 export class Tournament {
+  @ViewChild(ViewCreatedTournament) viewCreatedTournament?: ViewCreatedTournament;
+
   constructor(
     private router:Router
   ){
@@ -19,5 +21,9 @@ export class Tournament {
 
   goToDAshboard(){
     this.router.navigate(['/dashboard']);
+  }
+
+  onTournamentCreated() {
+    this.viewCreatedTournament?.loadMyTournaments();
   }
 }

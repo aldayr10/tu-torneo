@@ -1,10 +1,12 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../../../services/tournament.service';
 import { CatTypeTeam } from '../../../../services/cat-type-team';
 import { ProfileService } from "../../../../services/profile";
+import { AuthService } from '../../../../services/auth';
+import { Tournament } from '../../../../models/tournament';
 
 
 @Component({
@@ -19,19 +21,22 @@ import { ProfileService } from "../../../../services/profile";
 })
 export class CreateTournament implements OnInit {
 
+  @Output() created = new EventEmitter<Tournament>();
+
   tournamentForm: FormGroup;
   catalogoTeam: any[] = [];
   owner: any;
+  currentUserId: number | null = null;
   isSubmitting = false;
   errorMessage = '';
+
   constructor(
     private fb: FormBuilder,
     private tournamentService: TournamentService,
     private catalogoTipoEquipo: CatTypeTeam,
-    private profileService:ProfileService
+    private profileService:ProfileService,
+    private authService: AuthService,
   ) {
-    
-
     this.tournamentForm = this.fb.group({
       idTournament:['0'],
       idOwner:[''],
@@ -40,16 +45,22 @@ export class CreateTournament implements OnInit {
       description: [''],
       teams:[[]],
     });
-
   }
 
    ngOnInit(): void {
+    this.currentUserId = this.authService.getCurrentUser()?.idUser ?? null;
+    if (this.currentUserId) this.tournamentForm.patchValue({ idOwner: this.currentUserId });
+
     this.profileService.getProfile().subscribe(data=>{
-      this.owner=data
-      if (data) this.tournamentForm.patchValue({ idOwner: data.idUser });
+      this.owner = data;
+      const userId = data?.idUser ?? this.currentUserId;
+      if (userId) {
+        this.currentUserId = userId;
+        this.tournamentForm.patchValue({ idOwner: userId });
+      }
     });
     
-    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam()
+    this.catalogoTeam = this.catalogoTipoEquipo.getCatTypeTournamentTeam();
   }
 
   crearTorneo() {
@@ -59,7 +70,8 @@ export class CreateTournament implements OnInit {
       return;
     }
 
-    if (!this.owner) {
+    const userId = this.currentUserId ?? this.owner?.idUser;
+    if (!userId) {
       this.errorMessage = 'No se pudo identificar al usuario. Vuelve a iniciar sesión.';
       return;
     }
@@ -69,22 +81,24 @@ export class CreateTournament implements OnInit {
     const torneo = this.tournamentForm.getRawValue();
     this.tournamentService.addTournament({
       ...torneo,
-      idOwner: this.owner.idUser,
+      idOwner: userId,
       categoryId: Number(torneo.categoryId),
       estado: 'ABIERTO',
       teams: [],
     }).subscribe({
-      next: () => {
+      next: (created) => {
         alert('Torneo creado correctamente');
+        const userId = this.currentUserId ?? this.owner?.idUser;
         this.tournamentForm.reset({
           idTournament: '0',
-          idOwner: this.owner.idUser,
+          idOwner: userId ?? '',
           name: '',
           categoryId: 0,
           description: '',
           teams: [],
         });
         this.isSubmitting = false;
+        this.created.emit(created);
       },
       error: (error: unknown) => {
         this.isSubmitting = false;

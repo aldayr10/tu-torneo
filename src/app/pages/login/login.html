@@ -35,7 +35,7 @@
     </div>
 
     @if (errorMessage) {
-      <div role="alert">{{ errorMessage }}</div>
+      <div class="login-error" role="alert">{{ errorMessage }}</div>
     }
     <div class="recover-pass">
       <a (click)="recuperarPassword()">

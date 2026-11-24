@@ -30,21 +30,10 @@ export class RecoverPassword {
   }
 
   recoverPassword() {
-
     if (this.recoverForm.valid) {
-
-      const email = this.recoverForm.value.email;
-
-      this.userService.getUserByEmail(email).subscribe({
-        next: user => {
-          if (user) this.mostrarPopup = true;
-          else alert('El email no está registrado');
-        },
-        error: () => alert('No se pudo verificar el email con el servidor.'),
-      });
-
+      // Flujo simulado: no exponemos verificación de existencia de email desde el cliente.
+      this.mostrarPopup = true;
     }
-
   }
 
   volverLogin(){

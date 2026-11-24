@@ -1,33 +1,27 @@
-<p>leave-team works!</p>
-<h2>Salir del Equipo</h2>
+<div class="container">
+  <h2>Salir de un equipo</h2>
+  <p>Seleccioná el equipo del que querés salir.</p>
 
-<p>Si deseas abandonar el equipo, confirma tu nombre de usuario.</p>
+  @if (loading) {
+    <p>Cargando equipos...</p>
+  } @else if (teams.length === 0) {
+    <p>No pertenecés a ningún equipo.</p>
+  } @else {
+    <label for="team">Equipo:</label>
+    <select id="team" [(ngModel)]="selectedTeamId">
+      <option [ngValue]="null">Seleccioná un equipo</option>
+      @for (team of teams; track team.idTeam) {
+        <option [ngValue]="team.idTeam">{{ team.name }} (#{{ team.idTeam }})</option>
+      }
+    </select>
+    <br><br>
+    <button type="button" (click)="leaveTeam()" [disabled]="!selectedTeamId">Salir del equipo</button>
+  }
 
-<form [formGroup]="leaveForm" (ngSubmit)="leaveTeam()">
+  @if (message) { <p class="success">{{ message }}</p> }
+  @if (error) { <p class="error">{{ error }}</p> }
 
-  <label>Nombre de usuario:</label>
-  <input type="text" formControlName="username" placeholder="Ej: messi10">
-
-  <div *ngIf="leaveForm.get('username')?.invalid && leaveForm.get('username')?.touched">
-    El nombre de usuario es obligatorio
-  </div>
-
-  <br><br>
-
-  <button type="submit" [disabled]="leaveForm.invalid">
-    Salir del Equipo
-  </button>
-
-</form>
-
-<hr>
-
-<h3>Advertencia</h3>
-
-<p>
-  Si abandonas el equipo perderás tu participación actual en él.
-  Podrás volver a unirte solo si recibes una nueva invitación.
-</p>
-
-<br><br>
-
+  <hr>
+  <h3>Advertencia</h3>
+  <p>Si abandonás el equipo perderás tu participación actual. Podrás volver a unirte solo si recibís una nueva invitación o tu solicitud es aceptada.</p>
+</div>

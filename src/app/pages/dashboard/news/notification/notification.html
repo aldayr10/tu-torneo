@@ -7,38 +7,46 @@
 
   <div class="content">
 
-    @if (teamInvitations.length > 0) {
-
-      @for (notification of teamInvitations; track notification.idNotification) {
-
+    @if (pendingInvitations.length > 0) {
+      <h4>Invitaciones pendientes</h4>
+      @for (invitation of pendingInvitations; track invitation.idRequest) {
         <div class="notification-card">
-          <h4>{{ notification.title }}</h4>
-          <p>{{ notification.message }}</p>
-
+          <h4>Invitación de equipo</h4>
+          <p>Tenés una invitación pendiente para el equipo #{{ invitation.idTeam }}.</p>
           <div class="actions">
-            <button class="btn-primary" (click)="acceptInvitation(notification)">
+            <button class="btn-primary" (click)="acceptInvitation(invitation)">
               Aceptar
             </button>
-
-            <button class="btn-secondary" (click)="declineInvitation(notification)">
-              Declinar
+            <button class="btn-secondary" (click)="declineInvitation(invitation)">
+              Rechazar
             </button>
           </div>
         </div>
-
       }
+    }
 
-    } @else {
+    @if (notifications.length > 0) {
+      @for (notification of notifications; track notification.idNotification) {
+        <div class="notification-card">
+          <h4>{{ notification.title }}</h4>
+          <p>{{ notification.message }}</p>
+          <div class="actions">
+            <button class="btn-secondary" (click)="removeNotification(notification)">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      }
+    }
 
+    @if (pendingInvitations.length === 0 && notifications.length === 0 && !loading) {
       <div class="empty-state">
         <div class="empty-icon">
           <span class="material-symbols-outlined">notifications</span>
         </div>
-
         <h4>Sin notificaciones</h4>
         <p>Te avisaremos cuando haya novedades</p>
       </div>
-
     }
 
   </div>

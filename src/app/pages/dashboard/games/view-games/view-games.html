@@ -1,12 +1,6 @@
-<!-- view-games.html -->
-
 <div class="go-dashboad" (click)="goToDAshboard()">
-  <span class="material-symbols-outlined">
-    arrow_back
-  </span>
-  <a class="go-dashboad-link">
-    Volver al Dashboard
-  </a>
+  <span class="material-symbols-outlined">arrow_back</span>
+  <a class="go-dashboad-link">Volver al Dashboard</a>
 </div>
 
 <div class="dashboard-container">
@@ -16,6 +10,10 @@
       <div class="header">
         <h2>Partidos por Torneo</h2>
       </div>
+
+      @if (errorMessage) {
+      <div class="error-message" role="alert">{{ errorMessage }}</div>
+      }
 
       <div class="tournaments-grid">
 
@@ -33,101 +31,100 @@
 
             <div class="stat-card">
               <p>Partidos</p>
-              <h3>{{ torneo.totalPartidos }}</h3>
+              <h3>{{ torneo.totalPartidos ?? 0 }}</h3>
             </div>
           </div>
+
+          @if (canDraw(torneo)) {
+          <div class="draw-actions">
+            <p class="not-scheduled">Sorteo no guardado aún.</p>
+            <button class="schedule-btn" (click)="drawTournament(torneo)">Generar y guardar sorteo</button>
+          </div>
+          }
 
           @for (ronda of torneo.rondas; track ronda.numero) {
 
           <div class="jornada">
-            <span>🟣</span>
+            <span>📅</span>
             <h4>Jornada {{ ronda.numero }}</h4>
           </div>
 
           @for (partido of ronda.partidos; track partido.idMatch) {
 
-          <div class="match-card">
+          <div class="match-card" [class.finalizado]="partido.status === 'FINALIZADO'">
 
             <div class="match">
-
-              <div class="team">
-                <p>{{ partido.teamA.name }}</p>
+              <div class="team"><p>{{ partido.teamA?.name }}</p></div>
+              <div class="vs">
+                @if (partido.status === 'FINALIZADO') {
+                  <strong>{{ partido.scoreA }} - {{ partido.scoreB }}</strong>
+                } @else {
+                  VS
+                }
               </div>
-
-              <div class="vs">VS</div>
-
-              <div class="team">
-                <p>{{ partido.teamB.name }}</p>
-              </div>
-
+              <div class="team"><p>{{ partido.teamB?.name }}</p></div>
             </div>
 
-            <!-- Fecha -->
+            @if (partido.status === 'FINALIZADO') {
+            <p class="scheduled">Ganador: {{ (partido.winnerTeamId === partido.teamAId ? partido.teamA?.name : partido.teamB?.name) || '—' }}</p>
+            }
+
             <div class="schedule-info">
-
               @if (partido.scheduledDate && partido.scheduledTime) {
-              <p class="scheduled">
-                📅 {{ formatScheduled(partido.scheduledDate, partido.scheduledTime) }}
-              </p>
+              <p class="scheduled">🕒 {{ formatScheduled(partido.scheduledDate!, partido.scheduledTime!) }}</p>
               } @else {
-              <p class="not-scheduled">
-                Sin programar
-              </p>
+              <p class="not-scheduled">Sin programar</p>
               }
 
-              <!-- SOLO OWNER -->
-              @if (isOwner(torneo)) {
-              <button
-                class="schedule-btn"
-                (click)="toggleScheduleEditor(torneo, partido)"
-              >
-                {{ partido.scheduledDate ? 'Editar' : 'Programar' }}
+              @if (isOwner(torneo) && partido.status !== 'FINALIZADO') {
+              <button class="schedule-btn" (click)="toggleScheduleEditor(torneo, partido)">
+                {{ partido.scheduledDate ? 'Editar fecha' : 'Programar' }}
               </button>
+              <button class="save-btn" (click)="openCloseEditor(torneo, partido)">Cerrar partido</button>
               }
-
             </div>
 
-            <!-- Editor SOLO OWNER -->
             @if (editingMatchId === partido.idMatch && isOwner(torneo)) {
-
             <div class="schedule-editor">
-
               <div class="input-group">
                 <label>Fecha:</label>
-                <input
-                  type="date"
-                  [(ngModel)]="scheduleDate"
-                />
+                <input type="date" [(ngModel)]="scheduleDate" />
               </div>
-
               <div class="input-group">
                 <label>Hora:</label>
-                <input
-                  type="time"
-                  [(ngModel)]="scheduleTime"
-                />
+                <input type="time" [(ngModel)]="scheduleTime" />
               </div>
-
               <div class="editor-actions">
-
-                <button
-                  class="save-btn"
-                  (click)="saveSchedule(torneo, partido)"
-                >
-                  Guardar
-                </button>
-
-                <button
-                  class="cancel-btn"
-                  (click)="cancelSchedule()"
-                >
-                  Cancelar
-                </button>
-
+                <button class="save-btn" (click)="saveSchedule(torneo, partido)">Guardar</button>
+                <button class="cancel-btn" (click)="cancelSchedule()">Cancelar</button>
               </div>
-
             </div>
+            }
 
+            @if (closingMatchId === partido.idMatch && isOwner(torneo)) {
+            <div class="schedule-editor close-editor">
+              <h4>Cerrar partido</h4>
+              <div class="input-group">
+                <label>Marcador {{ partido.teamA?.name }}:</label>
+                <input type="number" min="0" [(ngModel)]="closeScoreA" />
+              </div>
+              <div class="input-group">
+                <label>Marcador {{ partido.teamB?.name }}:</label>
+                <input type="number" min="0" [(ngModel)]="closeScoreB" />
+              </div>
+              <div class="input-group">
+                <label>Ganador:</label>
+                <select [(ngModel)]="closeWinnerTeamId">
+                  <option [ngValue]="partido.teamAId">{{ partido.teamA?.name }}</option>
+                  <option [ngValue]="partido.teamBId">{{ partido.teamB?.name }}</option>
+                </select>
+              </div>
+              <p class="not-scheduled">Se requiere ganador y marcador coherente para cerrar.</p>
+              <div class="editor-actions">
+                <button class="save-btn" (click)="saveClose(torneo, partido)">Guardar resultado</button>
+                <button class="cancel-btn" (click)="cancelClose()">Cancelar</button>
+              </div>
+            </div>
             }
 
           </div>

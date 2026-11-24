@@ -1,34 +1,27 @@
 <div class="card">
+  <h3>Invitar jugador al equipo</h3>
+  <p>Ingresá el ID del jugador que querés invitar.</p>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Buscar jugador</mat-label>
-    <input matInput [formControl]="searchControl" placeholder="Escribe nombre o email" />
-  </mat-form-field>
+  <form [formGroup]="form" (ngSubmit)="sendInvite()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>ID de jugador</mat-label>
+      <input matInput type="number" formControlName="playerId" placeholder="Ej: 12" />
+    </mat-form-field>
 
-  @if (filteredPlayers.length > 0) {
-  <div class="players-list">
-
-    @for (player of filteredPlayers; track player.idPlayer) {
-    <div class="player-item" (click)="selectPlayer(player)">
-      <span>{{ player.email }}</span>
-    </div>
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+    @if (success) {
+      <p class="success">{{ success }}</p>
     }
 
-  </div>
-  }
-
-  
-  <div class="dialog-actions">
-
-    <button [disabled]="!selectedPlayer" mat-raised-button color="primary" (click)="sendInvite()">
-      Enviar Invitación
-    </button>
-
-    <button mat-stroked-button color="warn" (click)="cancelSelection()">
-      Cancelar
-    </button>
-
-  </div>
-  
-
+    <div class="dialog-actions">
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Enviar invitación
+      </button>
+      <button type="button" mat-stroked-button color="warn" (click)="cancelSelection()">
+        Cancelar
+      </button>
+    </div>
+  </form>
 </div>

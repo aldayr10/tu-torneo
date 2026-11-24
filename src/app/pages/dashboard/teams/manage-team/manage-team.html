@@ -20,7 +20,7 @@
             <h2>{{ team.name }}</h2>
 
             <div class="badges">
-              <span class="type">{{ team.type }}</span>
+              <span class="type">Categoría {{ team.categoryId }}</span>
               <span class="players">{{ team.players?.length || 0 }} jugadores</span>
             </div>
           </div>
@@ -54,11 +54,11 @@
         }
 
         @if (activeTab === 'players') {
-        <app-team-players [team]="team"></app-team-players>
+        <app-team-players [team]="team" (changed)="onTeamChanged()"></app-team-players>
         }
 
         @if (activeTab === 'invite') {
-        <app-team-invite [team]="team"></app-team-invite>
+        <app-team-invite [team]="team" (changed)="onTeamChanged()"></app-team-invite>
         }
       </div>
 

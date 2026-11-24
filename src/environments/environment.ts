@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://replace-before-deploy.invalid/api/v1',
+  apiBaseUrl: 'http://localhost:3000',
 };

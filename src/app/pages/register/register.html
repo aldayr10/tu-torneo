@@ -93,12 +93,18 @@
       }
     </div>
 
+    @if (errorMessage) {
+      <div class="error" role="alert">{{ errorMessage }}</div>
+    }
+
     <div>
-      <button type="submit">Crear Cuenta</button>
+      <button type="submit" [disabled]="isSubmitting || registerForm.invalid">
+        {{ isSubmitting ? 'Creando cuenta...' : 'Crear Cuenta' }}
+      </button>
     </div>
 
     <div>
-      <a>¿Ya tienes cuenta? <a href="#">Iniciar sesión</a></a>
+      <span>¿Ya tienes cuenta? <a routerLink="/login">Iniciar sesión</a></span>
     </div>
 
   </form>

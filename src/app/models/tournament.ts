@@ -9,5 +9,6 @@ export interface Tournament{
   description: string | null;
   estado: 'ABIERTO' | 'EN_CURSO' | 'FINALIZADO';
   teams:Team[];
+  owner?: { idUser: number; name: string };
 
 }

@@ -47,7 +47,10 @@ export class InfoTournament implements OnInit {
         this.tournament = tournament;
         void this.router.navigate(['/view-games']);
       },
-      error: () => alert('No se pudo iniciar el torneo.'),
+      error: (error) => {
+        console.error('Error iniciando/sorteando torneo:', error);
+        alert(error?.error?.message ?? 'No se pudo iniciar o sortear el torneo.');
+      },
     });
   }
 

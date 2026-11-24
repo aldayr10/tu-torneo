@@ -12,13 +12,17 @@
 
   <div>
     <label>Categoría</label>
-    <select formControlName="categoryId" >
+    <select formControlName="categoryId">
+      <option [ngValue]="null" disabled>Selecciona una categoría</option>
       @for (tipo of catalogoTeam; track tipo.id) {
-      <option [value]="tipo.id" >
+      <option [ngValue]="tipo.id">
         {{ tipo.name }}
       </option>
       }
     </select>
+    @if (teamForm.get('categoryId')?.invalid && teamForm.get('categoryId')?.touched) {
+      <div class="validators">La categoría es obligatoria</div>
+    }
   </div>
 
   <div class="colors">
@@ -64,8 +68,12 @@
   </div>
 }
 
-  <button type="submit">
-    Crear equipo
+  @if (errorMessage) {
+    <div class="error" role="alert">{{ errorMessage }}</div>
+  }
+
+  <button type="submit" [disabled]="isSubmitting || teamForm.invalid">
+    {{ isSubmitting ? 'Creando...' : 'Crear equipo' }}
   </button>
 
 </form>

@@ -1,22 +1,30 @@
 <div class="players-container">
 
-  @if (team.players?.length > 0) {
+  @if (message) {
+    <p class="feedback">{{ message }}</p>
+  }
 
+  @if ((team?.players?.length ?? 0) > 0) {
     <div class="list">
       @for (p of team.players; track p.idPlayer) {
         <div class="player">
-          {{ p.name }}
+          <span>{{ p.name }} (ID: {{ p.idPlayer }})</span>
+          @if (canRemove(p)) {
+            <button type="button" (click)="removePlayer(p)">
+              {{ isOwner && myPlayerId !== p.idPlayer ? 'Quitar' : 'Salir' }}
+            </button>
+          }
         </div>
       }
     </div>
-
   } @else {
-
     <div class="empty">
       <p>Aún no hay jugadores en este equipo.</p>
-      <button (click)="openInvite()" >Invitar Jugadores</button>
     </div>
+  }
 
+  @if (isOwner) {
+    <button type="button" (click)="openInvite()">Invitar Jugadores</button>
   }
 
 </div>

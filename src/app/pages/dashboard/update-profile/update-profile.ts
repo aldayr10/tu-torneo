@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PlayerService } from '../../../services/player';
 import { ProfileService } from '../../../services/profile';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-update-profile',
@@ -17,13 +18,15 @@ import { RouterModule } from '@angular/router';
 export class UpdateProfile implements OnInit {
 
   updateProfileForm: FormGroup;
-  player:any
+  player:any;
+  userId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
     private router:Router,
     private playerService: PlayerService,
-    private profileService:ProfileService
+    private profileService:ProfileService,
+    private authService: AuthService
   ) {
 
     this.updateProfileForm = this.fb.group({
@@ -38,22 +41,22 @@ export class UpdateProfile implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
+    this.userId = currentUser?.idUser ?? null;
 
-  this.profileService.getProfile().subscribe(player => {
-  if (player) {
-    this.player = player;
+    this.profileService.getProfile().subscribe(player => {
+      if (player) {
+        this.player = player;
 
-    this.updateProfileForm.patchValue({
-      idPlayer: player.idPlayer,
-      nombre: player.name,
-      fechaNacimiento: player.dateBirth
-        ? new Date(player.dateBirth).toISOString().substring(0, 10)
-        : ''
+        this.updateProfileForm.patchValue({
+          idPlayer: player.idPlayer,
+          nombre: player.name,
+          fechaNacimiento: player.dateBirth
+            ? new Date(player.dateBirth).toISOString().substring(0, 10)
+            : ''
+        });
+      }
     });
-  }
-});
-    
-    
   }
 
   onSubmit() {

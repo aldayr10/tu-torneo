@@ -35,46 +35,43 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const routes: Routes = [
     // principal
-    {path: 'view-games',component:ViewGames },//partidos
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: Login, },
+    { path: 'login', component: Login },
     { path: 'recover-password', component: RecoverPassword },
     { path: 'check-email', component: CheckEmail },
     { path: 'register', component: Register },
+    { path: 'view-games', component: ViewGames, canActivate: [authGuard] },
     { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
-    //listas reusables
+    // listas reusables
     { path: 'view-created-teams', component: ViewCreatedTeams, canActivate: [authGuard] },
-    { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard]},
-    { path: 'all-tournament', component: AllTournament, canActivate: [authGuard]},
-    { path: 'info-tournament/:id', component: InfoTournament},
-    { path: 'manage-team/:id', component: ManageTeam },
-    //modulo torneos
+    { path: 'view-created-tournament', component: ViewCreatedTournament, canActivate: [authGuard] },
+    { path: 'all-tournament', component: AllTournament, canActivate: [authGuard] },
+    { path: 'info-tournament/:id', component: InfoTournament, canActivate: [authGuard] },
+    { path: 'manage-team/:id', component: ManageTeam, canActivate: [authGuard] },
+    // modulo torneos
     {
         path: 'tournament', component: Tournament, canActivateChild: [authGuard],
         children: [
             { path: 'create-tournament', component: CreateTournament },
         ]
     },
-    //modulo equipos
+    // modulo equipos
     {
         path: 'teams', component: Teams, canActivateChild: [authGuard],
         children: [
             { path: 'create-team', component: CreateTeam },
             { path: 'delete-team', component: DeleteTeam },
-            //gestion equipos
+            // gestion equipos
             { path: 'player-join-team', component: PlayerJoinTeam },
             { path: 'delete-player-team', component: DeletePlayerTeam },
             { path: 'select-team', component: SelectTeam },
         ]
-        
     },
-    
-    //player
-    { path: 'update-profile', component: UpdateProfile },
-    { path: 'leave-team', component: LeaveTeam },
-    { path: 'request-status', component: RequestStatus },
-    { path: 'player-join-team', component: PlayerJoinTeam },
-    { path: 'nav-bar', component: NavBar },
-   
+    // player
+    { path: 'update-profile', component: UpdateProfile, canActivate: [authGuard] },
+    { path: 'leave-team', component: LeaveTeam, canActivate: [authGuard] },
+    { path: 'request-status', component: RequestStatus, canActivate: [authGuard] },
+    { path: 'player-join-team', component: PlayerJoinTeam, canActivate: [authGuard] },
+    { path: 'nav-bar', component: NavBar, canActivate: [authGuard] },
 ];
 

@@ -7,6 +7,7 @@ import { Team } from '../../../../models/team';
 import { ProfileService } from "../../../../services/profile";
 import { Tournament } from '../../../../models/tournament';
 import { Player } from '../../../../models/player';
+import { AuthService } from '../../../../services/auth';
 
 
 @Component({
@@ -16,42 +17,43 @@ import { Player } from '../../../../models/player';
   styleUrl: './select-team.css',
 })
 export class SelectTeam implements OnInit {
-  owner!: Player;
-  tournament!:Tournament
+  owner?: Player;
+  tournament!: Tournament
   teams$!: Observable<Team[]>;
-
 
   currentPage = 1;
   itemsPerPage = 5;
+
   constructor(
     public dialogRef: MatDialogRef<SelectTeam>,
     private teamService: TeamService,
     private profileService: ProfileService,
+    private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: { tournament: Tournament },
-  ) {
- 
-  }
+  ) {}
 
- ngOnInit(): void {
-  this.tournament = this.data.tournament;
-  console.log(this.tournament);
-  
-  this.profileService.getProfile().subscribe(owner => {
-    if (owner) {
-      this.owner = owner;
-      console.log(this.tournament.categoryId);
-      
-      this.teams$  = this.teamService.getTeamsByOwnerByCategory(
-        this.owner.idUser,
+  ngOnInit(): void {
+    this.tournament = this.data.tournament;
+    const currentUserId = this.authService.getCurrentUser()?.idUser ?? null;
+
+    this.profileService.getProfile().subscribe(owner => {
+      if (owner) this.owner = owner;
+      const userId = owner?.idUser ?? currentUserId;
+      if (userId) {
+        this.teams$ = this.teamService.getTeamsByOwnerByCategory(
+          userId,
+          this.tournament.categoryId
+        );
+      }
+    });
+
+    if (currentUserId && !this.teams$) {
+      this.teams$ = this.teamService.getTeamsByOwnerByCategory(
+        currentUserId,
         this.tournament.categoryId
       );
-      console.log(this.teams$);
-      
-
     }
-    
-  });
-}
+  }
 
 
   getPaginatedTeams(teams: Team[]) {

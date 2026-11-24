@@ -7,23 +7,28 @@
     </div>
 
     <div class="alineado">
-        <h3 for="">Creado Por:</h3>
+        <h3>Creado por:</h3>
         <label>{{ tournamentData.owner }}</label>
     </div>
 
+    <div class="alineado">
+        <h3>Estado:</h3>
+        <label>{{ tournamentData.estado }}</label>
+    </div>
+
     <div class="area">
-        <h3 for="">Descricion:</h3>
-        <label>{{ tournamentData.descrilabeltion }}</label>
+        <h3>Descripción:</h3>
+        <label>{{ tournamentData.description }}</label>
     </div>
 
     <div class="alineado">
-        <h3 for="">Categoria:</h3>
+        <h3>Categoría:</h3>
         <label>{{ tournamentData.category }}</label>
     </div>
 
     <div class="actions">
-        <button  (click)="close()">cerrar</button>
-        <button class="inscri" (click)="inscribirse()">Inscribirse</button>
+        <button type="button" (click)="close()">Cerrar</button>
+        <button type="button" class="inscri" (click)="inscribirse()">Inscribirse</button>
     </div>
 
 </div>

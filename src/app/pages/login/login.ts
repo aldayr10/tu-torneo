@@ -58,7 +58,7 @@ export class Login implements OnInit {
       }
     } catch (error) {
       if (error instanceof HttpErrorResponse && error.status === 401) {
-        this.errorMessage = 'Correo o contraseÃ±a incorrectos.';
+        this.errorMessage = 'El usuario no existe o la contraseña es incorrecta.';
       } else if (error instanceof HttpErrorResponse && error.status === 0) {
         this.errorMessage = 'No se pudo conectar con el servidor.';
       } else {

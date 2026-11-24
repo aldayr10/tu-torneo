@@ -1,34 +1,36 @@
 <div class="container">
-  <h2>Estado de Solicitudes del Equipo</h2>
+  <h2>Estado de Solicitudes</h2>
 
-  <div *ngIf="solicitudes.length === 0">
-    No hay solicitudes enviadas.
-  </div>
-
-  <table *ngIf="solicitudes.length > 0" border="1" width="100%">
-
-    <thead>
-      <tr>
-        <th>Jugador</th>
-        <th>Email</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let solicitud of solicitudes">
-        <td>{{ solicitud.nombre }}</td>
-        <td>{{ solicitud.email }}</td>
-
-        <td>
-          <span *ngIf="solicitud.estado === 'pendiente'">Pendiente</span>
-          <span *ngIf="solicitud.estado === 'aceptada'">Aceptada</span>
-          <span *ngIf="solicitud.estado === 'rechazada'">Rechazada</span>
-        </td>
-
-      </tr>
-    </tbody>
-
-  </table>
-
+  @if (loading) {
+    <p>Cargando solicitudes...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (solicitudes.length === 0) {
+    <p>No hay solicitudes relacionadas contigo.</p>
+  } @else {
+    <table border="1" width="100%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Equipo (ID)</th>
+          <th>Jugador (ID)</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (solicitud of solicitudes; track solicitud.idRequest) {
+          <tr>
+            <td>{{ solicitud.idRequest }}</td>
+            <td>{{ solicitud.type }}</td>
+            <td>{{ solicitud.idTeam }}</td>
+            <td>{{ solicitud.idPlayer }}</td>
+            <td>{{ solicitud.status }}</td>
+            <td>{{ solicitud.createdAt ? (solicitud.createdAt | date:'short') : '-' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 </div>

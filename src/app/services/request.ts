@@ -1,155 +1,51 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { NotificationService } from './notification.service';
-import { TeamService } from './team';
-import { Request } from "../models/request";
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Request } from '../models/request';
+import { API_BASE_URL } from '../core/api-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
+  private readonly requestsSubject = new BehaviorSubject<Request[]>([]);
+  readonly requests$ = this.requestsSubject.asObservable();
 
-  private requests: Request[] =
-  JSON.parse(localStorage.getItem('requests') || '[]');
-
-  private requests$ = new BehaviorSubject<Request[]>(this.requests);
-
-  constructor(
-    private notificationService: NotificationService,
-    private teamService: TeamService
-  ) {}
-
-  getRequests() {
-    return this.requests$.asObservable();
-  }
-
-  getRequestsByTeam(idTeam: number) {
-    return this.requests.filter(r => r.idTeam === idTeam);
-  }
-
-  getRequestsByPlayer(idPlayer: number) {
-    return this.requests.filter(r => r.idPlayer === idPlayer);
-  }
-
-  createRequest(request: Omit<Request, 'idRequest' | 'status' | 'createdAt'>) {
-
-  const newRequest: Request = {
-    ...request,
-    idRequest: Date.now(),
-    status: 'Pendiente',
-    createdAt: new Date()
-  };
-
-  const exists = this.requests.some(r =>
-    r.idTeam === newRequest.idTeam &&
-    r.idPlayer === newRequest.idPlayer &&
-    r.status === 'Pendiente'
-  );
-
-  if (exists) return;
-
-  this.requests.push(newRequest);
-
-  const team = this.teamService.getTeamByIdTeam(newRequest.idTeam);
-
-  if (!team) return;
-
-  if (newRequest.type === 'Unirse') {
-    this.notificationService.createNotification({
-      idNotification: 0,
-      userId: team.ownerId,
-      type: 'join_request',
-      title: 'Nueva solicitud',
-      message: 'Tienes una nueva solicitud para unirse a tu equipo',
-      teamId: team.idTeam,
-      playerId: newRequest.idPlayer,
-      read: false,
-      createdAt: new Date()
-    });
-  }
-
-  if (newRequest.type === 'Invitar') {
-    const player = team.pendingInvitations.find(
-      p => p.idPlayer === newRequest.idPlayer
+  getRequests(): Observable<Request[]> {
+    return this.http.get<Request[]>(`${this.baseUrl}/request`).pipe(
+      tap(requests => this.requestsSubject.next(requests)),
     );
-
-    if (player) {
-      this.notificationService.createNotification({
-        idNotification: 0,
-        userId: player.idUser,
-        type: 'team_invitation',
-        title: 'Invitación de equipo',
-        message: `Has sido invitado al equipo ${team.name}`,
-        teamId: team.idTeam,
-        playerId: player.idPlayer,
-        read: false,
-        createdAt: new Date()
-      });
-    }
   }
 
-  this.update();
-}
-
-  updateStatus(idRequest: number, status: 'Aceptada' | 'Rechazada') {
-
-  const req = this.requests.find(
-    r => r.idRequest === idRequest
-  );
-
-  if (!req) return;
-
-  req.status = status;
-
-  const team = this.teamService.getTeamByIdTeam(req.idTeam);
-
-  if (!team) return;
-
-  if (status === 'Aceptada') {
-
-    const player = team.pendingInvitations.find(
-      p => p.idPlayer === req.idPlayer
+  getRequestsByTeam(idTeam: number): Observable<Request[]> {
+    return this.http.get<Request[]>(`${this.baseUrl}/request`, { params: { teamId: idTeam } }).pipe(
+      tap(requests => this.requestsSubject.next(requests)),
     );
-
-    if (player) {
-      this.teamService.addPlayerToTeam(team.idTeam, player).subscribe({
-        error: () => alert('No se pudo añadir el jugador al equipo.'),
-      });
-    }
-
-    this.notificationService.createNotification({
-      idNotification: 0,
-      userId: req.idPlayer,
-      type: 'request_response',
-      title: 'Solicitud aceptada',
-      message: `Fuiste aceptado en el equipo ${team.name}`,
-      read: false,
-      createdAt: new Date()
-    });
-
-  } else {
-
-    this.notificationService.createNotification({
-      idNotification: 0,
-      userId: req.idPlayer,
-      type: 'request_response',
-      title: 'Solicitud rechazada',
-      message: `Tu solicitud fue rechazada en ${team.name}`,
-      read: false,
-      createdAt: new Date()
-    });
   }
 
-  this.update();
-}
+  getRequestsByPlayer(idPlayer: number): Observable<Request[]> {
+    return this.http.get<Request[]>(`${this.baseUrl}/request`, { params: { playerId: idPlayer } }).pipe(
+      tap(requests => this.requestsSubject.next(requests)),
+    );
+  }
+
+  createRequest(request: Pick<Request, 'idTeam' | 'idPlayer' | 'type'>): Observable<Request> {
+    return this.http.post<Request>(`${this.baseUrl}/request`, request).pipe(
+      tap(created => this.requestsSubject.next([created, ...this.requestsSubject.value])),
+    );
+  }
+
+  updateStatus(idRequest: number, status: 'Aceptada' | 'Rechazada'): Observable<Request> {
+    return this.http.patch<Request>(`${this.baseUrl}/request/${idRequest}`, { status }).pipe(
+      tap(updated => this.requestsSubject.next(
+        this.requestsSubject.value.map(r => r.idRequest === idRequest ? updated : r),
+      )),
+    );
+  }
 
   getPendingCount(): number {
-    return this.requests.filter(r => r.status === 'Pendiente').length;
+    return this.requestsSubject.value.filter(r => r.status === 'Pendiente').length;
   }
-
-  private update() {
-    localStorage.setItem('requests', JSON.stringify(this.requests));
-    this.requests$.next([...this.requests]);
-  }
-
 }

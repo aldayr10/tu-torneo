@@ -1,38 +1,34 @@
 <div class="container">
+  <h2>Eliminar jugador de un equipo</h2>
+  <p>Seleccioná uno de tus equipos y el jugador a quitar.</p>
 
-  <h2>Eliminar Jugador del Equipo</h2>
+  @if (loading) {
+    <p>Cargando equipos...</p>
+  } @else if (teams.length === 0) {
+    <p>No tenés equipos propios.</p>
+  } @else {
+    <label for="team">Equipo:</label>
+    <select id="team" [(ngModel)]="selectedTeamId">
+      <option [ngValue]="null">Seleccioná un equipo</option>
+      @for (team of teams; track team.idTeam) {
+        <option [ngValue]="team.idTeam">{{ team.name }} (#{{ team.idTeam }})</option>
+      }
+    </select>
 
-  <div *ngIf="jugadores.length === 0">
-    No hay jugadores en el equipo.
-  </div>
+    @if (selectedTeam) {
+      <br><br>
+      <label for="player">Jugador:</label>
+      <select id="player" [(ngModel)]="selectedPlayerId">
+        <option [ngValue]="null">Seleccioná un jugador</option>
+        @for (player of (selectedTeam.players || []); track player.idPlayer) {
+          <option [ngValue]="player.idPlayer">{{ player.name }} (#{{ player.idPlayer }})</option>
+        }
+      </select>
+      <br><br>
+      <button type="button" (click)="removePlayer()" [disabled]="!selectedPlayerId">Eliminar</button>
+    }
+  }
 
-  <table *ngIf="jugadores.length > 0" border="1" width="100%">
-
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-      <tr *ngFor="let jugador of jugadores; let i = index">
-
-        <td>{{ jugador.nombre }}</td>
-        <td>{{ jugador.email }}</td>
-
-        <td>
-          <button (click)="eliminarJugador(i)">
-            Eliminar
-          </button>
-        </td>
-
-      </tr>
-
-    </tbody>
-
-  </table>
-
+  @if (message) { <p class="success">{{ message }}</p> }
+  @if (error) { <p class="error">{{ error }}</p> }
 </div>

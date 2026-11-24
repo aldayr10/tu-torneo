@@ -10,10 +10,11 @@ import { Router } from '@angular/router'
 import { DescriptionTournament } from '../../tournament/description-tournament/description-tournament';
 import { SelectTeam } from '../../teams/select-team/select-team';
 import { Team } from '../../../../models/team';
+import { AuthService } from '../../../../services/auth';
 
 
 @Component({
-  selector: 'app-view-created-tournament',
+  selector: 'app-all-tournament',
   standalone: true,
   imports: [CommonModule, MatDialogModule],
   templateUrl: './all-tournament.html',
@@ -26,6 +27,7 @@ export class AllTournament implements OnInit {
   tournaments$!: Observable<Tournament[]>;
   gestion: any
   owner: any
+  currentUserId: number | null = null;
   currentPage = 1;
   itemsPerPage = 6;
   containers: number = 3
@@ -34,11 +36,15 @@ export class AllTournament implements OnInit {
     private dialog: MatDialog,
     private tournamentService: TournamentService,
     private profile: ProfileService,
-    private router:Router
+    private router:Router,
+    private authService: AuthService,
   ) {
+    this.currentUserId = this.authService.getCurrentUser()?.idUser ?? null;
     this.profile.getProfile().subscribe(owner => {
-      if (!owner) return;
-      this.owner = owner;
+      if (owner) {
+        this.owner = owner;
+        this.currentUserId = owner.idUser ?? this.currentUserId;
+      }
       this.loadTournaments();
     });
   }
@@ -49,8 +55,9 @@ export class AllTournament implements OnInit {
   }
 
   loadTournaments(): void {
-    if (!this.owner) return;
-    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(this.owner.idUser);
+    const userId = this.currentUserId ?? this.owner?.idUser;
+    if (!userId) return;
+    this.tournaments$ = this.tournamentService.getListRegistrationTournaments(userId);
   }
 
   groupedTournaments(tournaments: Tournament[]) {
@@ -101,21 +108,20 @@ export class AllTournament implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
-        let team:Team =result
-        this.addTeamTournament(tournament,team)
-        dialogRef.close()
-
-      alert('equipo inscrito con exito')
+        const team: Team = result;
+        this.addTeamTournament(tournament, team);
       }
-      
     });
   }
 
   addTeamTournament(tournament: Tournament, team: Team) {
 
   this.tournamentService.addTeamToTournament(tournament, team).subscribe({
-    error: () => alert('No se pudo inscribir el equipo en el torneo.'),
+    next: () => {
+      alert('Equipo inscrito con éxito.');
+      this.loadTournaments();
+    },
+    error: (err) => alert(err?.error?.message || 'No se pudo inscribir el equipo en el torneo.'),
   });
 
 }

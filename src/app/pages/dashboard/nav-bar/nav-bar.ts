@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PlayerService } from "../../../services/player";
 import { Player } from '../../../models/player';
 import { ProfileService } from "../../../services/profile";
 import { BehaviorSubject } from 'rxjs';
@@ -30,6 +29,7 @@ export class NavBar implements OnInit {
 
   totalNotifications = 0;
   player: Player | null = null;
+  currentUserId: number | null = null;
 
   constructor(
     private router: Router,
@@ -42,40 +42,37 @@ export class NavBar implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
+    this.currentUserId = currentUser?.idUser ?? null;
 
-  
     this.profileService.getProfile().subscribe(profile => {
       this.player = profile;
       this.profileSource.next(profile);
 
       this.initNotifications();
     });
-
   }
 
 
   initNotifications() {
-
     if (!this.player) return;
 
-    this.notificationService.getUserNotifications(this.player.idPlayer)
-      .subscribe(() => this.calculateTotalNotifications());
+    this.notificationService.getNotifications()
+      .subscribe(notifications => this.calculateTotalNotifications(notifications, undefined));
 
     this.requestService.getRequests()
-      .subscribe(() => this.calculateTotalNotifications());
-
+      .subscribe(requests => this.calculateTotalNotifications(undefined, requests));
   }
 
+  private lastNotifications: any[] = [];
+  private lastRequests: any[] = [];
 
-  calculateTotalNotifications() {
+  calculateTotalNotifications(notifications?: any[], requests?: any[]) {
+    if (notifications) this.lastNotifications = notifications;
+    if (requests) this.lastRequests = requests;
 
-    if (!this.player) return;
-
-    const unread = this.notificationService
-      .getUnreadCount(this.player.idPlayer);
-
-    const pending = this.requestService
-      .getPendingCount();
+    const unread = this.lastNotifications.filter(n => !n.read).length;
+    const pending = this.lastRequests.filter(r => r.status === 'Pendiente').length;
 
     this.totalNotifications = unread + pending;
   }

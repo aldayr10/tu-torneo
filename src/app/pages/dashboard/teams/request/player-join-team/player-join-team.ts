@@ -52,15 +52,27 @@ export class PlayerJoinTeam {
     if (!this.foundTeam) return;
     const user = this.authService.getCurrentUser();
     if (!user) return;
-    this.playerService.getPlayerByIdUser(user.idUser).subscribe(player => {
-      this.requestService.createRequest({
-        idTeam: this.foundTeam!.idTeam,
-        idPlayer: player.idPlayer,
-        type: 'Unirse'
-      });
-      this.successMessage = 'Solicitud enviada correctamente.';
-      this.foundTeam = null;
-      this.codeControl.reset();
+    this.playerService.getPlayerByIdUser(user.idUser).subscribe({
+      next: player => {
+        this.requestService.createRequest({
+          idTeam: this.foundTeam!.idTeam,
+          idPlayer: player.idPlayer,
+          type: 'Unirse'
+        }).subscribe({
+          next: () => {
+            this.successMessage = 'Solicitud enviada correctamente.';
+            this.foundTeam = null;
+            this.codeControl.reset();
+            this.errorMessage = '';
+          },
+          error: (err) => {
+            this.errorMessage = err?.error?.message || 'No se pudo enviar la solicitud.';
+          }
+        });
+      },
+      error: () => {
+        this.errorMessage = 'No se pudo obtener tu perfil de jugador.';
+      }
     });
   }
   cancel() {

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RequestService } from '../../../../../services/request';
+import { Request } from '../../../../../models/request';
 
 @Component({
   selector: 'app-request-status',
@@ -8,24 +10,29 @@ import { CommonModule } from '@angular/common';
   templateUrl: './request-status.html',
   styleUrls: ['./request-status.css']
 })
-export class RequestStatus {
+export class RequestStatus implements OnInit {
+  solicitudes: Request[] = [];
+  loading = false;
+  error = '';
 
-  solicitudes = [
-    {
-      nombre: 'Carlos Pérez',
-      email: 'carlos@email.com',
-      estado: 'pendiente'
-    },
-    {
-      nombre: 'Ana Gómez',
-      email: 'ana@email.com',
-      estado: 'aceptada'
-    },
-    {
-      nombre: 'Luis Rodríguez',
-      email: 'luis@email.com',
-      estado: 'rechazada'
-    }
-  ];
+  constructor(private requestService: RequestService) {}
 
+  ngOnInit(): void {
+    this.load();
+  }
+
+  load(): void {
+    this.loading = true;
+    this.error = '';
+    this.requestService.getRequests().subscribe({
+      next: (requests) => {
+        this.solicitudes = requests;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err?.error?.message || 'No se pudieron cargar las solicitudes.';
+        this.loading = false;
+      },
+    });
+  }
 }

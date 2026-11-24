@@ -33,14 +33,23 @@ export class ManageTeam implements OnInit {
   }
 
   ngOnInit() {
-    console.log('asd');
-    
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadTeam();
+  }
 
-    this.teamService.fetchTeamById(id).subscribe(team => this.team = team);
+  loadTeam() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id) return;
+    this.teamService.fetchTeamById(id).subscribe({
+      next: team => this.team = team,
+      error: () => { /* handled by interceptor/UI as needed */ }
+    });
   }
 
   changeTab(tab: 'info' | 'players' | 'invite') {
     this.activeTab = tab;
+  }
+
+  onTeamChanged() {
+    this.loadTeam();
   }
 }

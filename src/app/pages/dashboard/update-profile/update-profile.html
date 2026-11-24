@@ -25,6 +25,13 @@
       Información Personal
     </h3>
 
+        @if (userId !== null) {
+      <div class="user-id-info">
+        <label>ID de usuario</label>
+        <p><strong>#{{ userId }}</strong></p>
+      </div>
+    }
+
     <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group">
